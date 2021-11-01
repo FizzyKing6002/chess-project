@@ -1033,7 +1033,7 @@ class Pieces():
 
                             for move in move_list:
 
-                                if move[6] == "W":
+                                if move[6] == "W" or move[7] == "W":
 
                                     if move[7] == "_":
 
@@ -1065,7 +1065,7 @@ class Pieces():
 
                             for move in move_list:
 
-                                if move[6] == "E":
+                                if move[6] == "E" or move[7] == "E":
 
                                     if move[7] == "_":
 
@@ -1284,7 +1284,7 @@ class Pieces():
 
                     for move in move_list:
 
-                        if move[5] == "W":
+                        if move[5] == "W" or move[6] == "W":
 
                             king_moves[move] = False
 
@@ -1300,7 +1300,7 @@ class Pieces():
 
                     for move in move_list:
 
-                        if move[5] == "E":
+                        if move[5] == "E" or move[6] == "E":
 
                             king_moves[move] = False
 
@@ -1993,7 +1993,7 @@ class Pieces():
 
                             for move in move_list:
 
-                                if move[6] == "W":
+                                if move[6] == "W" or move[7] == "W":
 
                                     if move[7] == "_":
 
@@ -2025,7 +2025,7 @@ class Pieces():
 
                             for move in move_list:
 
-                                if move[6] == "E":
+                                if move[6] == "E" or move[7] == "E":
 
                                     if move[7] == "_":
 
@@ -2244,7 +2244,7 @@ class Pieces():
 
                     for move in move_list:
 
-                        if move[5] == "W":
+                        if move[5] == "W" or move[6] == "W":
 
                             king_moves[move] = False
 
@@ -2260,7 +2260,7 @@ class Pieces():
 
                     for move in move_list:
 
-                        if move[5] == "E":
+                        if move[5] == "E" or move[6] == "E":
 
                             king_moves[move] = False
 
@@ -2376,6 +2376,14 @@ class Pieces():
 
         self.legal_moves_move_notation = self.legal_moves
         print(self.legal_moves)
+
+    def check_checks(self):
+
+        if white_turn == True:
+
+            for move in self.legal_moves:
+
+                pass
 
     def move_piece(self, notation_val):
 
@@ -2537,7 +2545,7 @@ class Pieces():
 
                 if take == True:
 
-                    from_x = notation_val[-3]
+                    from_x = notation.get_column_char(notation_val[-3])
 
                     if white_turn == True:
                         
@@ -2546,6 +2554,11 @@ class Pieces():
                     else:
 
                         from_y = to_y + 1
+
+                    print(to_x)
+                    print(to_y)
+                    print(from_x)
+                    print(from_y)
 
                 else:
 
@@ -2595,6 +2608,7 @@ class Pieces():
 
                             print(to_x)
                             print(to_y)
+                            print(self.white_pawns_inf[i])
 
                 else:
 
@@ -2608,6 +2622,7 @@ class Pieces():
 
                             print(to_x)
                             print(to_y)
+                            print(self.black_pawns_inf[i])
 
         if take == True:
 
@@ -2759,10 +2774,6 @@ class Notation():
 
             return "h"
 
-        else:
-
-            return "?"
-
     def get_column_char(self, x):
         
         if x == "a":
@@ -2797,10 +2808,6 @@ class Notation():
 
             return 7
 
-        else:
-
-            return 8
-
     def get_row(self, y):
 
         for i in range(0, 8):
@@ -2833,9 +2840,6 @@ else:
 
     pieces.draw_pieces_black()
 
-pieces.white_black_occupation()
-pieces.calc_legal_moves()
-
 auto_move = True
 
 while run:
@@ -2846,9 +2850,17 @@ while run:
             
             run = False
 
-    if auto_move == True:
+    if update == True:
+        
+        pygame.display.update()
+        update = False
 
-        time.sleep(3)
+        time.sleep(0)
+
+    if auto_move == True:
+        
+        pieces.white_black_occupation()
+        pieces.calc_legal_moves()
 
         pieces.move_piece(pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)])
         
@@ -2864,14 +2876,6 @@ while run:
             
         white_turn = not white_turn
         
-        pieces.white_black_occupation()
-        pieces.calc_legal_moves()
-        
         update = True
-
-    if update == True:
-        
-        pygame.display.update()
-        update = False
 
 pygame.quit()
