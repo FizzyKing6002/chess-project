@@ -2545,25 +2545,17 @@ class Pieces():
 
             if notation_val == "Ke1f1" and white_turn == True:
 
-                print("hi1")
-
                 white_short_castle_through_check_check = True
 
             if notation_val == "Ke1d1" and white_turn == True:
-
-                print("hi2")
 
                 white_long_castle_through_check_check = True
 
             if notation_val == "Ke8f8" and white_turn == False:
 
-                print("hi3")
-
                 black_short_castle_through_check_check = True
 
             if notation_val == "Ke8d8" and white_turn == False:
-
-                print("hi4")
 
                 black_long_castle_through_check_check = True
 
@@ -3767,8 +3759,6 @@ class Pieces():
 
                 if move not in self.legal_moves:
 
-                    print("a")
-
                     if "O-O" in self.legal_moves:
 
                         self.legal_moves.remove("O-O")
@@ -3778,8 +3768,6 @@ class Pieces():
                 white_long_castle_through_check_check = False
 
                 if move not in self.legal_moves:
-                    
-                    print("b")
 
                     if "O-O-O" in self.legal_moves:
 
