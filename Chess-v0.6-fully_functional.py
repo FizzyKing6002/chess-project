@@ -2633,7 +2633,7 @@ class Pieces():
 
                         self.legal_moves.append(move)
 
-        print(self.legal_moves)
+        #print(self.legal_moves)
                 
         self.legal_moves_move_notation = self.legal_moves
 
@@ -2662,7 +2662,7 @@ class Pieces():
             black_queens = deepcopy(self.black_queens_inf)
             black_king = deepcopy(self.black_king_inf)
 
-            en_passant_xy = deepcopy(self.en_passant_x_y)
+            #en_passant_xy = deepcopy(self.en_passant_x_y)
 
             #white_occ_x = deepcopy(self.white_occupation_x)
             #white_occ_y = deepcopy(self.white_occupation_y)
@@ -2886,223 +2886,217 @@ class Pieces():
 
             else:
 
-                if notation_val[-2] == "=":
-
-                    tox = notation.get_column_char(notation_val[-4])
-                    toy = int(notation_val[-3]) - 1
-
-                else:
-                    
-                    tox = notation.get_column_char(notation_val[-2])
-                    toy = int(notation_val[-1]) - 1
-
-                if take == True:
+                if True:
 
                     if notation_val[-2] == "=":
 
-                        fromx = notation.get_column_char(notation_val[-5])
+                        tox = notation.get_column_char(notation_val[-4])
+                        toy = int(notation_val[-3]) - 1
 
                     else:
+                        
+                        tox = notation.get_column_char(notation_val[-2])
+                        toy = int(notation_val[-1]) - 1
 
-                        fromx = notation.get_column_char(notation_val[-3])
+                    if take == True:
 
-                    if white_turn == True:
-                            
-                        fromy = toy - 1
+                        if notation_val[-2] == "=":
 
-                    else:
-
-                        fromy = toy + 1
-
-                else:
-
-                    fromx = tox
-
-                    if white_turn == True:
-
-                        if toy == 3:
-
-                            fromy = toy - 2
-
-                            for i in range(0, 8):
-
-                                if white_pawns[i][2] == True and white_pawns[i][0] == fromx and white_pawns[i][1] == toy - 1:
-
-                                    fromy = toy - 1
+                            fromx = notation.get_column_char(notation_val[-5])
 
                         else:
 
+                            fromx = notation.get_column_char(notation_val[-3])
+
+                        if white_turn == True:
+                                
                             fromy = toy - 1
-
-                    else:
-
-                        if toy == 4:
-
-                            fromy = toy + 2
-
-                            for i in range(0, 8):
-
-                                if black_pawns[i][2] == True and black_pawns[i][0] == fromx and black_pawns[i][1] == toy + 1:
-
-                                    fromy = toy + 1
 
                         else:
 
                             fromy = toy + 1
 
-                if white_turn == True:
+                    else:
 
-                    for i in range(0, 8):
-                        
-                        if white_pawns[i][2] == True and white_pawns[i][0] == fromx and white_pawns[i][1] == fromy:
+                        fromx = tox
 
-                            if toy == 7:
+                        if white_turn == True:
 
-                                white_pawns[i][2] = False
+                            if toy == 3:
 
-                                if notation_val[-1] == "Q":
+                                fromy = toy - 2
 
-                                    promotion_complete = False
+                                for i in range(0, 8):
 
-                                    for i in range(1, 9):
+                                    if white_pawns[i][2] == True and white_pawns[i][0] == fromx and white_pawns[i][1] == toy - 1:
 
-                                        if white_queens[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            white_queens[i][0] = tox
-                                            white_queens[i][1] = toy
-                                            white_queens[i][2] = True
-
-                                elif notation_val[-1] == "R":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if white_rooks[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            white_rooks[i][0] = tox
-                                            white_rooks[i][1] = toy
-                                            white_rooks[i][2] = True
-                                            white_rooks[i][3] = False
-
-                                elif notation_val[-1] == "B":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if white_bishops[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            white_bishops[i][0] = tox
-                                            white_bishops[i][1] = toy
-                                            white_bishops[i][2] = True
-
-                                elif notation_val[-1] == "N":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if white_knights[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            white_knights[i][0] = tox
-                                            white_knights[i][1] = toy
-                                            white_knights[i][2] = True
+                                        fromy = toy - 1
 
                             else:
-                            
-                                white_pawns[i][0] = tox
-                                white_pawns[i][1] = toy
-                                white_pawns[i][3] = False
 
-                                if toy - fromy == 2:
+                                fromy = toy - 1
 
-                                    en_passant_xy = [tox, toy]
-                                    
-                else:
+                        else:
 
-                    for i in range(0, 8):
+                            if toy == 4:
 
-                        if black_pawns[i][2] == True and black_pawns[i][0] == fromx and black_pawns[i][1] == fromy:
+                                fromy = toy + 2
 
-                            if toy == 0:
+                                for i in range(0, 8):
 
-                                black_pawns[i][2] = False
+                                    if black_pawns[i][2] == True and black_pawns[i][0] == fromx and black_pawns[i][1] == toy + 1:
 
-                                if notation_val[-1] == "Q":
-
-                                    promotion_complete = False
-
-                                    for i in range(1, 9):
-
-                                        if black_queens[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            black_queens[i][0] = tox
-                                            black_queens[i][1] = toy
-                                            black_queens[i][2] = True
-
-                                elif notation_val[-1] == "R":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if black_rooks[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            black_rooks[i][0] = tox
-                                            black_rooks[i][1] = toy
-                                            black_rooks[i][2] = True
-                                            black_rooks[i][3] = False
-
-                                elif notation_val[-1] == "B":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if black_bishops[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            black_bishops[i][0] = tox
-                                            black_bishops[i][1] = toy
-                                            black_bishops[i][2] = True
-
-                                elif notation_val[-1] == "N":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if black_knights[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            black_knights[i][0] = tox
-                                            black_knights[i][1] = toy
-                                            black_knights[i][2] = True
+                                        fromy = toy + 1
 
                             else:
+
+                                fromy = toy + 1
+
+                    if white_turn == True:
+
+                        for i in range(0, 8):
                             
-                                black_pawns[i][0] = tox
-                                black_pawns[i][1] = toy
-                                black_pawns[i][3] = False
+                            if white_pawns[i][2] == True and white_pawns[i][0] == fromx and white_pawns[i][1] == fromy:
 
-                                if fromy - toy == 2:
+                                if toy == 7:
 
-                                    en_passant_xy = [tox, toy]
+                                    white_pawns[i][2] = False
+
+                                    if notation_val[-1] == "Q":
+
+                                        promotion_complete = False
+
+                                        for i in range(1, 9):
+
+                                            if white_queens[i][2] == False and promotion_complete == False:
+
+                                                promotion_complete = True
+
+                                                white_queens[i][0] = tox
+                                                white_queens[i][1] = toy
+                                                white_queens[i][2] = True
+
+                                    elif notation_val[-1] == "R":
+
+                                        promotion_complete = False
+
+                                        for i in range(2, 10):
+
+                                            if white_rooks[i][2] == False and promotion_complete == False:
+
+                                                promotion_complete = True
+
+                                                white_rooks[i][0] = tox
+                                                white_rooks[i][1] = toy
+                                                white_rooks[i][2] = True
+                                                white_rooks[i][3] = False
+
+                                    elif notation_val[-1] == "B":
+
+                                        promotion_complete = False
+
+                                        for i in range(2, 10):
+
+                                            if white_bishops[i][2] == False and promotion_complete == False:
+
+                                                promotion_complete = True
+
+                                                white_bishops[i][0] = tox
+                                                white_bishops[i][1] = toy
+                                                white_bishops[i][2] = True
+
+                                    elif notation_val[-1] == "N":
+
+                                        promotion_complete = False
+
+                                        for i in range(2, 10):
+
+                                            if white_knights[i][2] == False and promotion_complete == False:
+
+                                                promotion_complete = True
+
+                                                white_knights[i][0] = tox
+                                                white_knights[i][1] = toy
+                                                white_knights[i][2] = True
+
+                                else:
+                                
+                                    white_pawns[i][0] = tox
+                                    white_pawns[i][1] = toy
+                                    white_pawns[i][3] = False
+
+                    else:
+
+                        for i in range(0, 8):
+
+                            if black_pawns[i][2] == True and black_pawns[i][0] == fromx and black_pawns[i][1] == fromy:
+
+                                if toy == 0:
+
+                                    black_pawns[i][2] = False
+
+                                    if notation_val[-1] == "Q":
+
+                                        promotion_complete = False
+
+                                        for i in range(1, 9):
+
+                                            if black_queens[i][2] == False and promotion_complete == False:
+
+                                                promotion_complete = True
+
+                                                black_queens[i][0] = tox
+                                                black_queens[i][1] = toy
+                                                black_queens[i][2] = True
+
+                                    elif notation_val[-1] == "R":
+
+                                        promotion_complete = False
+
+                                        for i in range(2, 10):
+
+                                            if black_rooks[i][2] == False and promotion_complete == False:
+
+                                                promotion_complete = True
+
+                                                black_rooks[i][0] = tox
+                                                black_rooks[i][1] = toy
+                                                black_rooks[i][2] = True
+                                                black_rooks[i][3] = False
+
+                                    elif notation_val[-1] == "B":
+
+                                        promotion_complete = False
+
+                                        for i in range(2, 10):
+
+                                            if black_bishops[i][2] == False and promotion_complete == False:
+
+                                                promotion_complete = True
+
+                                                black_bishops[i][0] = tox
+                                                black_bishops[i][1] = toy
+                                                black_bishops[i][2] = True
+
+                                    elif notation_val[-1] == "N":
+
+                                        promotion_complete = False
+
+                                        for i in range(2, 10):
+
+                                            if black_knights[i][2] == False and promotion_complete == False:
+
+                                                promotion_complete = True
+
+                                                black_knights[i][0] = tox
+                                                black_knights[i][1] = toy
+                                                black_knights[i][2] = True
+
+                                else:
+                                
+                                    black_pawns[i][0] = tox
+                                    black_pawns[i][1] = toy
+                                    black_pawns[i][3] = False
                                 
             if take == True:
 
@@ -4334,222 +4328,224 @@ class Pieces():
 
         else:
 
-            if notation_val[-2] == "=":
-
-                to_x = notation.get_column_char(notation_val[-4])
-                to_y = int(notation_val[-3]) - 1
-
-            else:
-            
-                to_x = notation.get_column_char(notation_val[-2])
-                to_y = int(notation_val[-1]) - 1
-
-            if take == True:
+            if True:
 
                 if notation_val[-2] == "=":
 
-                    from_x = notation.get_column_char(notation_val[-5])
+                    to_x = notation.get_column_char(notation_val[-4])
+                    to_y = int(notation_val[-3]) - 1
 
                 else:
+                
+                    to_x = notation.get_column_char(notation_val[-2])
+                    to_y = int(notation_val[-1]) - 1
 
-                    from_x = notation.get_column_char(notation_val[-3])
+                if take == True:
 
-                if white_turn == True:
-                    
-                    from_y = to_y - 1
+                    if notation_val[-2] == "=":
 
-                else:
-
-                    from_y = to_y + 1
-            else:
-
-                from_x = to_x
-
-                if white_turn == True:
-
-                    if to_y == 3:
-
-                        from_y = to_y - 2
-
-                        for i in range(0, 8):
-
-                            if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == from_x and self.white_pawns_inf[i][1] == to_y - 1:
-
-                                from_y = to_y - 1
+                        from_x = notation.get_column_char(notation_val[-5])
 
                     else:
 
+                        from_x = notation.get_column_char(notation_val[-3])
+
+                    if white_turn == True:
+                        
                         from_y = to_y - 1
-
-                else:
-
-                    if to_y == 4:
-
-                        from_y = to_y + 2
-
-                        for i in range(0, 8):
-
-                            if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][0] == from_x and self.black_pawns_inf[i][1] == to_y + 1:
-
-                                from_y = to_y + 1
 
                     else:
 
                         from_y = to_y + 1
+                else:
 
-            if white_turn == True:
+                    from_x = to_x
 
-                for i in range(0, 8):
+                    if white_turn == True:
 
-                    if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == from_x and self.white_pawns_inf[i][1] == from_y:
+                        if to_y == 3:
+
+                            from_y = to_y - 2
+
+                            for i in range(0, 8):
+
+                                if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == from_x and self.white_pawns_inf[i][1] == to_y - 1:
+
+                                    from_y = to_y - 1
+
+                        else:
+
+                            from_y = to_y - 1
+
+                    else:
+
+                        if to_y == 4:
+
+                            from_y = to_y + 2
+
+                            for i in range(0, 8):
+
+                                if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][0] == from_x and self.black_pawns_inf[i][1] == to_y + 1:
+
+                                    from_y = to_y + 1
+
+                        else:
+
+                            from_y = to_y + 1
+
+                if white_turn == True:
+
+                    for i in range(0, 8):
+
+                        if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == from_x and self.white_pawns_inf[i][1] == from_y:
+                            
+                            if to_y == 7:
+
+                                self.white_pawns_inf[i][2] = False
+
+                                if notation_val[-1] == "Q":
+
+                                    promotion_complete = False
+
+                                    for i in range(1, 9):
+
+                                        if self.white_queens_inf[i][2] == False and promotion_complete == False:
+
+                                            promotion_complete = True
+
+                                            self.white_queens_inf[i][0] = to_x
+                                            self.white_queens_inf[i][1] = to_y
+                                            self.white_queens_inf[i][2] = True
+
+                                elif notation_val[-1] == "R":
+
+                                    promotion_complete = False
+
+                                    for i in range(2, 10):
+
+                                        if self.white_rooks_inf[i][2] == False and promotion_complete == False:
+
+                                            promotion_complete = True
+
+                                            self.white_rooks_inf[i][0] = to_x
+                                            self.white_rooks_inf[i][1] = to_y
+                                            self.white_rooks_inf[i][2] = True
+                                            self.white_rooks_inf[i][3] = False
+
+                                elif notation_val[-1] == "B":
+
+                                    promotion_complete = False
+
+                                    for i in range(2, 10):
+
+                                        if self.white_bishops_inf[i][2] == False and promotion_complete == False:
+
+                                            promotion_complete = True
+
+                                            self.white_bishops_inf[i][0] = to_x
+                                            self.white_bishops_inf[i][1] = to_y
+                                            self.white_bishops_inf[i][2] = True
+
+                                elif notation_val[-1] == "N":
+
+                                    promotion_complete = False
+
+                                    for i in range(2, 10):
+
+                                        if self.white_knights_inf[i][2] == False and promotion_complete == False:
+
+                                            promotion_complete = True
+
+                                            self.white_knights_inf[i][0] = to_x
+                                            self.white_knights_inf[i][1] = to_y
+                                            self.white_knights_inf[i][2] = True
+
+                            else:
+
+                                self.white_pawns_inf[i][0] = to_x
+                                self.white_pawns_inf[i][1] = to_y  
+                                self.white_pawns_inf[i][3] = False
+
+                                if to_y - from_y == 2:
+
+                                    self.en_passant_x_y = [to_x, to_y]
+
+                else:
+
+                    for i in range(0, 8):
+
+                        if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][0] == from_x and self.black_pawns_inf[i][1] == from_y:
+
+                            if to_y == 0:
+
+                                self.black_pawns_inf[i][2] = False
+
+                                if notation_val[-1] == "Q":
+
+                                    promotion_complete = False
+
+                                    for i in range(1, 9):
+
+                                        if self.black_queens_inf[i][2] == False and promotion_complete == False:
+
+                                            promotion_complete = True
+
+                                            self.black_queens_inf[i][0] = to_x
+                                            self.black_queens_inf[i][1] = to_y
+                                            self.black_queens_inf[i][2] = True
+
+                                elif notation_val[-1] == "R":
+
+                                    promotion_complete = False
+
+                                    for i in range(2, 10):
+
+                                        if self.black_rooks_inf[i][2] == False and promotion_complete == False:
+
+                                            promotion_complete = True
+
+                                            self.black_rooks_inf[i][0] = to_x
+                                            self.black_rooks_inf[i][1] = to_y
+                                            self.black_rooks_inf[i][2] = True
+                                            self.black_rooks_inf[i][3] = False
+
+                                elif notation_val[-1] == "B":
+
+                                    promotion_complete = False
+
+                                    for i in range(2, 10):
+
+                                        if self.black_bishops_inf[i][2] == False and promotion_complete == False:
+
+                                            promotion_complete = True
+
+                                            self.black_bishops_inf[i][0] = to_x
+                                            self.black_bishops_inf[i][1] = to_y
+                                            self.black_bishops_inf[i][2] = True
+
+                                elif notation_val[-1] == "N":
+
+                                    promotion_complete = False
+
+                                    for i in range(2, 10):
+
+                                        if self.black_knights_inf[i][2] == False and promotion_complete == False:
+
+                                            promotion_complete = True
+
+                                            self.black_knights_inf[i][0] = to_x
+                                            self.black_knights_inf[i][1] = to_y
+                                            self.black_knights_inf[i][2] = True
                         
-                        if to_y == 7:
+                            else:
 
-                            self.white_pawns_inf[i][2] = False
+                                self.black_pawns_inf[i][0] = to_x
+                                self.black_pawns_inf[i][1] = to_y                                
+                                self.black_pawns_inf[i][3] = False
 
-                            if notation_val[-1] == "Q":
+                                if from_y - to_y == 2:
 
-                                promotion_complete = False
-
-                                for i in range(1, 9):
-
-                                    if self.white_queens_inf[i][2] == False and promotion_complete == False:
-
-                                        promotion_complete = True
-
-                                        self.white_queens_inf[i][0] = to_x
-                                        self.white_queens_inf[i][1] = to_y
-                                        self.white_queens_inf[i][2] = True
-
-                            elif notation_val[-1] == "R":
-
-                                promotion_complete = False
-
-                                for i in range(2, 10):
-
-                                    if self.white_rooks_inf[i][2] == False and promotion_complete == False:
-
-                                        promotion_complete = True
-
-                                        self.white_rooks_inf[i][0] = to_x
-                                        self.white_rooks_inf[i][1] = to_y
-                                        self.white_rooks_inf[i][2] = True
-                                        self.white_rooks_inf[i][3] = False
-
-                            elif notation_val[-1] == "B":
-
-                                promotion_complete = False
-
-                                for i in range(2, 10):
-
-                                    if self.white_bishops_inf[i][2] == False and promotion_complete == False:
-
-                                        promotion_complete = True
-
-                                        self.white_bishops_inf[i][0] = to_x
-                                        self.white_bishops_inf[i][1] = to_y
-                                        self.white_bishops_inf[i][2] = True
-
-                            elif notation_val[-1] == "N":
-
-                                promotion_complete = False
-
-                                for i in range(2, 10):
-
-                                    if self.white_knights_inf[i][2] == False and promotion_complete == False:
-
-                                        promotion_complete = True
-
-                                        self.white_knights_inf[i][0] = to_x
-                                        self.white_knights_inf[i][1] = to_y
-                                        self.white_knights_inf[i][2] = True
-
-                        else:
-
-                            self.white_pawns_inf[i][0] = to_x
-                            self.white_pawns_inf[i][1] = to_y  
-                            self.white_pawns_inf[i][3] = False
-
-                            if to_y - from_y == 2:
-
-                                self.en_passant_x_y = [to_x, to_y]
-
-            else:
-
-                for i in range(0, 8):
-
-                    if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][0] == from_x and self.black_pawns_inf[i][1] == from_y:
-
-                        if to_y == 0:
-
-                            self.black_pawns_inf[i][2] = False
-
-                            if notation_val[-1] == "Q":
-
-                                promotion_complete = False
-
-                                for i in range(1, 9):
-
-                                    if self.black_queens_inf[i][2] == False and promotion_complete == False:
-
-                                        promotion_complete = True
-
-                                        self.black_queens_inf[i][0] = to_x
-                                        self.black_queens_inf[i][1] = to_y
-                                        self.black_queens_inf[i][2] = True
-
-                            elif notation_val[-1] == "R":
-
-                                promotion_complete = False
-
-                                for i in range(2, 10):
-
-                                    if self.black_rooks_inf[i][2] == False and promotion_complete == False:
-
-                                        promotion_complete = True
-
-                                        self.black_rooks_inf[i][0] = to_x
-                                        self.black_rooks_inf[i][1] = to_y
-                                        self.black_rooks_inf[i][2] = True
-                                        self.black_rooks_inf[i][3] = False
-
-                            elif notation_val[-1] == "B":
-
-                                promotion_complete = False
-
-                                for i in range(2, 10):
-
-                                    if self.black_bishops_inf[i][2] == False and promotion_complete == False:
-
-                                        promotion_complete = True
-
-                                        self.black_bishops_inf[i][0] = to_x
-                                        self.black_bishops_inf[i][1] = to_y
-                                        self.black_bishops_inf[i][2] = True
-
-                            elif notation_val[-1] == "N":
-
-                                promotion_complete = False
-
-                                for i in range(2, 10):
-
-                                    if self.black_knights_inf[i][2] == False and promotion_complete == False:
-
-                                        promotion_complete = True
-
-                                        self.black_knights_inf[i][0] = to_x
-                                        self.black_knights_inf[i][1] = to_y
-                                        self.black_knights_inf[i][2] = True
-                    
-                        else:
-
-                            self.black_pawns_inf[i][0] = to_x
-                            self.black_pawns_inf[i][1] = to_y                                
-                            self.black_pawns_inf[i][3] = False
-
-                            if from_y - to_y == 2:
-
-                                self.en_passant_x_y = [to_x, to_y]
+                                    self.en_passant_x_y = [to_x, to_y]
 
         if take == True:
 
@@ -4657,7 +4653,737 @@ class Pieces():
 
     def stale_check_mate(self):
 
-        pass
+        checkmate = False
+
+        if white_turn == True:
+
+            for i in range(0, 8):
+
+                if checkmate == False and self.white_king_inf[0][0] + 1 == self.black_pawns_inf[i][0] and self.white_king_inf[0][1] + 1 == self.black_pawns_inf[i][1] and self.black_pawns_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.white_king_inf[0][0] - 1 == self.black_pawns_inf[i][0] and self.white_king_inf[0][1] + 1 == self.black_pawns_inf[i][1] and self.black_pawns_inf[i][2] == True:
+
+                    checkmate = True
+                    
+            for i in range(0, 10):
+
+                if checkmate == False and self.white_king_inf[0][0] + 1 == self.black_knights_inf[i][0] and self.white_king_inf[0][1] + 2 == self.black_knights_inf[i][1] and self.black_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.white_king_inf[0][0] + 2 == self.black_knights_inf[i][0] and self.white_king_inf[0][1] + 1 == self.black_knights_inf[i][1] and self.black_knights_inf[i][2] == True:
+                    
+                    checkmate = True
+
+                elif checkmate == False and self.white_king_inf[0][0] + 2 == self.black_knights_inf[i][0] and self.white_king_inf[0][1] - 1 == self.black_knights_inf[i][1] and self.black_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.white_king_inf[0][0] + 1 == self.black_knights_inf[i][0] and self.white_king_inf[0][1] - 2 == self.black_knights_inf[i][1] and self.black_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.white_king_inf[0][0] - 1 == self.black_knights_inf[i][0] and self.white_king_inf[0][1] - 2 == self.black_knights_inf[i][1] and self.black_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.white_king_inf[0][0] - 2 == self.black_knights_inf[i][0] and self.white_king_inf[0][1] - 1 == self.black_knights_inf[i][1] and self.black_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.white_king_inf[0][0] - 2 == self.black_knights_inf[i][0] and self.white_king_inf[0][1] + 1 == self.black_knights_inf[i][1] and self.black_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.white_king_inf[0][0] - 1 == self.black_knights_inf[i][0] and self.white_king_inf[0][1] + 2 == self.black_knights_inf[i][1] and self.black_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+            for i in range(0, 10):
+
+                remove = True
+
+                if checkmate == False and self.black_bishops_inf[i][2] == True and abs(self.black_bishops_inf[i][0] - self.white_king_inf[0][0]) == abs(self.black_bishops_inf[i][1] - self.white_king_inf[0][1]):
+
+                    if self.black_bishops_inf[i][0] > self.white_king_inf[0][0]:
+
+                        if self.black_bishops_inf[i][1] > self.white_king_inf[0][1]:
+
+                            for j in range(1, abs(self.black_bishops_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] + j and self.white_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] + j and self.black_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.black_bishops_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] + j and self.white_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] + j and self.black_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+                            
+                    else:
+
+                        if self.black_bishops_inf[i][1] > self.white_king_inf[0][1]:
+
+                            for j in range(1, abs(self.black_bishops_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] - j and self.white_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] - j and self.black_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.black_bishops_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] - j and self.white_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] - j and self.black_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+                                        
+                    if remove == True:
+
+                        checkmate = True
+
+            for i in range(0, 10):
+
+                remove = True
+
+                if checkmate == False and self.self.black_rooks_inf_inf[i][2] == True:
+
+                    if self.self.black_rooks_inf_inf[i][0] == self.white_king_inf[0][0]:
+
+                        if self.self.black_rooks_inf_inf[i][1] > self.white_king_inf[0][1]:
+
+                            for j in range(1, abs(self.self.black_rooks_inf_inf[i][1] - self.white_king_inf[0][1])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] and self.white_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] and self.black_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.self.black_rooks_inf_inf[i][1] - self.white_king_inf[0][1])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] and self.white_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] and self.black_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+
+                        if remove == True:
+
+                            checkmate = True
+
+                    elif self.self.black_rooks_inf_inf[i][1] == self.white_king_inf[0][1]:
+
+                        if self.self.black_rooks_inf_inf[i][0] > self.white_king_inf[0][0]:
+
+                            for j in range(1, abs(self.self.black_rooks_inf_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] + j and self.white_occupation_y[k] == self.white_king_inf[0][1]:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] + j and self.black_occupation_y[k] == self.white_king_inf[0][1]:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.self.black_rooks_inf_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] - j and self.white_occupation_y[k] == self.white_king_inf[0][1]:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] - j and self.black_occupation_y[k] == self.white_king_inf[0][1]:
+
+                                        remove = False
+
+                        if remove == True:
+
+                            checkmate = True
+
+            for i in range(0, 9):
+
+                remove = True
+
+                if checkmate == False and self.black_queens_inf[i][2] == True and abs(self.black_queens_inf[i][0] - self.white_king_inf[0][0]) == abs(self.black_queens_inf[i][1] - self.white_king_inf[0][1]):
+
+                    if self.black_queens_inf[i][0] > self.white_king_inf[0][0]:
+
+                        if self.black_queens_inf[i][1] > self.white_king_inf[0][1]:
+
+                            for j in range(1, abs(self.black_queens_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] + j and self.white_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] + j and self.black_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.black_queens_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] + j and self.white_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] + j and self.black_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+                            
+                    else:
+
+                        if self.black_queens_inf[i][1] > self.white_king_inf[0][1]:
+
+                            for j in range(1, abs(self.black_queens_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] - j and self.white_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] - j and self.black_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.black_queens_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] - j and self.white_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] - j and self.black_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+                                        
+                    if remove == True:
+
+                        checkmate = True
+
+                remove = True
+
+                if checkmate == False and self.black_queens_inf[i][2] == True:
+
+                    if self.black_queens_inf[i][0] == self.white_king_inf[0][0]:
+
+                        if self.black_queens_inf[i][1] > self.white_king_inf[0][1]:
+
+                            for j in range(1, abs(self.black_queens_inf[i][1] - self.white_king_inf[0][1])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] and self.white_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] and self.black_occupation_y[k] == self.white_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.black_queens_inf[i][1] - self.white_king_inf[0][1])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] and self.white_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] and self.black_occupation_y[k] == self.white_king_inf[0][1] - j:
+
+                                        remove = False
+
+                        if remove == True:
+
+                            checkmate = True
+
+                    elif self.black_queens_inf[i][1] == self.white_king_inf[0][1]:
+
+                        if self.black_queens_inf[i][0] > self.white_king_inf[0][0]:
+
+                            for j in range(1, abs(self.black_queens_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] + j and self.white_occupation_y[k] == self.white_king_inf[0][1]:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] + j and self.black_occupation_y[k] == self.white_king_inf[0][1]:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.black_queens_inf[i][0] - self.white_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.white_king_inf[0][0] - j and self.white_occupation_y[k] == self.white_king_inf[0][1]:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.white_king_inf[0][0] - j and self.black_occupation_y[k] == self.white_king_inf[0][1]:
+
+                                        remove = False
+
+                        if remove == True:
+
+                            checkmate = True
+
+        else:
+
+            for i in range(0, 8):
+
+                if checkmate == False and self.black_king_inf[0][0] + 1 == self.white_pawns_inf[i][0] and self.black_king_inf[0][1] - 1 == self.white_pawns_inf[i][1] and self.white_pawns_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.black_king_inf[0][0] - 1 == self.white_pawns_inf[i][0] and self.black_king_inf[0][1] - 1 == self.white_pawns_inf[i][1] and self.white_pawns_inf[i][2] == True:
+
+                    checkmate = True
+                    
+            for i in range(0, 10):
+
+                if checkmate == False and self.black_king_inf[0][0] + 1 == self.white_knights_inf[i][0] and self.black_king_inf[0][1] + 2 == self.white_knights_inf[i][1] and self.white_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.black_king_inf[0][0] + 2 == self.white_knights_inf[i][0] and self.black_king_inf[0][1] + 1 == self.white_knights_inf[i][1] and self.white_knights_inf[i][2] == True:
+                    
+                    checkmate = True
+
+                elif checkmate == False and self.black_king_inf[0][0] + 2 == self.white_knights_inf[i][0] and self.black_king_inf[0][1] - 1 == self.white_knights_inf[i][1] and self.white_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.black_king_inf[0][0] + 1 == self.white_knights_inf[i][0] and self.black_king_inf[0][1] - 2 == self.white_knights_inf[i][1] and self.white_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.black_king_inf[0][0] - 1 == self.white_knights_inf[i][0] and self.black_king_inf[0][1] - 2 == self.white_knights_inf[i][1] and self.white_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.black_king_inf[0][0] - 2 == self.white_knights_inf[i][0] and self.black_king_inf[0][1] - 1 == self.white_knights_inf[i][1] and self.white_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.black_king_inf[0][0] - 2 == self.white_knights_inf[i][0] and self.black_king_inf[0][1] + 1 == self.white_knights_inf[i][1] and self.white_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+                elif checkmate == False and self.black_king_inf[0][0] - 1 == self.white_knights_inf[i][0] and self.black_king_inf[0][1] + 2 == self.white_knights_inf[i][1] and self.white_knights_inf[i][2] == True:
+
+                    checkmate = True
+
+            for i in range(0, 10):
+
+                remove = True
+
+                if checkmate == False and self.white_bishops_inf[i][2] == True and abs(self.white_bishops_inf[i][0] - self.black_king_inf[0][0]) == abs(self.white_bishops_inf[i][1] - self.black_king_inf[0][1]):
+
+                    if self.white_bishops_inf[i][0] > self.black_king_inf[0][0]:
+
+                        if self.white_bishops_inf[i][1] > self.black_king_inf[0][1]:
+
+                            for j in range(1, abs(self.white_bishops_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] + j and self.white_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] + j and self.black_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.white_bishops_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] + j and self.white_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] + j and self.black_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+                            
+                    else:
+
+                        if self.white_bishops_inf[i][1] > self.black_king_inf[0][1]:
+
+                            for j in range(1, abs(self.white_bishops_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] - j and self.white_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] - j and self.black_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.white_bishops_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] - j and self.white_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] - j and self.black_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+                                        
+                    if remove == True:
+
+                        checkmate = True
+
+            for i in range(0, 10):
+
+                remove = True
+
+                if checkmate == False and self.white_rooks_inf[i][2] == True:
+
+                    if self.white_rooks_inf[i][0] == self.black_king_inf[0][0]:
+
+                        if self.white_rooks_inf[i][1] > self.black_king_inf[0][1]:
+
+                            for j in range(1, abs(self.white_rooks_inf[i][1] - self.black_king_inf[0][1])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] and self.white_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] and self.black_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.white_rooks_inf[i][1] - self.black_king_inf[0][1])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] and self.white_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] and self.black_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+
+                        if remove == True:
+
+                            checkmate = True
+
+                    elif self.white_rooks_inf[i][1] == self.black_king_inf[0][1]:
+
+                        if self.white_rooks_inf[i][0] > self.black_king_inf[0][0]:
+
+                            for j in range(1, abs(self.white_rooks_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] + j and self.white_occupation_y[k] == self.black_king_inf[0][1]:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] + j and self.black_occupation_y[k] == self.black_king_inf[0][1]:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.white_rooks_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] - j and self.white_occupation_y[k] == self.black_king_inf[0][1]:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] - j and self.black_occupation_y[k] == self.black_king_inf[0][1]:
+
+                                        remove = False
+
+                        if remove == True:
+
+                            checkmate = True
+
+            for i in range(0, 9):
+
+                remove = True
+
+                if checkmate == False and self.white_queens_inf[i][2] == True and abs(self.white_queens_inf[i][0] - self.black_king_inf[0][0]) == abs(self.white_queens_inf[i][1] - self.black_king_inf[0][1]):
+
+                    if self.white_queens_inf[i][0] > self.black_king_inf[0][0]:
+
+                        if self.white_queens_inf[i][1] > self.black_king_inf[0][1]:
+
+                            for j in range(1, abs(self.white_queens_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] + j and self.white_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] + j and self.black_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.white_queens_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] + j and self.white_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] + j and self.black_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+                            
+                    else:
+
+                        if self.white_queens_inf[i][1] > self.black_king_inf[0][1]:
+
+                            for j in range(1, abs(self.white_queens_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] - j and self.white_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] - j and self.black_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.white_queens_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] - j and self.white_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] - j and self.black_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+                                        
+                    if remove == True:
+
+                        checkmate = True
+
+                remove = True
+
+                if checkmate == False and self.white_queens_inf[i][2] == True:
+
+                    if self.white_queens_inf[i][0] == self.black_king_inf[0][0]:
+
+                        if self.white_queens_inf[i][1] > self.black_king_inf[0][1]:
+
+                            for j in range(1, abs(self.white_queens_inf[i][1] - self.black_king_inf[0][1])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] and self.white_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] and self.black_occupation_y[k] == self.black_king_inf[0][1] + j:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.white_queens_inf[i][1] - self.black_king_inf[0][1])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] and self.white_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] and self.black_occupation_y[k] == self.black_king_inf[0][1] - j:
+
+                                        remove = False
+
+                        if remove == True:
+
+                            checkmate = True
+
+                    elif self.white_queens_inf[i][1] == self.black_king_inf[0][1]:
+
+                        if self.white_queens_inf[i][0] > self.black_king_inf[0][0]:
+
+                            for j in range(1, abs(self.white_queens_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] + j and self.white_occupation_y[k] == self.black_king_inf[0][1]:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] + j and self.black_occupation_y[k] == self.black_king_inf[0][1]:
+
+                                        remove = False
+
+                        else:
+
+                            for j in range(1, abs(self.white_queens_inf[i][0] - self.black_king_inf[0][0])):
+
+                                for k in range(0, len(self.white_occupation_x)):
+
+                                    if self.white_occupation_x[k] == self.black_king_inf[0][0] - j and self.white_occupation_y[k] == self.black_king_inf[0][1]:
+
+                                        remove = False
+
+                                for k in range(0, len(self.black_occupation_x)):
+
+                                    if self.black_occupation_x[k] == self.black_king_inf[0][0] - j and self.black_occupation_y[k] == self.black_king_inf[0][1]:
+
+                                        remove = False
+
+                        if remove == True:
+
+                            checkmate = True
+
+        return checkmate
 
 class Notation():
 
@@ -4950,7 +5676,22 @@ while run:
 
         else:
 
-            pieces.stale_check_mate()
+            check_mate = pieces.stale_check_mate()
+
+            if check_mate == True:
+
+                if white_turn == True:
+
+                    print("Black wins by Checkmate!")
+
+                else:
+
+                    print("White wins by Checkmate!")
+
+            else:
+
+                print("It's a draw by stalemate!")
+            
             auto_move = False
 
     elif one_player == True:
@@ -5005,9 +5746,23 @@ while run:
 
         else:
 
-            print(pieces.legal_moves)
+            #print(pieces.legal_moves)
 
-            pieces.stale_check_mate()
+            check_mate = pieces.stale_check_mate()
+
+            if check_mate == True:
+
+                if white_turn == True:
+
+                    print("Black wins by Checkmate!")
+
+                else:
+
+                    print("White wins by Checkmate!")
+
+            else:
+
+                print("It's a draw by stalemate!")
             
             one_player = False
 
@@ -5057,9 +5812,23 @@ while run:
 
         else:
 
-            print(pieces.legal_moves)
+            #print(pieces.legal_moves)
 
-            pieces.stale_check_mate()
+            check_mate = pieces.stale_check_mate()
+
+            if check_mate == True:
+
+                if white_turn == True:
+
+                    print("Black wins by Checkmate!")
+
+                else:
+
+                    print("White wins by Checkmate!")
+
+            else:
+
+                print("It's a draw by stalemate!")
             
             two_player = False
                 
