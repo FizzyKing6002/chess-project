@@ -80,6 +80,15 @@ class Pieces():
         self.black_rooks_inf = [[0, 7, True, True], [7, 7, True, True], [2, 0, False, False], [4, 6, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
         self.black_queens_inf = [[3, 7, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
         self.black_king_inf = [[4, 7, True, True]]
+
+        self.piece_value_matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0]]
         
         self.white_pawn_img = pygame.image.load(os.path.join("textures/white_pawn.png")).convert_alpha()
         self.white_pawn_img = pygame.transform.scale(self.white_pawn_img, (tile_size, tile_size))
@@ -5385,6 +5394,159 @@ class Pieces():
 
         return checkmate
 
+    def convert_pieces_to_matrix(self):
+
+        self.piece_value_matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0]]
+
+        if playing_as_white == True:
+
+            for i in range(0, 8):
+
+                if self.white_pawns_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_pawns_inf[i][1]][self.white_pawns_inf[i][0]] = 1
+
+            for i in range(0, 10):
+
+                if self.white_bishops_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_bishops_inf[i][1]][self.white_bishops_inf[i][0]] = 3
+
+            for i in range(0, 10):
+
+                if self.white_knights_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_knights_inf[i][1]][self.white_knights_inf[i][0]] = 3
+
+            for i in range(0, 10):
+
+                if self.white_rooks_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_rooks_inf[i][1]][self.white_rooks_inf[i][0]] = 5
+
+            for i in range(0, 9):
+
+                if self.white_queens_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_queens_inf[i][1]][self.white_queens_inf[i][0]] = 9
+
+            if self.white_king_inf[0][2] == True:
+
+                self.piece_value_matrix[7 - self.white_king_inf[0][1]][self.white_king_inf[0][0]] = 100
+
+            for i in range(0, 8):
+
+                if self.black_pawns_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_pawns_inf[i][1]][self.black_pawns_inf[i][0]] = -1
+
+            for i in range(0, 10):
+
+                if self.black_bishops_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_bishops_inf[i][1]][self.black_bishops_inf[i][0]] = -3
+
+            for i in range(0, 10):
+
+                if self.black_knights_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_knights_inf[i][1]][self.black_knights_inf[i][0]] = -3
+
+            for i in range(0, 10):
+
+                if self.black_rooks_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_rooks_inf[i][1]][self.black_rooks_inf[i][0]] = -5
+
+            for i in range(0, 9):
+
+                if self.black_queens_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_queens_inf[i][1]][self.black_queens_inf[i][0]] = -9
+
+            if self.black_king_inf[0][2] == True:
+
+                self.piece_value_matrix[7 - self.black_king_inf[0][1]][self.black_king_inf[0][0]] = -100
+
+        else:
+
+            for i in range(0, 8):
+
+                if self.white_pawns_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_pawns_inf[i][1]][self.white_pawns_inf[i][0]] = -1
+
+            for i in range(0, 10):
+
+                if self.white_bishops_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_bishops_inf[i][1]][self.white_bishops_inf[i][0]] = -3
+
+            for i in range(0, 10):
+
+                if self.white_knights_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_knights_inf[i][1]][self.white_knights_inf[i][0]] = -3
+
+            for i in range(0, 10):
+
+                if self.white_rooks_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_rooks_inf[i][1]][self.white_rooks_inf[i][0]] = -5
+
+            for i in range(0, 9):
+
+                if self.white_queens_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.white_queens_inf[i][1]][self.white_queens_inf[i][0]] = -9
+
+            if self.white_king_inf[0][2] == True:
+
+                self.piece_value_matrix[7 - self.white_king_inf[0][1]][self.white_king_inf[0][0]] = -100
+
+            for i in range(0, 8):
+
+                if self.black_pawns_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_pawns_inf[i][1]][self.black_pawns_inf[i][0]] = 1
+
+            for i in range(0, 10):
+
+                if self.black_bishops_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_bishops_inf[i][1]][self.black_bishops_inf[i][0]] = 3
+
+            for i in range(0, 10):
+
+                if self.black_knights_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_knights_inf[i][1]][self.black_knights_inf[i][0]] = 3
+
+            for i in range(0, 10):
+
+                if self.black_rooks_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_rooks_inf[i][1]][self.black_rooks_inf[i][0]] = 5
+
+            for i in range(0, 9):
+
+                if self.black_queens_inf[i][2] == True:
+
+                    self.piece_value_matrix[7 - self.black_queens_inf[i][1]][self.black_queens_inf[i][0]] = 9
+
+            if self.black_king_inf[0][2] == True:
+
+                self.piece_value_matrix[7 - self.black_king_inf[0][1]][self.black_king_inf[0][0]] = 100
+
+        return self.piece_value_matrix
+                              
 class Notation():
 
     def __init__(self):
@@ -5635,6 +5797,9 @@ else:
     pieces.draw_pieces_black()
 
 while run:
+
+    matrix = pieces.convert_pieces_to_matrix()
+    print(matrix)
 
     for event in pygame.event.get():
         
