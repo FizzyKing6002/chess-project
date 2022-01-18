@@ -1,4 +1,3 @@
-
 import threading
 import pygame
 from pygame.locals import *
@@ -15,22 +14,22 @@ class Board():
     def __init__(self):
 
         self.dark_square = pygame.image.load(os.path.join("textures/dark_square.png")).convert_alpha()
-        self.dark_square = pygame.transform.scale(self.dark_square, (tile_size, tile_size))
+        self.dark_square = pygame.transform.scale(self.dark_square, (startup.tile_size, startup.tile_size))
         self.dark_square_rect = self.dark_square.get_rect()
 
         self.light_square = pygame.image.load(os.path.join("textures/light_square.png")).convert_alpha()
-        self.light_square = pygame.transform.scale(self.light_square, (tile_size, tile_size))
+        self.light_square = pygame.transform.scale(self.light_square, (startup.tile_size, startup.tile_size))
         self.light_square_rect = self.light_square.get_rect()
 
     def draw_board(self):
 
         for i in range(0, 8):
             
-            x = tile_size * i
+            x = startup.tile_size * i
             
             for j in range(0, 8):
 
-                y = tile_size * j
+                y = startup.tile_size * j
 
                 if (i + j) % 2 == 0:
 
@@ -46,7 +45,7 @@ class Board():
                     
                     tile = self.dark_square, self.dark_square_rect
                     
-                screen.blit(tile[0], tile[1])
+                startup.screen.blit(tile[0], tile[1])
                 
 class Pieces():
 
@@ -78,51 +77,51 @@ class Pieces():
                                    [0, 0, 0, 0, 0, 0, 0, 0]]
         
         self.white_pawn_img = pygame.image.load(os.path.join("textures/white_pawn.png")).convert_alpha()
-        self.white_pawn_img = pygame.transform.scale(self.white_pawn_img, (tile_size, tile_size))
+        self.white_pawn_img = pygame.transform.scale(self.white_pawn_img, (startup.tile_size, startup.tile_size))
         self.white_pawn_img_rect = self.white_pawn_img.get_rect()
 
         self.white_knight_img = pygame.image.load(os.path.join("textures/white_knight.png")).convert_alpha()
-        self.white_knight_img = pygame.transform.scale(self.white_knight_img, (tile_size, tile_size))
+        self.white_knight_img = pygame.transform.scale(self.white_knight_img, (startup.tile_size, startup.tile_size))
         self.white_knight_img_rect = self.white_knight_img.get_rect()
 
         self.white_bishop_img = pygame.image.load(os.path.join("textures/white_bishop.png")).convert_alpha()
-        self.white_bishop_img = pygame.transform.scale(self.white_bishop_img, (tile_size, tile_size))
+        self.white_bishop_img = pygame.transform.scale(self.white_bishop_img, (startup.tile_size, startup.tile_size))
         self.white_bishop_img_rect = self.white_bishop_img.get_rect()
 
         self.white_rook_img = pygame.image.load(os.path.join("textures/white_rook.png")).convert_alpha()
-        self.white_rook_img = pygame.transform.scale(self.white_rook_img, (tile_size, tile_size))
+        self.white_rook_img = pygame.transform.scale(self.white_rook_img, (startup.tile_size, startup.tile_size))
         self.white_rook_img_rect = self.white_rook_img.get_rect()
 
         self.white_queen_img = pygame.image.load(os.path.join("textures/white_queen.png")).convert_alpha()
-        self.white_queen_img = pygame.transform.scale(self.white_queen_img, (tile_size, tile_size))
+        self.white_queen_img = pygame.transform.scale(self.white_queen_img, (startup.tile_size, startup.tile_size))
         self.white_queen_img_rect = self.white_queen_img.get_rect()
 
         self.white_king_img = pygame.image.load(os.path.join("textures/white_king.png")).convert_alpha()
-        self.white_king_img = pygame.transform.scale(self.white_king_img, (tile_size, tile_size))
+        self.white_king_img = pygame.transform.scale(self.white_king_img, (startup.tile_size, startup.tile_size))
         self.white_king_img_rect = self.white_king_img.get_rect()
 
         self.black_pawn_img = pygame.image.load(os.path.join("textures/black_pawn.png")).convert_alpha()
-        self.black_pawn_img = pygame.transform.scale(self.black_pawn_img, (tile_size, tile_size))
+        self.black_pawn_img = pygame.transform.scale(self.black_pawn_img, (startup.tile_size, startup.tile_size))
         self.black_pawn_img_rect = self.black_pawn_img.get_rect()
 
         self.black_knight_img = pygame.image.load(os.path.join("textures/black_knight.png")).convert_alpha()
-        self.black_knight_img = pygame.transform.scale(self.black_knight_img, (tile_size, tile_size))
+        self.black_knight_img = pygame.transform.scale(self.black_knight_img, (startup.tile_size, startup.tile_size))
         self.black_knight_img_rect = self.black_knight_img.get_rect()
 
         self.black_bishop_img = pygame.image.load(os.path.join("textures/black_bishop.png")).convert_alpha()
-        self.black_bishop_img = pygame.transform.scale(self.black_bishop_img, (tile_size, tile_size))
+        self.black_bishop_img = pygame.transform.scale(self.black_bishop_img, (startup.tile_size, startup.tile_size))
         self.black_bishop_img_rect = self.black_bishop_img.get_rect()
 
         self.black_rook_img = pygame.image.load(os.path.join("textures/black_rook.png")).convert_alpha()
-        self.black_rook_img = pygame.transform.scale(self.black_rook_img, (tile_size, tile_size))
+        self.black_rook_img = pygame.transform.scale(self.black_rook_img, (startup.tile_size, startup.tile_size))
         self.black_rook_img_rect = self.black_rook_img.get_rect()
 
         self.black_queen_img = pygame.image.load(os.path.join("textures/black_queen.png")).convert_alpha()
-        self.black_queen_img = pygame.transform.scale(self.black_queen_img, (tile_size, tile_size))
+        self.black_queen_img = pygame.transform.scale(self.black_queen_img, (startup.tile_size, startup.tile_size))
         self.black_queen_img_rect = self.black_queen_img.get_rect()
 
         self.black_king_img = pygame.image.load(os.path.join("textures/black_king.png")).convert_alpha()
-        self.black_king_img = pygame.transform.scale(self.black_king_img, (tile_size, tile_size))
+        self.black_king_img = pygame.transform.scale(self.black_king_img, (startup.tile_size, startup.tile_size))
         self.black_king_img_rect = self.black_king_img.get_rect()
 
         self.white_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
@@ -141,117 +140,117 @@ class Pieces():
 
             if self.white_pawns_inf[i][2] == True:
 
-                self.white_pawn_img_rect.x = self.white_pawns_inf[i][0] * tile_size
-                self.white_pawn_img_rect.y = self.white_pawns_inf[i][1] * tile_size
-                self.white_pawn_img_rect.y = self.white_pawn_img_rect.y - (self.white_pawn_img_rect.y * 2) + (screen_height - tile_size)
+                self.white_pawn_img_rect.x = self.white_pawns_inf[i][0] * startup.tile_size
+                self.white_pawn_img_rect.y = self.white_pawns_inf[i][1] * startup.tile_size
+                self.white_pawn_img_rect.y = self.white_pawn_img_rect.y - (self.white_pawn_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.white_pawn_img, self.white_pawn_img_rect)
+                startup.screen.blit(self.white_pawn_img, self.white_pawn_img_rect)
 
         for i in range(0, 10):
 
             if self.white_bishops_inf[i][2] == True:
 
-                self.white_bishop_img_rect.x = self.white_bishops_inf[i][0] * tile_size
-                self.white_bishop_img_rect.y = self.white_bishops_inf[i][1] * tile_size
-                self.white_bishop_img_rect.y = self.white_bishop_img_rect.y - (self.white_bishop_img_rect.y * 2) + (screen_height - tile_size)
+                self.white_bishop_img_rect.x = self.white_bishops_inf[i][0] * startup.tile_size
+                self.white_bishop_img_rect.y = self.white_bishops_inf[i][1] * startup.tile_size
+                self.white_bishop_img_rect.y = self.white_bishop_img_rect.y - (self.white_bishop_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.white_bishop_img, self.white_bishop_img_rect)
+                startup.screen.blit(self.white_bishop_img, self.white_bishop_img_rect)
 
         for i in range(0, 10):
 
             if self.white_knights_inf[i][2] == True:
 
-                self.white_knight_img_rect.x = self.white_knights_inf[i][0] * tile_size
-                self.white_knight_img_rect.y = self.white_knights_inf[i][1] * tile_size
-                self.white_knight_img_rect.y = self.white_knight_img_rect.y - (self.white_knight_img_rect.y * 2) + (screen_height - tile_size)
+                self.white_knight_img_rect.x = self.white_knights_inf[i][0] * startup.tile_size
+                self.white_knight_img_rect.y = self.white_knights_inf[i][1] * startup.tile_size
+                self.white_knight_img_rect.y = self.white_knight_img_rect.y - (self.white_knight_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.white_knight_img, self.white_knight_img_rect)
+                startup.screen.blit(self.white_knight_img, self.white_knight_img_rect)
 
         for i in range(0, 10):
 
             if self.white_rooks_inf[i][2] == True:
 
-                self.white_rook_img_rect.x = self.white_rooks_inf[i][0] * tile_size
-                self.white_rook_img_rect.y = self.white_rooks_inf[i][1] * tile_size
-                self.white_rook_img_rect.y = self.white_rook_img_rect.y - (self.white_rook_img_rect.y * 2) + (screen_height - tile_size)
+                self.white_rook_img_rect.x = self.white_rooks_inf[i][0] * startup.tile_size
+                self.white_rook_img_rect.y = self.white_rooks_inf[i][1] * startup.tile_size
+                self.white_rook_img_rect.y = self.white_rook_img_rect.y - (self.white_rook_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.white_rook_img, self.white_rook_img_rect)
+                startup.screen.blit(self.white_rook_img, self.white_rook_img_rect)
 
         for i in range(0, 9):
             
             if self.white_queens_inf[i][2] == True:
 
-                self.white_queen_img_rect.x = self.white_queens_inf[i][0] * tile_size
-                self.white_queen_img_rect.y = self.white_queens_inf[i][1] * tile_size
-                self.white_queen_img_rect.y = self.white_queen_img_rect.y - (self.white_queen_img_rect.y * 2) + (screen_height - tile_size)
+                self.white_queen_img_rect.x = self.white_queens_inf[i][0] * startup.tile_size
+                self.white_queen_img_rect.y = self.white_queens_inf[i][1] * startup.tile_size
+                self.white_queen_img_rect.y = self.white_queen_img_rect.y - (self.white_queen_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.white_queen_img, self.white_queen_img_rect)
+                startup.screen.blit(self.white_queen_img, self.white_queen_img_rect)
 
         if self.white_king_inf[0][2] == True:
 
-            self.white_king_img_rect.x = self.white_king_inf[0][0] * tile_size
-            self.white_king_img_rect.y = self.white_king_inf[0][1] * tile_size
-            self.white_king_img_rect.y = self.white_king_img_rect.y - (self.white_king_img_rect.y * 2) + (screen_height - tile_size)
+            self.white_king_img_rect.x = self.white_king_inf[0][0] * startup.tile_size
+            self.white_king_img_rect.y = self.white_king_inf[0][1] * startup.tile_size
+            self.white_king_img_rect.y = self.white_king_img_rect.y - (self.white_king_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-            screen.blit(self.white_king_img, self.white_king_img_rect)
+            startup.screen.blit(self.white_king_img, self.white_king_img_rect)
 
         for i in range(0, 8):
 
             if self.black_pawns_inf[i][2] == True:
 
-                self.black_pawn_img_rect.x = self.black_pawns_inf[i][0] * tile_size
-                self.black_pawn_img_rect.y = self.black_pawns_inf[i][1] * tile_size
-                self.black_pawn_img_rect.y = self.black_pawn_img_rect.y - (self.black_pawn_img_rect.y * 2) + (screen_height - tile_size)
+                self.black_pawn_img_rect.x = self.black_pawns_inf[i][0] * startup.tile_size
+                self.black_pawn_img_rect.y = self.black_pawns_inf[i][1] * startup.tile_size
+                self.black_pawn_img_rect.y = self.black_pawn_img_rect.y - (self.black_pawn_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.black_pawn_img, self.black_pawn_img_rect)
+                startup.screen.blit(self.black_pawn_img, self.black_pawn_img_rect)
 
         for i in range(0, 10):
 
             if self.black_bishops_inf[i][2] == True:
 
-                self.black_bishop_img_rect.x = self.black_bishops_inf[i][0] * tile_size
-                self.black_bishop_img_rect.y = self.black_bishops_inf[i][1] * tile_size
-                self.black_bishop_img_rect.y = self.black_bishop_img_rect.y - (self.black_bishop_img_rect.y * 2) + (screen_height - tile_size)
+                self.black_bishop_img_rect.x = self.black_bishops_inf[i][0] * startup.tile_size
+                self.black_bishop_img_rect.y = self.black_bishops_inf[i][1] * startup.tile_size
+                self.black_bishop_img_rect.y = self.black_bishop_img_rect.y - (self.black_bishop_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.black_bishop_img, self.black_bishop_img_rect)
+                startup.screen.blit(self.black_bishop_img, self.black_bishop_img_rect)
 
         for i in range(0, 10):
 
             if self.black_knights_inf[i][2] == True:
 
-                self.black_knight_img_rect.x = self.black_knights_inf[i][0] * tile_size
-                self.black_knight_img_rect.y = self.black_knights_inf[i][1] * tile_size
-                self.black_knight_img_rect.y = self.black_knight_img_rect.y - (self.black_knight_img_rect.y * 2) + (screen_height - tile_size)
+                self.black_knight_img_rect.x = self.black_knights_inf[i][0] * startup.tile_size
+                self.black_knight_img_rect.y = self.black_knights_inf[i][1] * startup.tile_size
+                self.black_knight_img_rect.y = self.black_knight_img_rect.y - (self.black_knight_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.black_knight_img, self.black_knight_img_rect)
+                startup.screen.blit(self.black_knight_img, self.black_knight_img_rect)
 
         for i in range(0, 10):
 
             if self.black_rooks_inf[i][2] == True:
 
-                self.black_rook_img_rect.x = self.black_rooks_inf[i][0] * tile_size
-                self.black_rook_img_rect.y = self.black_rooks_inf[i][1] * tile_size
-                self.black_rook_img_rect.y = self.black_rook_img_rect.y - (self.black_rook_img_rect.y * 2) + (screen_height - tile_size)
+                self.black_rook_img_rect.x = self.black_rooks_inf[i][0] * startup.tile_size
+                self.black_rook_img_rect.y = self.black_rooks_inf[i][1] * startup.tile_size
+                self.black_rook_img_rect.y = self.black_rook_img_rect.y - (self.black_rook_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.black_rook_img, self.black_rook_img_rect)
+                startup.screen.blit(self.black_rook_img, self.black_rook_img_rect)
 
         for i in range(0, 9):
 
             if self.black_queens_inf[i][2] == True:
 
-                self.black_queen_img_rect.x = self.black_queens_inf[i][0] * tile_size
-                self.black_queen_img_rect.y = self.black_queens_inf[i][1] * tile_size
-                self.black_queen_img_rect.y = self.black_queen_img_rect.y - (self.black_queen_img_rect.y * 2) + (screen_height - tile_size)
+                self.black_queen_img_rect.x = self.black_queens_inf[i][0] * startup.tile_size
+                self.black_queen_img_rect.y = self.black_queens_inf[i][1] * startup.tile_size
+                self.black_queen_img_rect.y = self.black_queen_img_rect.y - (self.black_queen_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-                screen.blit(self.black_queen_img, self.black_queen_img_rect)
+                startup.screen.blit(self.black_queen_img, self.black_queen_img_rect)
 
         if self.black_king_inf[0][2] == True:
 
-            self.black_king_img_rect.x = self.black_king_inf[0][0] * tile_size
-            self.black_king_img_rect.y = self.black_king_inf[0][1] * tile_size
-            self.black_king_img_rect.y = self.black_king_img_rect.y - (self.black_king_img_rect.y * 2) + (screen_height - tile_size)
+            self.black_king_img_rect.x = self.black_king_inf[0][0] * startup.tile_size
+            self.black_king_img_rect.y = self.black_king_inf[0][1] * startup.tile_size
+            self.black_king_img_rect.y = self.black_king_img_rect.y - (self.black_king_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
-            screen.blit(self.black_king_img, self.black_king_img_rect)
+            startup.screen.blit(self.black_king_img, self.black_king_img_rect)
 
     def draw_pieces_black(self):
 
@@ -259,113 +258,113 @@ class Pieces():
 
             if self.white_pawns_inf[i][2] == True:
 
-                self.white_pawn_img_rect.x = self.white_pawns_inf[i][0] * tile_size
-                self.white_pawn_img_rect.x = self.white_pawn_img_rect.x - (self.white_pawn_img_rect.x * 2) + (screen_height - tile_size)
-                self.white_pawn_img_rect.y = self.white_pawns_inf[i][1] * tile_size
+                self.white_pawn_img_rect.x = self.white_pawns_inf[i][0] * startup.tile_size
+                self.white_pawn_img_rect.x = self.white_pawn_img_rect.x - (self.white_pawn_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.white_pawn_img_rect.y = self.white_pawns_inf[i][1] * startup.tile_size
 
-                screen.blit(self.white_pawn_img, self.white_pawn_img_rect)
+                startup.screen.blit(self.white_pawn_img, self.white_pawn_img_rect)
 
         for i in range(0, 2):
 
             if self.white_bishops_inf[i][2] == True:
 
-                self.white_bishop_img_rect.x = self.white_bishops_inf[i][0] * tile_size
-                self.white_bishop_img_rect.x = self.white_bishop_img_rect.x - (self.white_bishop_img_rect.x * 2) + (screen_height - tile_size)
-                self.white_bishop_img_rect.y = self.white_bishops_inf[i][1] * tile_size
+                self.white_bishop_img_rect.x = self.white_bishops_inf[i][0] * startup.tile_size
+                self.white_bishop_img_rect.x = self.white_bishop_img_rect.x - (self.white_bishop_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.white_bishop_img_rect.y = self.white_bishops_inf[i][1] * startup.tile_size
 
-                screen.blit(self.white_bishop_img, self.white_bishop_img_rect)
+                startup.screen.blit(self.white_bishop_img, self.white_bishop_img_rect)
 
         for i in range(0, 2):
 
             if self.white_knights_inf[i][2] == True:
 
-                self.white_knight_img_rect.x = self.white_knights_inf[i][0] * tile_size
-                self.white_knight_img_rect.x = self.white_knight_img_rect.x - (self.white_knight_img_rect.x * 2) + (screen_height - tile_size)
-                self.white_knight_img_rect.y = self.white_knights_inf[i][1] * tile_size
+                self.white_knight_img_rect.x = self.white_knights_inf[i][0] * startup.tile_size
+                self.white_knight_img_rect.x = self.white_knight_img_rect.x - (self.white_knight_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.white_knight_img_rect.y = self.white_knights_inf[i][1] * startup.tile_size
 
-                screen.blit(self.white_knight_img, self.white_knight_img_rect)
+                startup.screen.blit(self.white_knight_img, self.white_knight_img_rect)
 
         for i in range(0, 2):
 
             if self.white_rooks_inf[i][2] == True:
 
-                self.white_rook_img_rect.x = self.white_rooks_inf[i][0] * tile_size
-                self.white_rook_img_rect.x = self.white_rook_img_rect.x - (self.white_rook_img_rect.x * 2) + (screen_height - tile_size)
-                self.white_rook_img_rect.y = self.white_rooks_inf[i][1] * tile_size
+                self.white_rook_img_rect.x = self.white_rooks_inf[i][0] * startup.tile_size
+                self.white_rook_img_rect.x = self.white_rook_img_rect.x - (self.white_rook_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.white_rook_img_rect.y = self.white_rooks_inf[i][1] * startup.tile_size
 
-                screen.blit(self.white_rook_img, self.white_rook_img_rect)
+                startup.screen.blit(self.white_rook_img, self.white_rook_img_rect)
 
         if self.white_queens_inf[0][2] == True:
 
-            self.white_queen_img_rect.x = self.white_queens_inf[0][0] * tile_size
-            self.white_queen_img_rect.x = self.white_queen_img_rect.x - (self.white_queen_img_rect.x * 2) + (screen_height - tile_size)
-            self.white_queen_img_rect.y = self.white_queens_inf[0][1] * tile_size
+            self.white_queen_img_rect.x = self.white_queens_inf[0][0] * startup.tile_size
+            self.white_queen_img_rect.x = self.white_queen_img_rect.x - (self.white_queen_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+            self.white_queen_img_rect.y = self.white_queens_inf[0][1] * startup.tile_size
 
-            screen.blit(self.white_queen_img, self.white_queen_img_rect)
+            startup.screen.blit(self.white_queen_img, self.white_queen_img_rect)
 
         if self.white_king_inf[0][2] == True:
 
-            self.white_king_img_rect.x = self.white_king_inf[0][0] * tile_size
-            self.white_king_img_rect.x = self.white_king_img_rect.x - (self.white_king_img_rect.x * 2) + (screen_height - tile_size)
-            self.white_king_img_rect.y = self.white_king_inf[0][1] * tile_size
+            self.white_king_img_rect.x = self.white_king_inf[0][0] * startup.tile_size
+            self.white_king_img_rect.x = self.white_king_img_rect.x - (self.white_king_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+            self.white_king_img_rect.y = self.white_king_inf[0][1] * startup.tile_size
 
-            screen.blit(self.white_king_img, self.white_king_img_rect)
+            startup.screen.blit(self.white_king_img, self.white_king_img_rect)
 
         for i in range(0, 8):
 
             if self.black_pawns_inf[i][2] == True:
 
-                self.black_pawn_img_rect.x = self.black_pawns_inf[i][0] * tile_size
-                self.black_pawn_img_rect.x = self.black_pawn_img_rect.x - (self.black_pawn_img_rect.x * 2) + (screen_height - tile_size)
-                self.black_pawn_img_rect.y = self.black_pawns_inf[i][1] * tile_size
+                self.black_pawn_img_rect.x = self.black_pawns_inf[i][0] * startup.tile_size
+                self.black_pawn_img_rect.x = self.black_pawn_img_rect.x - (self.black_pawn_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.black_pawn_img_rect.y = self.black_pawns_inf[i][1] * startup.tile_size
 
-                screen.blit(self.black_pawn_img, self.black_pawn_img_rect)
+                startup.screen.blit(self.black_pawn_img, self.black_pawn_img_rect)
 
         for i in range(0, 2):
 
             if self.black_bishops_inf[i][2] == True:
 
-                self.black_bishop_img_rect.x = self.black_bishops_inf[i][0] * tile_size
-                self.black_bishop_img_rect.x = self.black_bishop_img_rect.x - (self.black_bishop_img_rect.x * 2) + (screen_height - tile_size)
-                self.black_bishop_img_rect.y = self.black_bishops_inf[i][1] * tile_size
+                self.black_bishop_img_rect.x = self.black_bishops_inf[i][0] * startup.tile_size
+                self.black_bishop_img_rect.x = self.black_bishop_img_rect.x - (self.black_bishop_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.black_bishop_img_rect.y = self.black_bishops_inf[i][1] * startup.tile_size
 
-                screen.blit(self.black_bishop_img, self.black_bishop_img_rect)
+                startup.screen.blit(self.black_bishop_img, self.black_bishop_img_rect)
 
         for i in range(0, 2):
 
             if self.black_knights_inf[i][2] == True:
 
-                self.black_knight_img_rect.x = self.black_knights_inf[i][0] * tile_size
-                self.black_knight_img_rect.x = self.black_knight_img_rect.x - (self.black_knight_img_rect.x * 2) + (screen_height - tile_size)
-                self.black_knight_img_rect.y = self.black_knights_inf[i][1] * tile_size
+                self.black_knight_img_rect.x = self.black_knights_inf[i][0] * startup.tile_size
+                self.black_knight_img_rect.x = self.black_knight_img_rect.x - (self.black_knight_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.black_knight_img_rect.y = self.black_knights_inf[i][1] * startup.tile_size
 
-                screen.blit(self.black_knight_img, self.black_knight_img_rect)
+                startup.screen.blit(self.black_knight_img, self.black_knight_img_rect)
 
         for i in range(0, 2):
 
             if self.black_rooks_inf[i][2] == True:
 
-                self.black_rook_img_rect.x = self.black_rooks_inf[i][0] * tile_size
-                self.black_rook_img_rect.x = self.black_rook_img_rect.x - (self.black_rook_img_rect.x * 2) + (screen_height - tile_size)
-                self.black_rook_img_rect.y = self.black_rooks_inf[i][1] * tile_size
+                self.black_rook_img_rect.x = self.black_rooks_inf[i][0] * startup.tile_size
+                self.black_rook_img_rect.x = self.black_rook_img_rect.x - (self.black_rook_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.black_rook_img_rect.y = self.black_rooks_inf[i][1] * startup.tile_size
 
-                screen.blit(self.black_rook_img, self.black_rook_img_rect)
+                startup.screen.blit(self.black_rook_img, self.black_rook_img_rect)
 
         if self.black_queens_inf[0][2] == True:
 
-            self.black_queen_img_rect.x = self.black_queens_inf[0][0] * tile_size
-            self.black_queen_img_rect.x = self.black_queen_img_rect.x - (self.black_queen_img_rect.x * 2) + (screen_height - tile_size)
-            self.black_queen_img_rect.y = self.black_queens_inf[0][1] * tile_size
+            self.black_queen_img_rect.x = self.black_queens_inf[0][0] * startup.tile_size
+            self.black_queen_img_rect.x = self.black_queen_img_rect.x - (self.black_queen_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+            self.black_queen_img_rect.y = self.black_queens_inf[0][1] * startup.tile_size
 
-            screen.blit(self.black_queen_img, self.black_queen_img_rect)
+            startup.screen.blit(self.black_queen_img, self.black_queen_img_rect)
 
         if self.black_king_inf[0][2] == True:
 
-            self.black_king_img_rect.x = self.black_king_inf[0][0] * tile_size
-            self.black_king_img_rect.x = self.black_king_img_rect.x - (self.black_king_img_rect.x * 2) + (screen_height - tile_size)
-            self.black_king_img_rect.y = self.black_king_inf[0][1] * tile_size
+            self.black_king_img_rect.x = self.black_king_inf[0][0] * startup.tile_size
+            self.black_king_img_rect.x = self.black_king_img_rect.x - (self.black_king_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+            self.black_king_img_rect.y = self.black_king_inf[0][1] * startup.tile_size
 
-            screen.blit(self.black_king_img, self.black_king_img_rect)
+            startup.screen.blit(self.black_king_img, self.black_king_img_rect)
 
     def white_black_occupation(self):
 
@@ -459,7 +458,7 @@ class Pieces():
 
         self.legal_moves = []
 
-        if startup.startup.white_turn == True:
+        if startup.white_turn == True:
 
             for i in range(0, 8):
 
@@ -2668,19 +2667,19 @@ class Pieces():
 
             notation_val, take = self.convert_to_easy_notation(move)
 
-            if notation_val == "Ke1f1" and startup.startup.white_turn == True:
+            if notation_val == "Ke1f1" and startup.white_turn == True:
 
                 white_short_castle_through_check_check = True
 
-            if notation_val == "Ke1d1" and startup.startup.white_turn == True:
+            if notation_val == "Ke1d1" and startup.white_turn == True:
 
                 white_long_castle_through_check_check = True
 
-            if notation_val == "Ke8f8" and startup.startup.white_turn == False:
+            if notation_val == "Ke8f8" and startup.white_turn == False:
 
                 black_short_castle_through_check_check = True
 
-            if notation_val == "Ke8d8" and startup.startup.white_turn == False:
+            if notation_val == "Ke8d8" and startup.white_turn == False:
 
                 black_long_castle_through_check_check = True
 
@@ -2692,7 +2691,7 @@ class Pieces():
                 tox = notation.get_column_char(notation_val[3])
                 toy = int(notation_val[4]) - 1
 
-                if startup.startup.white_turn == True:
+                if startup.white_turn == True:
 
                     for i in range(0, 10):
 
@@ -2718,7 +2717,7 @@ class Pieces():
                 tox = notation.get_column_char(notation_val[3])
                 toy = int(notation_val[4]) - 1
 
-                if startup.startup.white_turn == True:
+                if startup.white_turn == True:
 
                     for i in range(0, 10):
 
@@ -2744,7 +2743,7 @@ class Pieces():
                 tox = notation.get_column_char(notation_val[3])
                 toy = int(notation_val[4]) - 1
 
-                if startup.startup.white_turn == True:
+                if startup.white_turn == True:
 
                     for i in range(0, 10):
 
@@ -2772,7 +2771,7 @@ class Pieces():
                 tox = notation.get_column_char(notation_val[3])
                 toy = int(notation_val[4]) - 1
 
-                if startup.startup.white_turn == True:
+                if startup.white_turn == True:
 
                     for i in range(0, 9):
 
@@ -2798,7 +2797,7 @@ class Pieces():
                 tox = notation.get_column_char(notation_val[3])
                 toy = int(notation_val[4]) - 1
 
-                if startup.startup.white_turn == True:
+                if startup.white_turn == True:
 
                     if white_king[0][2] == True and white_king[0][0] == fromx and white_king[0][1] == fromy:
                                 
@@ -2816,7 +2815,7 @@ class Pieces():
 
             elif notation_val[0] == "O":
 
-                if startup.startup.white_turn == True:
+                if startup.white_turn == True:
 
                     white_king[0][3] = False
 
@@ -2904,7 +2903,7 @@ class Pieces():
 
                             fromx = notation.get_column_char(notation_val[-3])
 
-                        if startup.startup.white_turn == True:
+                        if startup.white_turn == True:
                                 
                             fromy = toy - 1
 
@@ -2916,7 +2915,7 @@ class Pieces():
 
                         fromx = tox
 
-                        if startup.startup.white_turn == True:
+                        if startup.white_turn == True:
 
                             if toy == 3:
 
@@ -2948,7 +2947,7 @@ class Pieces():
 
                                 fromy = toy + 1
 
-                    if startup.startup.white_turn == True:
+                    if startup.white_turn == True:
 
                         for i in range(0, 8):
                             
@@ -3098,7 +3097,7 @@ class Pieces():
 
                 piece_taken = False
 
-                if startup.startup.white_turn == True:
+                if startup.white_turn == True:
 
                     for i in range(0, 8):
 
@@ -3283,7 +3282,7 @@ class Pieces():
                 black_occ_x.append(black_king[0][0])
                 black_occ_y.append(black_king[0][1])
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 for i in range(0, 8):
 
@@ -4134,7 +4133,7 @@ class Pieces():
             to_x = notation.get_column_char(notation_val[3])
             to_y = int(notation_val[4]) - 1
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 for i in range(0, 10):
 
@@ -4160,7 +4159,7 @@ class Pieces():
             to_x = notation.get_column_char(notation_val[3])
             to_y = int(notation_val[4]) - 1
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 for i in range(0, 10):
 
@@ -4186,7 +4185,7 @@ class Pieces():
             to_x = notation.get_column_char(notation_val[3])
             to_y = int(notation_val[4]) - 1
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 for i in range(0, 10):
 
@@ -4214,7 +4213,7 @@ class Pieces():
             to_x = notation.get_column_char(notation_val[3])
             to_y = int(notation_val[4]) - 1
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 for i in range(0, 9):
 
@@ -4240,7 +4239,7 @@ class Pieces():
             to_x = notation.get_column_char(notation_val[3])
             to_y = int(notation_val[4]) - 1
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 if self.white_king_inf[0][2] == True and self.white_king_inf[0][0] == from_x and self.white_king_inf[0][1] == from_y:
                         
@@ -4258,7 +4257,7 @@ class Pieces():
 
         elif notation_val[0] == "O":
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 self.white_king_inf[0][3] = False
 
@@ -4346,7 +4345,7 @@ class Pieces():
 
                         from_x = notation.get_column_char(notation_val[-3])
 
-                    if startup.startup.white_turn == True:
+                    if startup.white_turn == True:
                         
                         from_y = to_y - 1
 
@@ -4357,7 +4356,7 @@ class Pieces():
 
                     from_x = to_x
 
-                    if startup.startup.white_turn == True:
+                    if startup.white_turn == True:
 
                         if to_y == 3:
 
@@ -4389,7 +4388,7 @@ class Pieces():
 
                             from_y = to_y + 1
 
-                if startup.startup.white_turn == True:
+                if startup.white_turn == True:
 
                     for i in range(0, 8):
 
@@ -4547,7 +4546,7 @@ class Pieces():
 
             peice_taken = False
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 for i in range(0, 8):
 
@@ -4651,7 +4650,7 @@ class Pieces():
 
         checkmate = False
 
-        if startup.startup.white_turn == True:
+        if startup.white_turn == True:
 
             for i in range(0, 8):
 
@@ -5668,7 +5667,7 @@ class Notation():
 
         else:
 
-            if startup.startup.white_turn == True:
+            if startup.white_turn == True:
 
                 for i in range(0, len(pieces.black_occupation_x)):
 
@@ -5781,25 +5780,15 @@ class Start():
         root = Tk()
 
         #width = root.winfo_screenwidth()
-        screen_height = root.winfo_screenheight() * 0.9
-        screen_height = math.trunc(screen_height + (screen_height % 8))
+        self.screen_height = root.winfo_screenheight() * 0.9
+        self.screen_height = math.trunc(self.screen_height + (self.screen_height % 8))
 
         pygame.init()
 
-        screen = pygame.display.set_mode((screen_height, screen_height))
+        self.screen = pygame.display.set_mode((self.screen_height, self.screen_height))
         pygame.display.set_caption("Chess")
 
-        self.tile_size = screen_height // 8
-                        
-        self.board = Board()
-        self.board.draw_board()
-
-        self.pieces = Pieces()
-        self.pieces.draw_pieces_white()
-
-        self.notation = Notation()
-
-        pygame.display.update()
+        self.tile_size = self.screen_height // 8
 
         self.run = True
         self.update = True
@@ -5807,6 +5796,13 @@ class Start():
         self.playing_as_white = True
         self.auto_rotate = False
         self.your_turn = True
+
+    def start(self):
+        
+        board.draw_board()
+        pieces.draw_pieces_white()
+
+        pygame.display.update()
 
         while True:
             
@@ -5898,8 +5894,6 @@ class Start():
 
             pieces.draw_pieces_black()
 
-    def start(self):
-
         while self.run:
 
             for event in pygame.event.get():
@@ -5928,7 +5922,7 @@ class Start():
                     notation_val, take = pieces.convert_to_easy_notation(pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)])
                     pieces.move_piece(notation_val, take)
                     
-                    self.board.draw_board()
+                    board.draw_board()
                         
                     self.white_turn = not self.white_turn
                     
@@ -6000,7 +5994,7 @@ class Start():
                     notation_val, take = pieces.convert_to_easy_notation(move_choice)
                     pieces.move_piece(notation_val, take)
 
-                    self.board.draw_board()
+                    board.draw_board()
                         
                     self.white_turn = not self.white_turn
                     
@@ -6062,7 +6056,7 @@ class Start():
                     notation_val, take = pieces.convert_to_easy_notation(move_choice)
                     pieces.move_piece(notation_val, take)
 
-                    self.board.draw_board()
+                    board.draw_board()
                         
                     self.white_turn = not self.white_turn
 
@@ -6105,4 +6099,7 @@ class Start():
         pygame.quit()
 
 startup = Start()
+board = Board()
+pieces = Pieces()
+notation = Notation()
 startup.start()
