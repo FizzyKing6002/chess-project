@@ -1,3 +1,4 @@
+
 import multiprocessing
 import threading
 import pygame
@@ -5895,6 +5896,45 @@ class Notation():
                 pos += 1
 
         return fen
+
+    def download_fen_position(self, fen):
+
+        fen_stage = 0
+        x = 0
+        y = 0
+
+        for char in fen:
+
+            if char == " ":
+
+                fen_stage += 1
+
+            elif fen_stage == 0:
+
+                if char == "/":
+
+                    x = 0
+                    y += 1
+
+                elif char == "P":
+
+                    count = 0
+
+                    while True:
+
+                        if pieces.white_pawns_inf[count][2] == False:
+
+                x += 1
+
+            elif fen_stage == 1:
+
+                if char == "w":
+
+                    startup.white_turn = True
+
+                elif char == "b":
+
+                    startup.white_turn = False
 
 class Start():
 
