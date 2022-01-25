@@ -5779,15 +5779,13 @@ class Notation():
 
         fen = "11111111/11111111/11111111/11111111/11111111/11111111/11111111/11111111 w"
 
-        if startup.white_turn == True:
+        pos = 72
 
-            pos = 72
+        if startup.white_turn == True:
 
             fen = fen[:pos] + "w" + fen[pos + 1:]
 
         else:
-
-            pos = 72
 
             fen = fen[:pos] + "b" + fen[pos + 1:]
 
@@ -5897,7 +5895,21 @@ class Notation():
 
         return fen
 
-    def download_fen_position(self, fen):
+    def load_fen_position(self, fen):
+
+        pieces.white_pawns_inf = [[0, 1, False, True], [1, 1, False, True], [2, 1, False, True], [3, 1, False, True], [4, 1, False, True], [5, 1, False, True], [6, 1, False, True], [7, 1, False, True]]
+        pieces.white_bishops_inf = [[2, 0, False], [5, 0, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.white_knights_inf = [[1, 0, False], [6, 0, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.white_rooks_inf = [[0, 0, False, True], [7, 0, False, True], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
+        pieces.white_queens_inf = [[3, 0, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.white_king_inf = [[4, 0, False, True]]
+
+        pieces.black_pawns_inf = [[0, 6, False, True], [1, 6, False, True], [2, 6, False, True], [3, 6, False, True], [4, 6, False, True], [5, 6, False, True], [6, 6, False, True], [7, 6, False, True]]
+        pieces.black_bishops_inf = [[2, 7, False], [5, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.black_knights_inf = [[6, 7, False], [1, 7, False], [6, 3, False], [0, 3, False], [2, 0, False], [2, 6, False], [6, 2, False], [0, 2, False], [0, 7, False], [0, 7, False]]
+        pieces.black_rooks_inf = [[0, 7, False, True], [7, 7, False, True], [2, 0, False, False], [4, 6, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
+        pieces.black_queens_inf = [[3, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.black_king_inf = [[4, 7, False, True]]
 
         fen_stage = 0
         x = 0
@@ -5920,9 +5932,185 @@ class Notation():
 
                     count = 0
 
-                    while True:
+                    while count <= 7:
 
                         if pieces.white_pawns_inf[count][2] == False:
+
+                            pieces.white_pawns_inf[count][0] = x
+                            pieces.white_pawns_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "B":
+
+                    count = 0
+
+                    while count <= 9:
+
+                        if pieces.white_bishops_inf[count][2] == False:
+
+                            pieces.white_bishops_inf[count][0] = x
+                            pieces.white_bishops_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "N":
+
+                    count = 0
+
+                    while count <= 9:
+
+                        if pieces.white_knights_inf[count][2] == False:
+
+                            pieces.white_knights_inf[count][0] = x
+                            pieces.white_knights_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "R":
+
+                    count = 0
+
+                    while count <= 9:
+
+                        if pieces.white_rooks_inf[count][2] == False:
+
+                            pieces.white_rooks_inf[count][0] = x
+                            pieces.white_rooks_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "Q":
+
+                    count = 0
+
+                    while count <= 8:
+
+                        if pieces.white_queens_inf[count][2] == False:
+
+                            pieces.white_queens_inf[count][0] = x
+                            pieces.white_queens_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "K":
+
+                    if pieces.white_king_inf[0][2] == False:
+
+                        pieces.white_king_inf[0][0] = x
+                        pieces.white_king_inf[0][1] = y
+
+                elif char == "p":
+
+                    count = 0
+
+                    while count <= 7:
+
+                        if pieces.black_pawns_inf[count][2] == False:
+
+                            pieces.black_pawns_inf[count][0] = x
+                            pieces.black_pawns_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "b":
+
+                    count = 0
+
+                    while count <= 9:
+
+                        if pieces.black_bishops_inf[count][2] == False:
+
+                            pieces.black_bishops_inf[count][0] = x
+                            pieces.black_bishops_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "n":
+
+                    count = 0
+
+                    while count <= 9:
+
+                        if pieces.black_knights_inf[count][2] == False:
+
+                            pieces.black_knights_inf[count][0] = x
+                            pieces.black_knights_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "r":
+
+                    count = 0
+
+                    while count <= 9:
+
+                        if pieces.black_rooks_inf[count][2] == False:
+
+                            pieces.black_rooks_inf[count][0] = x
+                            pieces.black_rooks_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "q":
+
+                    count = 0
+
+                    while count <= 8:
+
+                        if pieces.black_queens_inf[count][2] == False:
+
+                            pieces.black_queens_inf[count][0] = x
+                            pieces.black_queens_inf[count][1] = y
+
+                            break
+
+                        else:
+
+                            count += 1
+
+                elif char == "k":
+
+                    if pieces.black_king_inf[0][2] == False:
+
+                        pieces.black_king_inf[0][0] = x
+                        pieces.black_king_inf[0][1] = y
 
                 x += 1
 
@@ -6048,6 +6236,35 @@ class Start():
                 else:
 
                     print("That is not a valid answer.")
+
+        while True:
+
+            print("Do you want to play from a pre-determined position? (y/n)")
+            predetermined_position_input = input()
+
+            if predetermined_position_input == "y":
+
+                while True:
+
+                    print("Paste the fen position.")
+                    fen_position = input()
+
+                    try:
+
+                        notation.load_fen_position(fen_position)
+                        break
+
+                    except:
+
+                        print("That is not a valid position.")
+
+            elif predetermined_position_input == "n":
+
+                break
+
+            else:
+
+                print("That is not a valid answer.")
 
         if self.playing_as_white == True:
             
@@ -6235,6 +6452,7 @@ class Start():
 
                     fen = notation.create_fen_position()
                     print(fen)
+                    notation.load_fen_position("5k2/1q6/8/8/8/8/8/2K5 w")
                     
                     self.update = True
 
