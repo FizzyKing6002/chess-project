@@ -5913,7 +5913,7 @@ class Notation():
 
         fen_stage = 0
         x = 0
-        y = 0
+        y = 7
 
         for char in fen:
 
@@ -5925,8 +5925,12 @@ class Notation():
 
                 if char == "/":
 
-                    x = 0
-                    y += 1
+                    x = -1
+                    y -= 1
+
+                elif char.isnumeric():
+
+                    x += int(char) - 1
 
                 elif char == "P":
 
@@ -5938,6 +5942,7 @@ class Notation():
 
                             pieces.white_pawns_inf[count][0] = x
                             pieces.white_pawns_inf[count][1] = y
+                            pieces.white_pawns_inf[count][2] = True
 
                             break
 
@@ -5955,6 +5960,7 @@ class Notation():
 
                             pieces.white_bishops_inf[count][0] = x
                             pieces.white_bishops_inf[count][1] = y
+                            pieces.white_bishops_inf[count][2] = True
 
                             break
 
@@ -5972,6 +5978,7 @@ class Notation():
 
                             pieces.white_knights_inf[count][0] = x
                             pieces.white_knights_inf[count][1] = y
+                            pieces.white_knights_inf[count][2] = True
 
                             break
 
@@ -5989,6 +5996,7 @@ class Notation():
 
                             pieces.white_rooks_inf[count][0] = x
                             pieces.white_rooks_inf[count][1] = y
+                            pieces.white_rooks_inf[count][2] = True
 
                             break
 
@@ -6006,6 +6014,7 @@ class Notation():
 
                             pieces.white_queens_inf[count][0] = x
                             pieces.white_queens_inf[count][1] = y
+                            pieces.white_queens_inf[count][2] = True
 
                             break
 
@@ -6019,6 +6028,7 @@ class Notation():
 
                         pieces.white_king_inf[0][0] = x
                         pieces.white_king_inf[0][1] = y
+                        pieces.white_king_inf[0][2] = True
 
                 elif char == "p":
 
@@ -6030,6 +6040,7 @@ class Notation():
 
                             pieces.black_pawns_inf[count][0] = x
                             pieces.black_pawns_inf[count][1] = y
+                            pieces.black_pawns_inf[count][2] = True
 
                             break
 
@@ -6047,6 +6058,7 @@ class Notation():
 
                             pieces.black_bishops_inf[count][0] = x
                             pieces.black_bishops_inf[count][1] = y
+                            pieces.black_bishops_inf[count][2] = True
 
                             break
 
@@ -6064,6 +6076,7 @@ class Notation():
 
                             pieces.black_knights_inf[count][0] = x
                             pieces.black_knights_inf[count][1] = y
+                            pieces.black_knights_inf[count][2] = True
 
                             break
 
@@ -6081,6 +6094,7 @@ class Notation():
 
                             pieces.black_rooks_inf[count][0] = x
                             pieces.black_rooks_inf[count][1] = y
+                            pieces.black_rooks_inf[count][2] = True
 
                             break
 
@@ -6098,6 +6112,7 @@ class Notation():
 
                             pieces.black_queens_inf[count][0] = x
                             pieces.black_queens_inf[count][1] = y
+                            pieces.black_queens_inf[count][2] = True
 
                             break
 
@@ -6111,6 +6126,7 @@ class Notation():
 
                         pieces.black_king_inf[0][0] = x
                         pieces.black_king_inf[0][1] = y
+                        pieces.black_king_inf[0][2] = True
 
                 x += 1
 
@@ -6257,6 +6273,22 @@ class Start():
                     except:
 
                         print("That is not a valid position.")
+
+                board.draw_board()
+
+                print(self.playing_as_white)
+
+                if self.playing_as_white == True:
+
+                    pieces.draw_pieces_white()
+
+                else:
+
+                    pieces.draw_pieces_black()
+
+                pygame.display.update()
+
+                break
 
             elif predetermined_position_input == "n":
 
