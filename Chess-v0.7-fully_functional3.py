@@ -4325,224 +4325,222 @@ class Pieces():
 
         else:
 
-            if True:
+            if notation_val[-2] == "=":
+
+                to_x = notation.get_column_char(notation_val[-4])
+                to_y = int(notation_val[-3]) - 1
+
+            else:
+            
+                to_x = notation.get_column_char(notation_val[-2])
+                to_y = int(notation_val[-1]) - 1
+
+            if take == True:
 
                 if notation_val[-2] == "=":
 
-                    to_x = notation.get_column_char(notation_val[-4])
-                    to_y = int(notation_val[-3]) - 1
+                    from_x = notation.get_column_char(notation_val[-5])
 
                 else:
-                
-                    to_x = notation.get_column_char(notation_val[-2])
-                    to_y = int(notation_val[-1]) - 1
 
-                if take == True:
+                    from_x = notation.get_column_char(notation_val[-3])
 
-                    if notation_val[-2] == "=":
+                if startup.white_turn == True:
+                    
+                    from_y = to_y - 1
 
-                        from_x = notation.get_column_char(notation_val[-5])
+                else:
+
+                    from_y = to_y + 1
+            else:
+
+                from_x = to_x
+
+                if startup.white_turn == True:
+
+                    if to_y == 3:
+
+                        from_y = to_y - 2
+
+                        for i in range(0, 8):
+
+                            if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == from_x and self.white_pawns_inf[i][1] == to_y - 1:
+
+                                from_y = to_y - 1
 
                     else:
 
-                        from_x = notation.get_column_char(notation_val[-3])
-
-                    if startup.white_turn == True:
-                        
                         from_y = to_y - 1
+
+                else:
+
+                    if to_y == 4:
+
+                        from_y = to_y + 2
+
+                        for i in range(0, 8):
+
+                            if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][0] == from_x and self.black_pawns_inf[i][1] == to_y + 1:
+
+                                from_y = to_y + 1
 
                     else:
 
                         from_y = to_y + 1
-                else:
 
-                    from_x = to_x
+            if startup.white_turn == True:
 
-                    if startup.white_turn == True:
+                for i in range(0, 8):
 
-                        if to_y == 3:
-
-                            from_y = to_y - 2
-
-                            for i in range(0, 8):
-
-                                if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == from_x and self.white_pawns_inf[i][1] == to_y - 1:
-
-                                    from_y = to_y - 1
-
-                        else:
-
-                            from_y = to_y - 1
-
-                    else:
-
-                        if to_y == 4:
-
-                            from_y = to_y + 2
-
-                            for i in range(0, 8):
-
-                                if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][0] == from_x and self.black_pawns_inf[i][1] == to_y + 1:
-
-                                    from_y = to_y + 1
-
-                        else:
-
-                            from_y = to_y + 1
-
-                if startup.white_turn == True:
-
-                    for i in range(0, 8):
-
-                        if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == from_x and self.white_pawns_inf[i][1] == from_y:
-                            
-                            if to_y == 7:
-
-                                self.white_pawns_inf[i][2] = False
-
-                                if notation_val[-1] == "Q":
-
-                                    promotion_complete = False
-
-                                    for i in range(1, 9):
-
-                                        if self.white_queens_inf[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            self.white_queens_inf[i][0] = to_x
-                                            self.white_queens_inf[i][1] = to_y
-                                            self.white_queens_inf[i][2] = True
-
-                                elif notation_val[-1] == "R":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if self.white_rooks_inf[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            self.white_rooks_inf[i][0] = to_x
-                                            self.white_rooks_inf[i][1] = to_y
-                                            self.white_rooks_inf[i][2] = True
-                                            self.white_rooks_inf[i][3] = False
-
-                                elif notation_val[-1] == "B":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if self.white_bishops_inf[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            self.white_bishops_inf[i][0] = to_x
-                                            self.white_bishops_inf[i][1] = to_y
-                                            self.white_bishops_inf[i][2] = True
-
-                                elif notation_val[-1] == "N":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if self.white_knights_inf[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            self.white_knights_inf[i][0] = to_x
-                                            self.white_knights_inf[i][1] = to_y
-                                            self.white_knights_inf[i][2] = True
-
-                            else:
-
-                                self.white_pawns_inf[i][0] = to_x
-                                self.white_pawns_inf[i][1] = to_y  
-                                self.white_pawns_inf[i][3] = False
-
-                                if to_y - from_y == 2:
-
-                                    self.en_passant_x_y = [to_x, to_y]
-
-                else:
-
-                    for i in range(0, 8):
-
-                        if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][0] == from_x and self.black_pawns_inf[i][1] == from_y:
-
-                            if to_y == 0:
-
-                                self.black_pawns_inf[i][2] = False
-
-                                if notation_val[-1] == "Q":
-
-                                    promotion_complete = False
-
-                                    for i in range(1, 9):
-
-                                        if self.black_queens_inf[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            self.black_queens_inf[i][0] = to_x
-                                            self.black_queens_inf[i][1] = to_y
-                                            self.black_queens_inf[i][2] = True
-
-                                elif notation_val[-1] == "R":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if self.black_rooks_inf[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            self.black_rooks_inf[i][0] = to_x
-                                            self.black_rooks_inf[i][1] = to_y
-                                            self.black_rooks_inf[i][2] = True
-                                            self.black_rooks_inf[i][3] = False
-
-                                elif notation_val[-1] == "B":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if self.black_bishops_inf[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            self.black_bishops_inf[i][0] = to_x
-                                            self.black_bishops_inf[i][1] = to_y
-                                            self.black_bishops_inf[i][2] = True
-
-                                elif notation_val[-1] == "N":
-
-                                    promotion_complete = False
-
-                                    for i in range(2, 10):
-
-                                        if self.black_knights_inf[i][2] == False and promotion_complete == False:
-
-                                            promotion_complete = True
-
-                                            self.black_knights_inf[i][0] = to_x
-                                            self.black_knights_inf[i][1] = to_y
-                                            self.black_knights_inf[i][2] = True
+                    if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == from_x and self.white_pawns_inf[i][1] == from_y:
                         
-                            else:
+                        if to_y == 7:
 
-                                self.black_pawns_inf[i][0] = to_x
-                                self.black_pawns_inf[i][1] = to_y                                
-                                self.black_pawns_inf[i][3] = False
+                            self.white_pawns_inf[i][2] = False
 
-                                if from_y - to_y == 2:
+                            if notation_val[-1] == "Q":
 
-                                    self.en_passant_x_y = [to_x, to_y]
+                                promotion_complete = False
+
+                                for i in range(1, 9):
+
+                                    if self.white_queens_inf[i][2] == False and promotion_complete == False:
+
+                                        promotion_complete = True
+
+                                        self.white_queens_inf[i][0] = to_x
+                                        self.white_queens_inf[i][1] = to_y
+                                        self.white_queens_inf[i][2] = True
+
+                            elif notation_val[-1] == "R":
+
+                                promotion_complete = False
+
+                                for i in range(2, 10):
+
+                                    if self.white_rooks_inf[i][2] == False and promotion_complete == False:
+
+                                        promotion_complete = True
+
+                                        self.white_rooks_inf[i][0] = to_x
+                                        self.white_rooks_inf[i][1] = to_y
+                                        self.white_rooks_inf[i][2] = True
+                                        self.white_rooks_inf[i][3] = False
+
+                            elif notation_val[-1] == "B":
+
+                                promotion_complete = False
+
+                                for i in range(2, 10):
+
+                                    if self.white_bishops_inf[i][2] == False and promotion_complete == False:
+
+                                        promotion_complete = True
+
+                                        self.white_bishops_inf[i][0] = to_x
+                                        self.white_bishops_inf[i][1] = to_y
+                                        self.white_bishops_inf[i][2] = True
+
+                            elif notation_val[-1] == "N":
+
+                                promotion_complete = False
+
+                                for i in range(2, 10):
+
+                                    if self.white_knights_inf[i][2] == False and promotion_complete == False:
+
+                                        promotion_complete = True
+
+                                        self.white_knights_inf[i][0] = to_x
+                                        self.white_knights_inf[i][1] = to_y
+                                        self.white_knights_inf[i][2] = True
+
+                        else:
+
+                            self.white_pawns_inf[i][0] = to_x
+                            self.white_pawns_inf[i][1] = to_y  
+                            self.white_pawns_inf[i][3] = False
+
+                            if to_y - from_y == 2:
+
+                                self.en_passant_x_y = [to_x, to_y]
+
+            else:
+
+                for i in range(0, 8):
+
+                    if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][0] == from_x and self.black_pawns_inf[i][1] == from_y:
+
+                        if to_y == 0:
+
+                            self.black_pawns_inf[i][2] = False
+
+                            if notation_val[-1] == "Q":
+
+                                promotion_complete = False
+
+                                for i in range(1, 9):
+
+                                    if self.black_queens_inf[i][2] == False and promotion_complete == False:
+
+                                        promotion_complete = True
+
+                                        self.black_queens_inf[i][0] = to_x
+                                        self.black_queens_inf[i][1] = to_y
+                                        self.black_queens_inf[i][2] = True
+
+                            elif notation_val[-1] == "R":
+
+                                promotion_complete = False
+
+                                for i in range(2, 10):
+
+                                    if self.black_rooks_inf[i][2] == False and promotion_complete == False:
+
+                                        promotion_complete = True
+
+                                        self.black_rooks_inf[i][0] = to_x
+                                        self.black_rooks_inf[i][1] = to_y
+                                        self.black_rooks_inf[i][2] = True
+                                        self.black_rooks_inf[i][3] = False
+
+                            elif notation_val[-1] == "B":
+
+                                promotion_complete = False
+
+                                for i in range(2, 10):
+
+                                    if self.black_bishops_inf[i][2] == False and promotion_complete == False:
+
+                                        promotion_complete = True
+
+                                        self.black_bishops_inf[i][0] = to_x
+                                        self.black_bishops_inf[i][1] = to_y
+                                        self.black_bishops_inf[i][2] = True
+
+                            elif notation_val[-1] == "N":
+
+                                promotion_complete = False
+
+                                for i in range(2, 10):
+
+                                    if self.black_knights_inf[i][2] == False and promotion_complete == False:
+
+                                        promotion_complete = True
+
+                                        self.black_knights_inf[i][0] = to_x
+                                        self.black_knights_inf[i][1] = to_y
+                                        self.black_knights_inf[i][2] = True
+                    
+                        else:
+
+                            self.black_pawns_inf[i][0] = to_x
+                            self.black_pawns_inf[i][1] = to_y                                
+                            self.black_pawns_inf[i][3] = False
+
+                            if from_y - to_y == 2:
+
+                                self.en_passant_x_y = [to_x, to_y]
 
         if take == True:
 
@@ -5777,7 +5775,91 @@ class Notation():
 
     def create_fen_position(self):
 
-        fen = "11111111/11111111/11111111/11111111/11111111/11111111/11111111/11111111 w"
+        fen = "11111111/11111111/11111111/11111111/11111111/11111111/11111111/11111111 w KQkq -"
+
+        if pieces.en_passant_x_y[0] != 8 and pieces.en_passant_x_y[1] != 8:
+
+            pos = 79
+
+            if startup.white_turn == True:
+
+                fen = fen[:pos] + self.get_column(pieces.en_passant_x_y[0]) + self.get_row(pieces.en_passant_x_y[1] + 1) + fen[pos + 1:]
+
+            else:
+
+                fen = fen[:pos] + self.get_column(pieces.en_passant_x_y[0]) + self.get_row(pieces.en_passant_x_y[1] - 1) + fen[pos + 1:]
+
+        if pieces.black_king_inf[0][3] == True:
+
+            black_queenside_castling = False
+            black_kingside_castling = False
+
+            for i in range(0, 10):
+
+                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][3] == True and pieces.black_rooks_inf[i][0] == 0 and pieces.black_rooks_inf[i][1] == 7:
+
+                    black_queenside_castling = True
+
+                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][3] == True and pieces.black_rooks_inf[i][0] == 7 and pieces.black_rooks_inf[i][1] == 7:
+
+                    black_kingside_castling = True
+
+            if black_queenside_castling == False:
+
+                pos = 77
+
+                fen = fen[:pos] + fen[pos + 1:]
+
+            if black_kingside_castling == False:
+
+                pos = 76
+
+                fen = fen[:pos] + fen[pos + 1:]
+
+        else:
+
+            pos = 76
+
+            fen = fen[:pos] + fen[pos + 2:]
+
+        if pieces.white_king_inf[0][3] == True:
+
+            white_queenside_castling = False
+            white_kingside_castling = False
+
+            for i in range(0, 10):
+
+                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][3] == True and pieces.white_rooks_inf[i][0] == 0 and pieces.white_rooks_inf[i][1] == 0:
+
+                    white_queenside_castling = True
+
+                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][3] == True and pieces.white_rooks_inf[i][0] == 7 and pieces.white_rooks_inf[i][1] == 0:
+
+                    white_kingside_castling = True
+
+            if white_queenside_castling == False:
+
+                pos = 75
+
+                fen = fen[:pos] + fen[pos + 1:]
+
+            if white_kingside_castling == False:
+
+                pos = 74
+
+                fen = fen[:pos] + fen[pos + 1:]
+
+        else:
+
+            pos = 74
+
+            if fen[76] == " ":
+
+                fen = fen[:pos] + "-" + fen[pos + 2:]
+
+            else:
+
+                fen = fen[:pos] + fen[pos + 2:]
 
         pos = 72
 
@@ -5897,19 +5979,19 @@ class Notation():
 
     def load_fen_position(self, fen):
 
-        pieces.white_pawns_inf = [[0, 1, False, True], [1, 1, False, True], [2, 1, False, True], [3, 1, False, True], [4, 1, False, True], [5, 1, False, True], [6, 1, False, True], [7, 1, False, True]]
+        pieces.white_pawns_inf = [[0, 1, False, False], [1, 1, False, False], [2, 1, False, False], [3, 1, False, False], [4, 1, False, False], [5, 1, False, False], [6, 1, False, False], [7, 1, False, False]]
         pieces.white_bishops_inf = [[2, 0, False], [5, 0, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
         pieces.white_knights_inf = [[1, 0, False], [6, 0, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        pieces.white_rooks_inf = [[0, 0, False, True], [7, 0, False, True], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
+        pieces.white_rooks_inf = [[0, 0, False, False], [7, 0, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
         pieces.white_queens_inf = [[3, 0, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        pieces.white_king_inf = [[4, 0, False, True]]
+        pieces.white_king_inf = [[4, 0, False, False]]
 
-        pieces.black_pawns_inf = [[0, 6, False, True], [1, 6, False, True], [2, 6, False, True], [3, 6, False, True], [4, 6, False, True], [5, 6, False, True], [6, 6, False, True], [7, 6, False, True]]
+        pieces.black_pawns_inf = [[0, 6, False, False], [1, 6, False, False], [2, 6, False, False], [3, 6, False, False], [4, 6, False, False], [5, 6, False, False], [6, 6, False, False], [7, 6, False, False]]
         pieces.black_bishops_inf = [[2, 7, False], [5, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
         pieces.black_knights_inf = [[6, 7, False], [1, 7, False], [6, 3, False], [0, 3, False], [2, 0, False], [2, 6, False], [6, 2, False], [0, 2, False], [0, 7, False], [0, 7, False]]
-        pieces.black_rooks_inf = [[0, 7, False, True], [7, 7, False, True], [2, 0, False, False], [4, 6, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
+        pieces.black_rooks_inf = [[0, 7, False, False], [7, 7, False, False], [2, 0, False, False], [4, 6, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
         pieces.black_queens_inf = [[3, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        pieces.black_king_inf = [[4, 7, False, True]]
+        pieces.black_king_inf = [[4, 7, False, False]]
 
         fen_stage = 0
         x = 0
@@ -5943,6 +6025,10 @@ class Notation():
                             pieces.white_pawns_inf[count][0] = x
                             pieces.white_pawns_inf[count][1] = y
                             pieces.white_pawns_inf[count][2] = True
+
+                            if y == 1:
+
+                                pieces.white_pawns_inf[count][3] = True
 
                             break
 
@@ -6042,6 +6128,10 @@ class Notation():
                             pieces.black_pawns_inf[count][1] = y
                             pieces.black_pawns_inf[count][2] = True
 
+                            if y == 6:
+
+                                pieces.black_pawns_inf[count][3] = True
+
                             break
 
                         else:
@@ -6139,6 +6229,64 @@ class Notation():
                 elif char == "b":
 
                     startup.white_turn = False
+
+            elif fen_stage == 2:
+
+                if char == "K":
+
+                    pieces.white_king_inf[0][3] = True
+
+                    for i in range(0, 10):
+
+                        if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][0] == 7 and pieces.white_rooks_inf[i][1] == 0:
+
+                            pieces.white_rooks_inf[i][3] = True
+
+                elif char == "Q":
+
+                    pieces.white_king_inf[0][3] = True
+
+                    for i in range(0, 10):
+
+                        if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][0] == 0 and pieces.white_rooks_inf[i][1] == 0:
+
+                            pieces.white_rooks_inf[i][3] = True
+
+                elif char == "k":
+
+                    pieces.black_king_inf[0][3] = True
+
+                    for i in range(0, 10):
+
+                        if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][0] == 7 and pieces.black_rooks_inf[i][1] == 7:
+
+                            pieces.black_rooks_inf[i][3] = True
+
+                elif char == "q":
+
+                    pieces.black_king_inf[0][3] = True
+
+                    for i in range(0, 10):
+
+                        if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][0] == 0 and pieces.black_rooks_inf[i][1] == 7:
+
+                            pieces.black_rooks_inf[i][3] = True
+
+            elif fen_stage == 3:
+
+                if char.isnumeric():
+
+                    if startup.white_turn == True:
+
+                        pieces.en_passant_x_y[1] = int(char) - 2
+
+                    else:
+
+                        pieces.en_passant_x_y[1] = int(char)
+
+                else:
+
+                    pieces.en_passant_x_y[0] = self.get_column_char(char)
 
 class Start():
 
@@ -6275,8 +6423,6 @@ class Start():
                         print("That is not a valid position.")
 
                 board.draw_board()
-
-                print(self.playing_as_white)
 
                 if self.playing_as_white == True:
 
@@ -6484,7 +6630,6 @@ class Start():
 
                     fen = notation.create_fen_position()
                     print(fen)
-                    notation.load_fen_position("5k2/1q6/8/8/8/8/8/2K5 w")
                     
                     self.update = True
 
