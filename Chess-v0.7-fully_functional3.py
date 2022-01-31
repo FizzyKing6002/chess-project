@@ -134,6 +134,9 @@ class Pieces():
 
         self.en_passant_x_y = [8, 8]
 
+        self.half_moves = 0
+        self.turn_num = 1
+
     def draw_pieces_white(self):
 
         #print("called")
@@ -4126,6 +4129,11 @@ class Pieces():
     def move_piece(self, notation_val, take):
 
         self.en_passant_x_y = [8, 8]
+        self.half_moves += 1
+
+        if startup.white_turn == False:
+
+            self.turn_num += 1
     
         if notation_val[0] == "B":
 
@@ -4324,6 +4332,8 @@ class Pieces():
                             self.black_rooks_inf[i][1] = 7
 
         else:
+
+            self.half_moves = 0
 
             if notation_val[-2] == "=":
 
@@ -4544,6 +4554,8 @@ class Pieces():
 
         if take == True:
 
+            self.half_moves = 0
+
             peice_taken = False
 
             if startup.white_turn == True:
@@ -4645,6 +4657,20 @@ class Pieces():
                         if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == to_x and self.white_pawns_inf[i][1] == to_y + 1:
 
                             self.white_pawns_inf[i][2] = False
+
+    def half_move_check(self):
+
+        half_move_limit = False
+
+        checkmate = False
+
+        if self.half_moves >= 100:
+
+            half_move_limit = True
+
+            checkmate = self.stale_check_mate()
+
+        return half_move_limit, checkmate
 
     def stale_check_mate(self):
 
@@ -6473,12 +6499,20 @@ class Start():
 
                 if len(pieces.legal_moves) > 0:
 
-                    time.sleep(0.2)
+                    time.sleep(0)
 
                     pieces.convert_pieces_to_matrix()
 
                     notation_val, take = pieces.convert_to_easy_notation(pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)])
                     pieces.move_piece(notation_val, take)
+
+                    half_move_limit, check_mate = pieces.half_move_check()
+
+                    if half_move_limit == True and check_mate == False:
+
+                        print("It's a draw by too many moves!")
+
+                        self.auto_move = False
                         
                     self.white_turn = not self.white_turn
                     
@@ -6551,6 +6585,14 @@ class Start():
 
                     notation_val, take = pieces.convert_to_easy_notation(move_choice)
                     pieces.move_piece(notation_val, take)
+
+                    half_move_limit, check_mate = pieces.half_move_check()
+
+                    if half_move_limit == True and check_mate == False:
+
+                        print("It's a draw by too many moves!")
+
+                        self.one_player = False
                         
                     self.white_turn = not self.white_turn
 
@@ -6611,6 +6653,14 @@ class Start():
 
                     notation_val, take = pieces.convert_to_easy_notation(move_choice)
                     pieces.move_piece(notation_val, take)
+
+                    half_move_limit, check_mate = pieces.half_move_check()
+
+                    if half_move_limit == True and check_mate == False:
+
+                        print("It's a draw by too many moves!")
+
+                        self.two_player = False
                         
                     self.white_turn = not self.white_turn
 
