@@ -136,6 +136,7 @@ class Pieces():
         self.en_passant_x_y = [8, 8]
 
         self.half_moves = 0
+        self.half_move_limit = False
         self.turn_num = 1
 
     def draw_pieces_white(self):
@@ -4658,21 +4659,7 @@ class Pieces():
                         if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][0] == to_x and self.white_pawns_inf[i][1] == to_y + 1:
 
                             self.white_pawns_inf[i][2] = False
-
-    def half_move_check(self):
-
-        half_move_limit = False
-
-        checkmate = False
-
-        if self.half_moves >= 100:
-
-            half_move_limit = True
-
-            checkmate = self.stale_check_mate()
-
-        return half_move_limit, checkmate
-
+                            
     def stale_check_mate(self):
 
         checkmate = False
@@ -5668,13 +5655,25 @@ class Pieces():
 
                 print("Black wins by Checkmate!")
 
+                if startup.save_game_data == True:
+
+                    startup.game_save_winner = 1
+
             else:
 
                 print("White wins by Checkmate!")
 
+                if startup.save_game_data == True:
+
+                    startup.game_save_winner = -1
+
         else:
 
             print("It's a draw by stalemate!")
+
+            if startup.save_game_data == True:
+
+                startup.game_save_winner = 0
 
 class Notation():
 
@@ -6549,10 +6548,9 @@ class Start():
 
                 self.game_save_list = os.listdir(f"Data")
                 self.game_save_number = len(self.game_save_list)
+                self.game_save_winner = None
 
                 os.mkdir(f"Data/Game{self.game_save_number+1}")
-
-                self.game_save_winner = None
 
                 break
 
@@ -6582,40 +6580,42 @@ class Start():
 
         if len(pieces.legal_moves) > 0:
 
-            time.sleep(0)
-
-            pieces.convert_pieces_to_matrix()
-
-            self.move_choice = pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)]
-
-            notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
-            pieces.move_piece(notation_val, take)
-
-            half_move_limit, check_mate = pieces.half_move_check()
-
-            if half_move_limit == True and check_mate == False:
+            if pieces.half_move_limit == True:
 
                 print("It's a draw by too many moves!")
 
-                self.auto_move = False
-                
-            self.white_turn = not self.white_turn
-            
-            board.draw_board()
-            
-            if self.playing_as_white == True:
-                
-                pieces.draw_pieces_white()
+                self.two_player = False
 
             else:
+
+                time.sleep(0)
+
+                self.move_choice = pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)]
+
+                notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
+                pieces.move_piece(notation_val, take)
+
+                if pieces.half_moves >= 100:
+
+                    pieces.half_move_limit = True
+                    
+                self.white_turn = not self.white_turn
                 
-                pieces.draw_pieces_black()
+                board.draw_board()
+                
+                if self.playing_as_white == True:
+                    
+                    pieces.draw_pieces_white()
 
-            if self.save_game_data == True:
+                else:
+                    
+                    pieces.draw_pieces_black()
 
-                self.save_game_data_func()
-            
-            self.update = True
+                if self.save_game_data == True:
+
+                    self.save_game_data_func()
+                
+                self.update = True
 
         else:
 
@@ -6631,7 +6631,85 @@ class Start():
 
         if len(pieces.legal_moves) > 0:
 
-            if self.your_turn == True:
+            if pieces.half_move_limit == True:
+
+                print("It's a draw by too many moves!")
+
+                self.two_player = False
+
+            else:
+
+                if self.your_turn == True:
+
+                    print(pieces.legal_moves)
+
+                    while True:
+
+                        print("Choose a move! (Copy the move exactly)")
+                        self.move_choice = input()
+
+                        if self.move_choice in pieces.legal_moves:
+
+                            break
+
+                        else:
+
+                            print("That is not a valid move.")
+
+                else:
+
+                    time.sleep(0)
+
+                    self.move_choice = pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)]
+
+                self.your_turn = not self.your_turn
+
+                notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
+                pieces.move_piece(notation_val, take)
+
+                if pieces.half_moves >= 100:
+
+                    pieces.half_move_limit = True
+                    
+                self.white_turn = not self.white_turn
+
+                board.draw_board()
+                
+                if self.playing_as_white == True:
+                    
+                    pieces.draw_pieces_white()
+
+                else:
+                    
+                    pieces.draw_pieces_black()
+
+                if self.save_game_data == True:
+
+                    self.save_game_data_func()
+                
+                self.update = True
+
+        else:
+
+            pieces.no_moves()
+            
+            self.one_player = False
+
+    def two_player_func(self):
+
+        pieces.white_black_occupation()
+        pieces.calc_legal_moves()
+        pieces.check_checks()
+
+        if len(pieces.legal_moves) > 0:
+
+            if pieces.half_move_limit == True:
+
+                print("It's a draw by too many moves!")
+
+                self.two_player = False
+
+            else:
 
                 print(pieces.legal_moves)
 
@@ -6648,109 +6726,37 @@ class Start():
 
                         print("That is not a valid move.")
 
-            else:
+                notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
+                pieces.move_piece(notation_val, take)
 
-                time.sleep(0)
+                if pieces.half_moves >= 100:
 
-                pieces.convert_pieces_to_matrix()
+                    pieces.half_move_limit = True
+                    
+                self.white_turn = not self.white_turn
 
-                self.move_choice = pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)]
+                board.draw_board()
 
-            self.your_turn = not self.your_turn
+                if self.auto_rotate == True:
 
-            notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
-            pieces.move_piece(notation_val, take)
-
-            half_move_limit, check_mate = pieces.half_move_check()
-
-            if half_move_limit == True and check_mate == False:
-
-                print("It's a draw by too many moves!")
-
-                self.one_player = False
+                    self.playing_as_white = self.white_turn
                 
-            self.white_turn = not self.white_turn
-
-            board.draw_board()
-            
-            if self.playing_as_white == True:
-                
-                pieces.draw_pieces_white()
-
-            else:
-                
-                pieces.draw_pieces_black()
-
-            if self.save_game_data == True:
-
-                self.save_game_data_func()
-            
-            self.update = True
-
-        else:
-
-            pieces.no_moves()
-            
-            self.one_player = False
-
-    def two_player_func(self):
-
-        pieces.white_black_occupation()
-        pieces.calc_legal_moves()
-        pieces.check_checks()
-
-        if len(pieces.legal_moves) > 0:
-
-            print(pieces.legal_moves)
-
-            while True:
-
-                print("Choose a move! (Copy the move exactly)")
-                self.move_choice = input()
-
-                if self.move_choice in pieces.legal_moves:
-
-                    break
+                if self.playing_as_white == True:
+                    
+                    pieces.draw_pieces_white()
 
                 else:
+                    
+                    pieces.draw_pieces_black()
 
-                    print("That is not a valid move.")
+                fen = notation.create_fen_position()
+                print(fen)
 
-            notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
-            pieces.move_piece(notation_val, take)
+                if self.save_game_data == True:
 
-            half_move_limit, check_mate = pieces.half_move_check()
-
-            if half_move_limit == True and check_mate == False:
-
-                print("It's a draw by too many moves!")
-
-                self.two_player = False
+                    self.save_game_data_func()
                 
-            self.white_turn = not self.white_turn
-
-            board.draw_board()
-
-            if self.auto_rotate == True:
-
-                self.playing_as_white = self.white_turn
-            
-            if self.playing_as_white == True:
-                
-                pieces.draw_pieces_white()
-
-            else:
-                
-                pieces.draw_pieces_black()
-
-            fen = notation.create_fen_position()
-            print(fen)
-
-            if self.save_game_data == True:
-
-                self.save_game_data_func()
-            
-            self.update = True
+                self.update = True
 
         else:
 
