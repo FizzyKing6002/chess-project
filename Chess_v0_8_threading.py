@@ -6620,6 +6620,10 @@ class Start():
         else:
 
             pieces.no_moves()
+
+            if self.save_game_data == True:
+
+                self.save_game_data_func()
             
             self.auto_move = False
 
@@ -6692,6 +6696,10 @@ class Start():
         else:
 
             pieces.no_moves()
+
+            if self.save_game_data == True:
+
+                self.save_game_data_func()
             
             self.one_player = False
 
@@ -6761,6 +6769,10 @@ class Start():
         else:
 
             pieces.no_moves()
+
+            if self.save_game_data == True:
+
+                self.save_game_data_func()
             
             self.two_player = False
 
