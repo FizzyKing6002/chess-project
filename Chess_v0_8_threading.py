@@ -16,11 +16,11 @@ class Board():
 
     def __init__(self):
 
-        self.dark_square = pygame.image.load(os.path.join("textures/dark_square.png")).convert_alpha()
+        self.dark_square = pygame.image.load(os.path.join("Textures/dark_square.png")).convert_alpha()
         self.dark_square = pygame.transform.scale(self.dark_square, (startup.tile_size, startup.tile_size))
         self.dark_square_rect = self.dark_square.get_rect()
 
-        self.light_square = pygame.image.load(os.path.join("textures/light_square.png")).convert_alpha()
+        self.light_square = pygame.image.load(os.path.join("Textures/light_square.png")).convert_alpha()
         self.light_square = pygame.transform.scale(self.light_square, (startup.tile_size, startup.tile_size))
         self.light_square_rect = self.light_square.get_rect()
 
@@ -79,51 +79,51 @@ class Pieces():
                                    [0, 0, 0, 0, 0, 0, 0, 0],
                                    [0, 0, 0, 0, 0, 0, 0, 0]]
         
-        self.white_pawn_img = pygame.image.load(os.path.join("textures/white_pawn.png")).convert_alpha()
+        self.white_pawn_img = pygame.image.load(os.path.join("Textures/white_pawn.png")).convert_alpha()
         self.white_pawn_img = pygame.transform.scale(self.white_pawn_img, (startup.tile_size, startup.tile_size))
         self.white_pawn_img_rect = self.white_pawn_img.get_rect()
 
-        self.white_knight_img = pygame.image.load(os.path.join("textures/white_knight.png")).convert_alpha()
+        self.white_knight_img = pygame.image.load(os.path.join("Textures/white_knight.png")).convert_alpha()
         self.white_knight_img = pygame.transform.scale(self.white_knight_img, (startup.tile_size, startup.tile_size))
         self.white_knight_img_rect = self.white_knight_img.get_rect()
 
-        self.white_bishop_img = pygame.image.load(os.path.join("textures/white_bishop.png")).convert_alpha()
+        self.white_bishop_img = pygame.image.load(os.path.join("Textures/white_bishop.png")).convert_alpha()
         self.white_bishop_img = pygame.transform.scale(self.white_bishop_img, (startup.tile_size, startup.tile_size))
         self.white_bishop_img_rect = self.white_bishop_img.get_rect()
 
-        self.white_rook_img = pygame.image.load(os.path.join("textures/white_rook.png")).convert_alpha()
+        self.white_rook_img = pygame.image.load(os.path.join("Textures/white_rook.png")).convert_alpha()
         self.white_rook_img = pygame.transform.scale(self.white_rook_img, (startup.tile_size, startup.tile_size))
         self.white_rook_img_rect = self.white_rook_img.get_rect()
 
-        self.white_queen_img = pygame.image.load(os.path.join("textures/white_queen.png")).convert_alpha()
+        self.white_queen_img = pygame.image.load(os.path.join("Textures/white_queen.png")).convert_alpha()
         self.white_queen_img = pygame.transform.scale(self.white_queen_img, (startup.tile_size, startup.tile_size))
         self.white_queen_img_rect = self.white_queen_img.get_rect()
 
-        self.white_king_img = pygame.image.load(os.path.join("textures/white_king.png")).convert_alpha()
+        self.white_king_img = pygame.image.load(os.path.join("Textures/white_king.png")).convert_alpha()
         self.white_king_img = pygame.transform.scale(self.white_king_img, (startup.tile_size, startup.tile_size))
         self.white_king_img_rect = self.white_king_img.get_rect()
 
-        self.black_pawn_img = pygame.image.load(os.path.join("textures/black_pawn.png")).convert_alpha()
+        self.black_pawn_img = pygame.image.load(os.path.join("Textures/black_pawn.png")).convert_alpha()
         self.black_pawn_img = pygame.transform.scale(self.black_pawn_img, (startup.tile_size, startup.tile_size))
         self.black_pawn_img_rect = self.black_pawn_img.get_rect()
 
-        self.black_knight_img = pygame.image.load(os.path.join("textures/black_knight.png")).convert_alpha()
+        self.black_knight_img = pygame.image.load(os.path.join("Textures/black_knight.png")).convert_alpha()
         self.black_knight_img = pygame.transform.scale(self.black_knight_img, (startup.tile_size, startup.tile_size))
         self.black_knight_img_rect = self.black_knight_img.get_rect()
 
-        self.black_bishop_img = pygame.image.load(os.path.join("textures/black_bishop.png")).convert_alpha()
+        self.black_bishop_img = pygame.image.load(os.path.join("Textures/black_bishop.png")).convert_alpha()
         self.black_bishop_img = pygame.transform.scale(self.black_bishop_img, (startup.tile_size, startup.tile_size))
         self.black_bishop_img_rect = self.black_bishop_img.get_rect()
 
-        self.black_rook_img = pygame.image.load(os.path.join("textures/black_rook.png")).convert_alpha()
+        self.black_rook_img = pygame.image.load(os.path.join("Textures/black_rook.png")).convert_alpha()
         self.black_rook_img = pygame.transform.scale(self.black_rook_img, (startup.tile_size, startup.tile_size))
         self.black_rook_img_rect = self.black_rook_img.get_rect()
 
-        self.black_queen_img = pygame.image.load(os.path.join("textures/black_queen.png")).convert_alpha()
+        self.black_queen_img = pygame.image.load(os.path.join("Textures/black_queen.png")).convert_alpha()
         self.black_queen_img = pygame.transform.scale(self.black_queen_img, (startup.tile_size, startup.tile_size))
         self.black_queen_img_rect = self.black_queen_img.get_rect()
 
-        self.black_king_img = pygame.image.load(os.path.join("textures/black_king.png")).convert_alpha()
+        self.black_king_img = pygame.image.load(os.path.join("Textures/black_king.png")).convert_alpha()
         self.black_king_img = pygame.transform.scale(self.black_king_img, (startup.tile_size, startup.tile_size))
         self.black_king_img_rect = self.black_king_img.get_rect()
 
