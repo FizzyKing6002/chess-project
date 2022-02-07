@@ -4337,6 +4337,10 @@ class Pieces():
 
             self.half_moves = 0
 
+            repetition_draw_file_write = open("repetition_draw_file.txt", "w")
+            repetition_draw_file_write.write("")
+            repetition_draw_file_write.close()
+
             if notation_val[-2] == "=":
 
                 to_x = notation.get_column_char(notation_val[-4])
@@ -4557,6 +4561,10 @@ class Pieces():
         if take == True:
 
             self.half_moves = 0
+
+            repetition_draw_file_write = open("repetition_draw_file.txt", "w")
+            repetition_draw_file_write.write("")
+            repetition_draw_file_write.close()
 
             peice_taken = False
 
@@ -5545,6 +5553,8 @@ class Pieces():
 
                 self.piece_value_matrix[7 - self.black_king_inf[0][1]][self.black_king_inf[0][0]] = 100
 
+        return self.piece_value_matrix
+
     def find_piece_name(self, x, y):
 
         found = False
@@ -6332,6 +6342,41 @@ class Notation():
 
                     pieces.en_passant_x_y[0] = self.get_column_char(char)
 
+    def save_notation_for_repetition(self):
+
+        draw_by_repetition = False
+
+        fen = self.create_fen_position()
+        fen = fen[:fen.find(" ")]
+        
+        repetition_draw_file_append = open("repetition_draw_file.txt", "a")
+
+        repetition_draw_file_append.write(fen + "\n")
+
+        repetition_draw_file_append.close()
+
+        repeat_num = 0
+
+        repetition_draw_file_read = open("repetition_draw_file.txt", "r")
+
+        for line in repetition_draw_file_read:
+
+            if line == fen + "\n":
+
+                repeat_num += 1
+
+        repetition_draw_file_read.close()
+
+        if repeat_num >= 3:
+
+            draw_by_repetition = True
+
+            repetition_draw_file_write = open("repetition_draw_file.txt", "w")
+            repetition_draw_file_write.write("")
+            repetition_draw_file_write.close()
+
+        return draw_by_repetition
+
 class Start():
 
     def __init__(self):
@@ -6364,6 +6409,16 @@ class Start():
 
         self.move_choice = ""
 
+        if not os.path.exists("repetition_draw_file.txt"):
+
+            open("repetition_draw_file.txt", "a").close()
+
+        else:
+
+            repetition_draw_file_write = open("repetition_draw_file.txt", "w")
+            repetition_draw_file_write.write("")
+            repetition_draw_file_write.close()
+        
     def start(self):
 
         self.player_customisations_thread = threading.Thread(target = self.player_customisations_func)
@@ -6584,7 +6639,7 @@ class Start():
 
                 print("It's a draw by too many moves!")
 
-                self.two_player = False
+                self.auto_move = False
 
             else:
 
@@ -6610,6 +6665,14 @@ class Start():
                 else:
                     
                     pieces.draw_pieces_black()
+
+                draw_by_repetition = notation.save_notation_for_repetition()
+
+                if draw_by_repetition == True:
+
+                    print("It's a draw by repetition!")
+
+                    self.auto_move = False
 
                 if self.save_game_data == True:
 
@@ -6639,7 +6702,7 @@ class Start():
 
                 print("It's a draw by too many moves!")
 
-                self.two_player = False
+                self.one_player = False
 
             else:
 
@@ -6686,6 +6749,14 @@ class Start():
                 else:
                     
                     pieces.draw_pieces_black()
+
+                draw_by_repetition = notation.save_notation_for_repetition()
+
+                if draw_by_repetition == True:
+
+                    print("It's a draw by repetition!")
+
+                    self.one_player = False
 
                 if self.save_game_data == True:
 
@@ -6757,8 +6828,13 @@ class Start():
                     
                     pieces.draw_pieces_black()
 
-                fen = notation.create_fen_position()
-                print(fen)
+                draw_by_repetition = notation.save_notation_for_repetition()
+
+                if draw_by_repetition == True:
+
+                    print("It's a draw by repetition!")
+
+                    self.two_player = False
 
                 if self.save_game_data == True:
 
