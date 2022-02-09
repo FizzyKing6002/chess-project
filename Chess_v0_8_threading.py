@@ -5685,6 +5685,123 @@ class Pieces():
 
                 startup.game_save_winner = 0
 
+    def check_repetition_by_insufficient_material(self):
+
+        keep_checking_for_draw = True
+
+        white_minor_pieces_num = 0
+        black_minor_pieces_num = 0
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 8):
+
+                if self.white_pawns_inf[i][2] == True:
+
+                    keep_checking_for_draw = False
+
+                    break
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 8):
+
+                if self.black_pawns_inf[i][2] == True:
+
+                    keep_checking_for_draw = False
+
+                    break
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 9):
+
+                if self.white_queens_inf[i][2] == True:
+
+                    keep_checking_for_draw = False
+
+                    break
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 9):
+
+                if self.black_queens_inf[i][2] == True:
+
+                    keep_checking_for_draw = False
+
+                    break
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 10):
+
+                if self.white_rooks_inf[i][2] == True:
+
+                    keep_checking_for_draw = False
+
+                    break
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 10):
+
+                if self.black_rooks_inf[i][2] == True:
+
+                    keep_checking_for_draw = False
+
+                    break
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 8):
+
+                if self.white_bishops_inf[i][2] == True:
+
+                    white_minor_pieces_num += 1
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 8):
+
+                if self.black_bishops_inf[i][2] == True:
+
+                    black_minor_pieces_num += 1
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 8):
+
+                if self.white_knights_inf[i][2] == True:
+
+                    white_minor_pieces_num += 1
+
+        if keep_checking_for_draw == True:
+
+            for i in range(0, 8):
+
+                if self.black_knights_inf[i][2] == True:
+
+                    black_minor_pieces_num += 1
+
+        if keep_checking_for_draw == True:
+
+            if white_minor_pieces_num >= 2:
+
+                keep_checking_for_draw = False
+
+            if black_minor_pieces_num >= 2:
+
+                keep_checking_for_draw = False
+
+        if keep_checking_for_draw == True:
+
+            return True
+
+        else:
+
+            return False
+
 class Notation():
 
     def __init__(self):
@@ -5829,7 +5946,15 @@ class Notation():
 
     def create_fen_position(self):
 
-        fen = "11111111/11111111/11111111/11111111/11111111/11111111/11111111/11111111 w KQkq -"
+        fen = "11111111/11111111/11111111/11111111/11111111/11111111/11111111/11111111 w KQkq - - -"
+
+        pos = 83
+
+        fen = fen[:pos] + str(pieces.turn_num) + fen[pos + 1:]
+
+        pos = 81
+
+        fen = fen[:pos] + str(pieces.half_moves) + fen[pos + 1:]
 
         if pieces.en_passant_x_y[0] != 8 and pieces.en_passant_x_y[1] != 8:
 
@@ -6050,6 +6175,9 @@ class Notation():
         fen_stage = 0
         x = 0
         y = 7
+
+        half_move_chars = ""
+        turn_num_chars = ""
 
         for char in fen:
 
@@ -6342,17 +6470,34 @@ class Notation():
 
                     pieces.en_passant_x_y[0] = self.get_column_char(char)
 
+            elif fen_stage == 4:
+
+                if char.isnumeric():
+
+                    half_move_chars = half_move_chars + char
+
+                    pieces.half_moves = int(half_move_chars)
+
+            elif fen_stage == 5:
+
+                if char.isnumeric():
+
+                    turn_num_chars = turn_num_chars + char
+
+                    pieces.turn_num = int(turn_num_chars)
+
     def save_notation_for_repetition(self):
 
         draw_by_repetition = False
 
         fen = self.create_fen_position()
+        
+        #print(fen)
+        
         fen = fen[:fen.find(" ")]
         
         repetition_draw_file_append = open("repetition_draw_file.txt", "a")
-
         repetition_draw_file_append.write(fen + "\n")
-
         repetition_draw_file_append.close()
 
         repeat_num = 0
@@ -6370,10 +6515,6 @@ class Notation():
         if repeat_num >= 3:
 
             draw_by_repetition = True
-
-            repetition_draw_file_write = open("repetition_draw_file.txt", "w")
-            repetition_draw_file_write.write("")
-            repetition_draw_file_write.close()
 
         return draw_by_repetition
 
@@ -6625,6 +6766,16 @@ class Start():
 
             pieces.draw_pieces_black()
 
+        draw_by_insufficient_material = pieces.check_repetition_by_insufficient_material()
+
+        if draw_by_insufficient_material == True:
+
+            print("It's a draw by insufficient material!")
+
+            self.auto_move = False
+            self.one_player = False
+            self.two_player = False
+
         self.update = True
 
     def auto_move_func(self):
@@ -6665,6 +6816,14 @@ class Start():
                 else:
                     
                     pieces.draw_pieces_black()
+
+                draw_by_insufficient_material = pieces.check_repetition_by_insufficient_material()
+
+                if draw_by_insufficient_material == True:
+
+                    print("It's a draw by insufficient material!")
+
+                    self.two_player = False
 
                 draw_by_repetition = notation.save_notation_for_repetition()
 
@@ -6750,6 +6909,14 @@ class Start():
                     
                     pieces.draw_pieces_black()
 
+                draw_by_insufficient_material = pieces.check_repetition_by_insufficient_material()
+
+                if draw_by_insufficient_material == True:
+
+                    print("It's a draw by insufficient material!")
+
+                    self.two_player = False
+
                 draw_by_repetition = notation.save_notation_for_repetition()
 
                 if draw_by_repetition == True:
@@ -6827,6 +6994,14 @@ class Start():
                 else:
                     
                     pieces.draw_pieces_black()
+
+                draw_by_insufficient_material = pieces.check_repetition_by_insufficient_material()
+
+                if draw_by_insufficient_material == True:
+
+                    print("It's a draw by insufficient material!")
+
+                    self.two_player = False
 
                 draw_by_repetition = notation.save_notation_for_repetition()
 
