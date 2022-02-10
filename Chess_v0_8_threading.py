@@ -5685,7 +5685,7 @@ class Pieces():
 
                 startup.game_save_winner = 0
 
-    def check_repetition_by_insufficient_material(self):
+    def check_draw_by_insufficient_material(self):
 
         keep_checking_for_draw = True
 
@@ -5795,6 +5795,12 @@ class Pieces():
                 keep_checking_for_draw = False
 
         if keep_checking_for_draw == True:
+
+            if startup.save_game_data == True:
+
+                startup.game_save_winner = 0
+
+            startup.game_over = True
 
             return True
 
@@ -6516,6 +6522,12 @@ class Notation():
 
             draw_by_repetition = True
 
+            if startup.save_game_data == True:
+
+                startup.game_save_winner = 0
+
+            startup.game_over = True
+
         return draw_by_repetition
 
 class Start():
@@ -6536,6 +6548,7 @@ class Start():
         self.tile_size = self.screen_height // 8
 
         self.run = True
+        self.game_over = False
         self.update = False
         self.white_turn = True
         self.playing_as_white = True
@@ -6598,6 +6611,16 @@ class Start():
 
                     self.two_player_thread = threading.Thread(target = self.two_player_func)
                     self.two_player_thread.start()
+
+                elif self.game_over == True:
+
+                    self.game_over_thread = threading.Thread(target = self.game_over_func)
+                    self.game_over_thread.start()
+
+                else:
+
+                    self.play_again_thread = threading.Thread(target = self.play_again_func)
+                    self.play_again_thread.start()
                         
         pygame.quit()
 
@@ -6766,7 +6789,7 @@ class Start():
 
             pieces.draw_pieces_black()
 
-        draw_by_insufficient_material = pieces.check_repetition_by_insufficient_material()
+        draw_by_insufficient_material = pieces.check_draw_by_insufficient_material()
 
         if draw_by_insufficient_material == True:
 
@@ -6790,7 +6813,13 @@ class Start():
 
                 print("It's a draw by too many moves!")
 
+                if self.save_game_data == True:
+                
+                    self.game_save_amount -= 1
+                    self.game_save_winner = 0
+
                 self.auto_move = False
+                self.game_over = True
 
             else:
 
@@ -6817,13 +6846,13 @@ class Start():
                     
                     pieces.draw_pieces_black()
 
-                draw_by_insufficient_material = pieces.check_repetition_by_insufficient_material()
+                draw_by_insufficient_material = pieces.check_draw_by_insufficient_material()
 
                 if draw_by_insufficient_material == True:
 
                     print("It's a draw by insufficient material!")
 
-                    self.two_player = False
+                    self.auto_move = False
 
                 draw_by_repetition = notation.save_notation_for_repetition()
 
@@ -6833,11 +6862,9 @@ class Start():
 
                     self.auto_move = False
 
-                if self.save_game_data == True:
+            if self.save_game_data == True:
 
-                    self.save_game_data_func()
-                
-                self.update = True
+                self.save_game_data_func()
 
         else:
 
@@ -6848,6 +6875,9 @@ class Start():
                 self.save_game_data_func()
             
             self.auto_move = False
+            self.game_over = True
+                
+        self.update = True
 
     def one_player_func(self):
 
@@ -6861,7 +6891,13 @@ class Start():
 
                 print("It's a draw by too many moves!")
 
+                if self.save_game_data == True:
+
+                    self.game_save_amount -= 1
+                    self.game_save_winner = 0
+
                 self.one_player = False
+                self.game_over = True
 
             else:
 
@@ -6909,13 +6945,13 @@ class Start():
                     
                     pieces.draw_pieces_black()
 
-                draw_by_insufficient_material = pieces.check_repetition_by_insufficient_material()
+                draw_by_insufficient_material = pieces.check_draw_by_insufficient_material()
 
                 if draw_by_insufficient_material == True:
 
                     print("It's a draw by insufficient material!")
 
-                    self.two_player = False
+                    self.one_player = False
 
                 draw_by_repetition = notation.save_notation_for_repetition()
 
@@ -6925,11 +6961,9 @@ class Start():
 
                     self.one_player = False
 
-                if self.save_game_data == True:
+            if self.save_game_data == True:
 
-                    self.save_game_data_func()
-                
-                self.update = True
+                self.save_game_data_func()
 
         else:
 
@@ -6940,6 +6974,9 @@ class Start():
                 self.save_game_data_func()
             
             self.one_player = False
+            self.game_over = True
+                
+        self.update = True
 
     def two_player_func(self):
 
@@ -6953,7 +6990,13 @@ class Start():
 
                 print("It's a draw by too many moves!")
 
+                if self.save_game_data == True:
+
+                    self.game_save_amount -= 1
+                    self.game_save_winner = 0
+
                 self.two_player = False
+                self.game_over = True
 
             else:
 
@@ -6995,7 +7038,7 @@ class Start():
                     
                     pieces.draw_pieces_black()
 
-                draw_by_insufficient_material = pieces.check_repetition_by_insufficient_material()
+                draw_by_insufficient_material = pieces.check_draw_by_insufficient_material()
 
                 if draw_by_insufficient_material == True:
 
@@ -7011,11 +7054,9 @@ class Start():
 
                     self.two_player = False
 
-                if self.save_game_data == True:
+            if self.save_game_data == True:
 
-                    self.save_game_data_func()
-                
-                self.update = True
+                self.save_game_data_func()
 
         else:
 
@@ -7026,6 +7067,91 @@ class Start():
                 self.save_game_data_func()
             
             self.two_player = False
+            self.game_over = True
+                
+        self.update = True
+
+    def game_over_func(self):
+
+        self.game_over = False
+        
+        self.white_turn = True
+        self.playing_as_white = True
+        self.auto_rotate = False
+        self.your_turn = True
+
+        self.save_game_data = False
+
+        self.auto_move = False
+        self.one_player = False
+        self.two_player = False
+
+        self.move_choice = ""
+
+        repetition_draw_file_write = open("repetition_draw_file.txt", "w")
+        repetition_draw_file_write.write("")
+        repetition_draw_file_write.close()
+
+        pieces.white_pawns_inf = [[0, 1, True, True], [1, 1, True, True], [2, 1, True, True], [3, 1, True, True], [4, 1, True, True], [5, 1, True, True], [6, 1, True, True], [7, 1, True, True]]
+        pieces.white_bishops_inf = [[2, 0, True], [5, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.white_knights_inf = [[1, 0, True], [6, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.white_rooks_inf = [[0, 0, True, True], [7, 0, True, True], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
+        pieces.white_queens_inf = [[3, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.white_king_inf = [[4, 0, True, True]]
+
+        pieces.black_pawns_inf = [[0, 6, True, True], [1, 6, True, True], [2, 6, True, True], [3, 6, True, True], [4, 6, True, True], [5, 6, True, True], [6, 6, True, True], [7, 6, True, True]]
+        pieces.black_bishops_inf = [[2, 7, True], [5, 7, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.black_knights_inf = [[6, 7, True], [1, 7, True], [6, 3, False], [0, 3, False], [2, 0, False], [2, 6, False], [6, 2, False], [0, 2, False], [0, 7, False], [0, 7, False]]
+        pieces.black_rooks_inf = [[0, 7, True, True], [7, 7, True, True], [2, 0, False, False], [4, 6, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
+        pieces.black_queens_inf = [[3, 7, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
+        pieces.black_king_inf = [[4, 7, True, True]]
+
+        pieces.piece_value_matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0],
+                                   [0, 0, 0, 0, 0, 0, 0, 0]]
+
+        pieces.white_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
+        pieces.white_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
+
+        pieces.black_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
+        pieces.black_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
+
+        pieces.en_passant_x_y = [8, 8]
+
+        pieces.half_moves = 0
+        pieces.half_move_limit = False
+        pieces.turn_num = 1
+
+        self.update = True
+
+    def play_again_func(self):
+
+        while True:
+
+            print("Do you want to play again? (y/n)")
+
+            play_again_input = input()
+
+            if play_again_input == "y":
+
+                self.player_customisations_func()
+
+                self.update = True
+
+                break
+
+            elif play_again_input == "n":
+
+                break
+
+            else:
+
+                print("That is not a valid answer.")
 
     def save_game_data_func(self):
 
