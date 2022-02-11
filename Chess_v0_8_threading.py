@@ -6631,7 +6631,7 @@ class Start():
 
         pygame.display.update()
 
-        while True:
+        while self.run:
             
             print("How many players? (0-2)")
             player_amount = input()
@@ -6660,7 +6660,7 @@ class Start():
 
             self.one_player = True
 
-            while True:
+            while self.run:
 
                 print("Do you want to play as white, black or a random colour? (w/b/r)")
                 playing_as_input = input()
@@ -6690,7 +6690,7 @@ class Start():
 
             self.two_player = True
 
-            while True:
+            while self.run:
 
                 print("Do you want to rotate the board automatically? (y/n)")
                 board_rotate_input = input()
@@ -6709,14 +6709,14 @@ class Start():
 
                     print("That is not a valid answer.")
 
-        while True:
+        while self.run:
 
             print("Do you want to play from a pre-determined position? (y/n)")
             predetermined_position_input = input()
 
             if predetermined_position_input == "y":
 
-                while True:
+                while self.run:
 
                     print("Paste the fen position.")
                     fen_position = input()
@@ -6752,7 +6752,7 @@ class Start():
 
                 print("That is not a valid answer.")
 
-        while True:
+        while self.run:
 
             print("Would you like to save this game's data? (y/n)")
             save_game_data_input = input()
@@ -6905,7 +6905,7 @@ class Start():
 
                     print(pieces.legal_moves)
 
-                    while True:
+                    while self.run:
 
                         print("Choose a move! (Copy the move exactly)")
                         self.move_choice = input()
@@ -7002,7 +7002,7 @@ class Start():
 
                 print(pieces.legal_moves)
 
-                while True:
+                while self.run:
 
                     print("Choose a move! (Copy the move exactly)")
                     self.move_choice = input()
@@ -7131,7 +7131,7 @@ class Start():
 
     def play_again_func(self):
 
-        while True:
+        while self.run:
 
             print("Do you want to play again? (y/n)")
 
