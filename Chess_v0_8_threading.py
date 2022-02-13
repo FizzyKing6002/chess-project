@@ -1,4 +1,3 @@
-
 import multiprocessing
 import threading
 import pygame
@@ -54,21 +53,25 @@ class Pieces():
 
     def __init__(self):
 
-        #[xpos, ypos, alive, unmoved]
+        #[xpos, ypos, alive, selected, being dragged, unmoved]
         
-        self.white_pawns_inf = [[0, 1, True, True], [1, 1, True, True], [2, 1, True, True], [3, 1, True, True], [4, 1, True, True], [5, 1, True, True], [6, 1, True, True], [7, 1, True, True]]
-        self.white_bishops_inf = [[2, 0, True], [5, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        self.white_knights_inf = [[1, 0, True], [6, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        self.white_rooks_inf = [[0, 0, True, True], [7, 0, True, True], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
-        self.white_queens_inf = [[3, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        self.white_king_inf = [[4, 0, True, True]]
+        self.white_pawns_inf = [[0, 1, True, False, False, True], [1, 1, True, False, False, True], [2, 1, True, False, False, True], [3, 1, True, False, False, True], [4, 1, True, False, False, True], [5, 1, True, False, False, True], [6, 1, True, False, False, True], [7, 1, True, False, False, True]]
+        self.white_bishops_inf = [[2, 0, True, False, False], [5, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        self.white_knights_inf = [[1, 0, True, False, False], [6, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        self.white_rooks_inf = [[0, 0, True, False, False, True], [7, 0, True, False, False, True], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False]]
+        self.white_queens_inf = [[3, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        self.white_king_inf = [[4, 0, True, False, False, True]]
 
-        self.black_pawns_inf = [[0, 6, True, True], [1, 6, True, True], [2, 6, True, True], [3, 6, True, True], [4, 6, True, True], [5, 6, True, True], [6, 6, True, True], [7, 6, True, True]]
-        self.black_bishops_inf = [[2, 7, True], [5, 7, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        self.black_knights_inf = [[6, 7, True], [1, 7, True], [6, 3, False], [0, 3, False], [2, 0, False], [2, 6, False], [6, 2, False], [0, 2, False], [0, 7, False], [0, 7, False]]
-        self.black_rooks_inf = [[0, 7, True, True], [7, 7, True, True], [2, 0, False, False], [4, 6, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
-        self.black_queens_inf = [[3, 7, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        self.black_king_inf = [[4, 7, True, True]]
+        self.black_pawns_inf = [[0, 6, True, False, False, True], [1, 6, True, False, False, True], [2, 6, True, False, False, True], [3, 6, True, False, False, True], [4, 6, True, False, False, True], [5, 6, True, False, False, True], [6, 6, True, False, False, True], [7, 6, True, False, False, True]]
+        self.black_bishops_inf = [[2, 7, True, False, False], [5, 7, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        self.black_knights_inf = [[6, 7, True, False, False], [1, 7, True, False, False], [6, 3, False, False, False], [0, 3, False, False, False], [2, 0, False, False, False], [2, 6, False, False, False], [6, 2, False, False, False], [0, 2, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        self.black_rooks_inf = [[0, 7, True, False, False, True], [7, 7, True, False, False, True], [2, 0, False, False, False, False], [4, 6, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False]]
+        self.black_queens_inf = [[3, 7, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        self.black_king_inf = [[4, 7, True, False, False, True]]
+
+        #[xpos, ypos, alive, clicked once]
+
+        self.tile_outline_inf = [0, 0, False, False]
 
         self.piece_value_matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
                                    [0, 0, 0, 0, 0, 0, 0, 0],
@@ -127,6 +130,10 @@ class Pieces():
         self.black_king_img = pygame.transform.scale(self.black_king_img, (startup.tile_size, startup.tile_size))
         self.black_king_img_rect = self.black_king_img.get_rect()
 
+        self.tile_outline_img = pygame.image.load(os.path.join("Textures/tile_outline.png")).convert_alpha()
+        self.tile_outline_img = pygame.transform.scale(self.tile_outline_img, (startup.tile_size, startup.tile_size))
+        self.tile_outline_img_rect = self.tile_outline_img.get_rect()
+
         self.white_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
         self.white_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
 
@@ -135,17 +142,18 @@ class Pieces():
 
         self.en_passant_x_y = [8, 8]
 
+        self.legal_moves = []
+        self.final_legal_moves = []
+
         self.half_moves = 0
         self.half_move_limit = False
         self.turn_num = 1
 
     def draw_pieces_white(self):
 
-        #print("called")
-
         for i in range(0, 8):
 
-            if self.white_pawns_inf[i][2] == True:
+            if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][4] == False:
 
                 self.white_pawn_img_rect.x = self.white_pawns_inf[i][0] * startup.tile_size
                 self.white_pawn_img_rect.y = self.white_pawns_inf[i][1] * startup.tile_size
@@ -155,7 +163,7 @@ class Pieces():
 
         for i in range(0, 10):
 
-            if self.white_bishops_inf[i][2] == True:
+            if self.white_bishops_inf[i][2] == True and self.white_bishops_inf[i][4] == False:
 
                 self.white_bishop_img_rect.x = self.white_bishops_inf[i][0] * startup.tile_size
                 self.white_bishop_img_rect.y = self.white_bishops_inf[i][1] * startup.tile_size
@@ -165,7 +173,7 @@ class Pieces():
 
         for i in range(0, 10):
 
-            if self.white_knights_inf[i][2] == True:
+            if self.white_knights_inf[i][2] == True and self.white_knights_inf[i][4] == False:
 
                 self.white_knight_img_rect.x = self.white_knights_inf[i][0] * startup.tile_size
                 self.white_knight_img_rect.y = self.white_knights_inf[i][1] * startup.tile_size
@@ -175,7 +183,7 @@ class Pieces():
 
         for i in range(0, 10):
 
-            if self.white_rooks_inf[i][2] == True:
+            if self.white_rooks_inf[i][2] == True and self.white_rooks_inf[i][4] == False:
 
                 self.white_rook_img_rect.x = self.white_rooks_inf[i][0] * startup.tile_size
                 self.white_rook_img_rect.y = self.white_rooks_inf[i][1] * startup.tile_size
@@ -185,7 +193,7 @@ class Pieces():
 
         for i in range(0, 9):
             
-            if self.white_queens_inf[i][2] == True:
+            if self.white_queens_inf[i][2] == True and self.white_queens_inf[i][4] == False:
 
                 self.white_queen_img_rect.x = self.white_queens_inf[i][0] * startup.tile_size
                 self.white_queen_img_rect.y = self.white_queens_inf[i][1] * startup.tile_size
@@ -193,7 +201,7 @@ class Pieces():
 
                 startup.screen.blit(self.white_queen_img, self.white_queen_img_rect)
 
-        if self.white_king_inf[0][2] == True:
+        if self.white_king_inf[0][2] == True and self.white_king_inf[0][4] == False:
 
             self.white_king_img_rect.x = self.white_king_inf[0][0] * startup.tile_size
             self.white_king_img_rect.y = self.white_king_inf[0][1] * startup.tile_size
@@ -203,7 +211,7 @@ class Pieces():
 
         for i in range(0, 8):
 
-            if self.black_pawns_inf[i][2] == True:
+            if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][4] == False:
 
                 self.black_pawn_img_rect.x = self.black_pawns_inf[i][0] * startup.tile_size
                 self.black_pawn_img_rect.y = self.black_pawns_inf[i][1] * startup.tile_size
@@ -213,7 +221,7 @@ class Pieces():
 
         for i in range(0, 10):
 
-            if self.black_bishops_inf[i][2] == True:
+            if self.black_bishops_inf[i][2] == True and self.black_bishops_inf[i][4] == False:
 
                 self.black_bishop_img_rect.x = self.black_bishops_inf[i][0] * startup.tile_size
                 self.black_bishop_img_rect.y = self.black_bishops_inf[i][1] * startup.tile_size
@@ -223,7 +231,7 @@ class Pieces():
 
         for i in range(0, 10):
 
-            if self.black_knights_inf[i][2] == True:
+            if self.black_knights_inf[i][2] == True and self.black_knights_inf[i][4] == False:
 
                 self.black_knight_img_rect.x = self.black_knights_inf[i][0] * startup.tile_size
                 self.black_knight_img_rect.y = self.black_knights_inf[i][1] * startup.tile_size
@@ -233,7 +241,7 @@ class Pieces():
 
         for i in range(0, 10):
 
-            if self.black_rooks_inf[i][2] == True:
+            if self.black_rooks_inf[i][2] == True and self.black_rooks_inf[i][4] == False:
 
                 self.black_rook_img_rect.x = self.black_rooks_inf[i][0] * startup.tile_size
                 self.black_rook_img_rect.y = self.black_rooks_inf[i][1] * startup.tile_size
@@ -243,7 +251,7 @@ class Pieces():
 
         for i in range(0, 9):
 
-            if self.black_queens_inf[i][2] == True:
+            if self.black_queens_inf[i][2] == True and self.black_queens_inf[i][4] == False:
 
                 self.black_queen_img_rect.x = self.black_queens_inf[i][0] * startup.tile_size
                 self.black_queen_img_rect.y = self.black_queens_inf[i][1] * startup.tile_size
@@ -251,7 +259,7 @@ class Pieces():
 
                 startup.screen.blit(self.black_queen_img, self.black_queen_img_rect)
 
-        if self.black_king_inf[0][2] == True:
+        if self.black_king_inf[0][2] == True and self.black_king_inf[0][4] == False:
 
             self.black_king_img_rect.x = self.black_king_inf[0][0] * startup.tile_size
             self.black_king_img_rect.y = self.black_king_inf[0][1] * startup.tile_size
@@ -259,11 +267,19 @@ class Pieces():
 
             startup.screen.blit(self.black_king_img, self.black_king_img_rect)
 
+        if self.tile_outline_inf[2] == True:
+
+            self.tile_outline_img_rect.x = self.tile_outline_inf[0] * startup.tile_size
+            self.tile_outline_img_rect.y = self.tile_outline_inf[1] * startup.tile_size
+            self.tile_outline_img_rect.y = self.tile_outline_img_rect.y - (self.tile_outline_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
+
+            startup.screen.blit(self.tile_outline_img, self.tile_outline_img_rect)
+
     def draw_pieces_black(self):
 
         for i in range(0, 8):
 
-            if self.white_pawns_inf[i][2] == True:
+            if self.white_pawns_inf[i][2] == True and self.white_pawns_inf[i][4] == False:
 
                 self.white_pawn_img_rect.x = self.white_pawns_inf[i][0] * startup.tile_size
                 self.white_pawn_img_rect.x = self.white_pawn_img_rect.x - (self.white_pawn_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -273,7 +289,7 @@ class Pieces():
 
         for i in range(0, 2):
 
-            if self.white_bishops_inf[i][2] == True:
+            if self.white_bishops_inf[i][2] == True and self.white_bishops_inf[i][4] == False:
 
                 self.white_bishop_img_rect.x = self.white_bishops_inf[i][0] * startup.tile_size
                 self.white_bishop_img_rect.x = self.white_bishop_img_rect.x - (self.white_bishop_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -283,7 +299,7 @@ class Pieces():
 
         for i in range(0, 2):
 
-            if self.white_knights_inf[i][2] == True:
+            if self.white_knights_inf[i][2] == True and self.white_knights_inf[i][4] == False:
 
                 self.white_knight_img_rect.x = self.white_knights_inf[i][0] * startup.tile_size
                 self.white_knight_img_rect.x = self.white_knight_img_rect.x - (self.white_knight_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -293,7 +309,7 @@ class Pieces():
 
         for i in range(0, 2):
 
-            if self.white_rooks_inf[i][2] == True:
+            if self.white_rooks_inf[i][2] == True and self.white_rooks_inf[i][4] == False:
 
                 self.white_rook_img_rect.x = self.white_rooks_inf[i][0] * startup.tile_size
                 self.white_rook_img_rect.x = self.white_rook_img_rect.x - (self.white_rook_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -301,7 +317,7 @@ class Pieces():
 
                 startup.screen.blit(self.white_rook_img, self.white_rook_img_rect)
 
-        if self.white_queens_inf[0][2] == True:
+        if self.white_queens_inf[0][2] == True and self.white_queens_inf[i][4] == False:
 
             self.white_queen_img_rect.x = self.white_queens_inf[0][0] * startup.tile_size
             self.white_queen_img_rect.x = self.white_queen_img_rect.x - (self.white_queen_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -309,7 +325,7 @@ class Pieces():
 
             startup.screen.blit(self.white_queen_img, self.white_queen_img_rect)
 
-        if self.white_king_inf[0][2] == True:
+        if self.white_king_inf[0][2] == True and self.white_king_inf[0][4] == False:
 
             self.white_king_img_rect.x = self.white_king_inf[0][0] * startup.tile_size
             self.white_king_img_rect.x = self.white_king_img_rect.x - (self.white_king_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -319,7 +335,7 @@ class Pieces():
 
         for i in range(0, 8):
 
-            if self.black_pawns_inf[i][2] == True:
+            if self.black_pawns_inf[i][2] == True and self.black_pawns_inf[i][4] == False:
 
                 self.black_pawn_img_rect.x = self.black_pawns_inf[i][0] * startup.tile_size
                 self.black_pawn_img_rect.x = self.black_pawn_img_rect.x - (self.black_pawn_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -329,7 +345,7 @@ class Pieces():
 
         for i in range(0, 2):
 
-            if self.black_bishops_inf[i][2] == True:
+            if self.black_bishops_inf[i][2] == True and self.black_bishops_inf[i][4] == False:
 
                 self.black_bishop_img_rect.x = self.black_bishops_inf[i][0] * startup.tile_size
                 self.black_bishop_img_rect.x = self.black_bishop_img_rect.x - (self.black_bishop_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -339,7 +355,7 @@ class Pieces():
 
         for i in range(0, 2):
 
-            if self.black_knights_inf[i][2] == True:
+            if self.black_knights_inf[i][2] == True and self.black_knights_inf[i][4] == False:
 
                 self.black_knight_img_rect.x = self.black_knights_inf[i][0] * startup.tile_size
                 self.black_knight_img_rect.x = self.black_knight_img_rect.x - (self.black_knight_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -349,7 +365,7 @@ class Pieces():
 
         for i in range(0, 2):
 
-            if self.black_rooks_inf[i][2] == True:
+            if self.black_rooks_inf[i][2] == True and self.black_rooks_inf[i][4] == False:
 
                 self.black_rook_img_rect.x = self.black_rooks_inf[i][0] * startup.tile_size
                 self.black_rook_img_rect.x = self.black_rook_img_rect.x - (self.black_rook_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -357,7 +373,7 @@ class Pieces():
 
                 startup.screen.blit(self.black_rook_img, self.black_rook_img_rect)
 
-        if self.black_queens_inf[0][2] == True:
+        if self.black_queens_inf[0][2] == True and self.black_queens_inf[i][4] == False:
 
             self.black_queen_img_rect.x = self.black_queens_inf[0][0] * startup.tile_size
             self.black_queen_img_rect.x = self.black_queen_img_rect.x - (self.black_queen_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
@@ -365,13 +381,21 @@ class Pieces():
 
             startup.screen.blit(self.black_queen_img, self.black_queen_img_rect)
 
-        if self.black_king_inf[0][2] == True:
+        if self.black_king_inf[0][2] == True and self.black_king_inf[0][4] == False:
 
             self.black_king_img_rect.x = self.black_king_inf[0][0] * startup.tile_size
             self.black_king_img_rect.x = self.black_king_img_rect.x - (self.black_king_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
             self.black_king_img_rect.y = self.black_king_inf[0][1] * startup.tile_size
 
             startup.screen.blit(self.black_king_img, self.black_king_img_rect)
+
+        if self.tile_outline_inf[2] == True:
+
+            self.tile_outline_img_rect.x = self.tile_outline_inf[0] * startup.tile_size
+            self.tile_outline_img_rect.x = self.tile_outline_img_rect.x - (self.tile_outline_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+            self.tile_outline_img_rect.y = self.tile_outline_inf[1] * startup.tile_size
+
+            startup.screen.blit(self.tile_outline_img, self.tile_outline_img_rect)
 
     def white_black_occupation(self):
 
@@ -484,7 +508,7 @@ class Pieces():
 
                             pawn_N_1 = False
 
-                        if self.white_pawns_inf[i][3] == True and self.white_pawns_inf[i][0] == self.white_occupation_x[j] and self.white_pawns_inf[i][1] + 2 == self.white_occupation_y[j]:
+                        if self.white_pawns_inf[i][5] == True and self.white_pawns_inf[i][0] == self.white_occupation_x[j] and self.white_pawns_inf[i][1] + 2 == self.white_occupation_y[j]:
 
                             pawn_N_2 = False
 
@@ -494,7 +518,7 @@ class Pieces():
 
                             pawn_N_1 = False
 
-                        if self.white_pawns_inf[i][3] == True and self.white_pawns_inf[i][0] == self.black_occupation_x[j] and self.white_pawns_inf[i][1] + 2 == self.black_occupation_y[j]:
+                        if self.white_pawns_inf[i][5] == True and self.white_pawns_inf[i][0] == self.black_occupation_x[j] and self.white_pawns_inf[i][1] + 2 == self.black_occupation_y[j]:
 
                             pawn_N_2 = False
 
@@ -529,7 +553,7 @@ class Pieces():
 
                             self.legal_moves.append(legal_move_notation)
 
-                    if pawn_N_2 == True and pawn_N_1 == True and self.white_pawns_inf[i][3] == True:
+                    if pawn_N_2 == True and pawn_N_1 == True and self.white_pawns_inf[i][5] == True:
 
                         legal_move_notation = notation.get_notation("P", self.white_pawns_inf[i][0], self.white_pawns_inf[i][1], self.white_pawns_inf[i][0], self.white_pawns_inf[i][1] + 2)
 
@@ -1479,7 +1503,7 @@ class Pieces():
                             
                             self.legal_moves.append(notation.get_notation("K", self.white_king_inf[0][0], self.white_king_inf[0][1], self.white_king_inf[0][0] - 1, self.white_king_inf[0][1] + 1))
 
-            if self.white_king_inf[0][2] == True and self.white_king_inf[0][3] == True:
+            if self.white_king_inf[0][2] == True and self.white_king_inf[0][5] == True:
 
                 move_list = ["O-O", "O-O-O"]
 
@@ -1534,7 +1558,7 @@ class Pieces():
 
                 for i in range(0, 2):
 
-                    if self.white_rooks_inf[i][2] == False or self.white_rooks_inf[i][3] == False:
+                    if self.white_rooks_inf[i][2] == False or self.white_rooks_inf[i][5] == False:
 
                         if i == 0:
 
@@ -1569,7 +1593,7 @@ class Pieces():
 
                             pawn_S_1 = False
 
-                        if self.black_pawns_inf[i][3] == True and self.black_pawns_inf[i][0] == self.black_occupation_x[j] and self.black_pawns_inf[i][1] - 2 == self.black_occupation_y[j]:
+                        if self.black_pawns_inf[i][5] == True and self.black_pawns_inf[i][0] == self.black_occupation_x[j] and self.black_pawns_inf[i][1] - 2 == self.black_occupation_y[j]:
 
                             pawn_S_2 = False
 
@@ -1579,7 +1603,7 @@ class Pieces():
 
                             pawn_S_1 = False
 
-                        if self.black_pawns_inf[i][3] == True and self.black_pawns_inf[i][0] == self.white_occupation_x[j] and self.black_pawns_inf[i][1] - 2 == self.white_occupation_y[j]:
+                        if self.black_pawns_inf[i][5] == True and self.black_pawns_inf[i][0] == self.white_occupation_x[j] and self.black_pawns_inf[i][1] - 2 == self.white_occupation_y[j]:
 
                             pawn_S_2 = False
 
@@ -1614,7 +1638,7 @@ class Pieces():
 
                             self.legal_moves.append(legal_move_notation)
 
-                    if pawn_S_2 == True and pawn_S_1 == True and self.black_pawns_inf[i][3] == True:
+                    if pawn_S_2 == True and pawn_S_1 == True and self.black_pawns_inf[i][5] == True:
 
                         legal_move_notation = notation.get_notation("P", self.black_pawns_inf[i][0], self.black_pawns_inf[i][1], self.black_pawns_inf[i][0], self.black_pawns_inf[i][1] - 2)
 
@@ -2564,7 +2588,7 @@ class Pieces():
                             
                             self.legal_moves.append(notation.get_notation("K", self.black_king_inf[0][0], self.black_king_inf[0][1], self.black_king_inf[0][0] - 1, self.black_king_inf[0][1] + 1))
 
-            if self.black_king_inf[0][2] == True and self.black_king_inf[0][3] == True:
+            if self.black_king_inf[0][2] == True and self.black_king_inf[0][5] == True:
 
                 move_list = ["O-O", "O-O-O"]
 
@@ -2619,7 +2643,7 @@ class Pieces():
 
                 for i in range(0, 2):
 
-                    if self.black_rooks_inf[i][2] == False or self.black_rooks_inf[i][3] == False:
+                    if self.black_rooks_inf[i][2] == False or self.black_rooks_inf[i][5] == False:
 
                         if i == 0:
 
@@ -2758,7 +2782,7 @@ class Pieces():
                                 
                             white_rooks[i][0] = tox
                             white_rooks[i][1] = toy
-                            white_rooks[i][3] = False
+                            white_rooks[i][5] = False
 
                 else:
 
@@ -2768,7 +2792,7 @@ class Pieces():
                                 
                             black_rooks[i][0] = tox
                             black_rooks[i][1] = toy
-                            black_rooks[i][3] = False
+                            black_rooks[i][5] = False
 
             elif notation_val[0] == "Q":
 
@@ -2810,7 +2834,7 @@ class Pieces():
                                 
                         white_king[0][0] = tox
                         white_king[0][1] = toy
-                        white_king[0][3] = False
+                        white_king[0][5] = False
 
                 else:
 
@@ -2818,17 +2842,17 @@ class Pieces():
                                 
                         black_king[0][0] = tox
                         black_king[0][1] = toy
-                        black_king[0][3] = False
+                        black_king[0][5] = False
 
             elif notation_val[0] == "O":
 
                 if startup.white_turn == True:
 
-                    white_king[0][3] = False
+                    white_king[0][5] = False
 
                     if notation_val == "O-O":
 
-                        white_rooks[1][3] = False
+                        white_rooks[1][5] = False
 
                         white_king[0][0] = 6
                         white_king[0][1] = 0
@@ -2842,7 +2866,7 @@ class Pieces():
 
                     elif notation_val == "O-O-O":
 
-                        white_rooks[0][3] = False
+                        white_rooks[0][5] = False
 
                         white_king[0][0] = 2
                         white_king[0][1] = 0
@@ -2856,11 +2880,11 @@ class Pieces():
                                 
                 else:
 
-                    black_king[0][3] = False
+                    black_king[0][5] = False
 
                     if notation_val == "O-O":
 
-                        black_rooks[1][3] = False
+                        black_rooks[1][5] = False
 
                         black_king[0][0] = 6
                         black_king[0][1] = 7
@@ -2874,7 +2898,7 @@ class Pieces():
 
                     elif notation_val == "O-O-O":
 
-                        black_rooks[0][3] = False
+                        black_rooks[0][5] = False
 
                         black_king[0][0] = 2
                         black_king[0][1] = 7
@@ -2991,7 +3015,7 @@ class Pieces():
                                                 white_rooks[i][0] = tox
                                                 white_rooks[i][1] = toy
                                                 white_rooks[i][2] = True
-                                                white_rooks[i][3] = False
+                                                white_rooks[i][5] = False
 
                                     elif notation_val[-1] == "B":
 
@@ -3025,7 +3049,7 @@ class Pieces():
                                 
                                     white_pawns[i][0] = tox
                                     white_pawns[i][1] = toy
-                                    white_pawns[i][3] = False
+                                    white_pawns[i][5] = False
 
                     else:
 
@@ -3064,7 +3088,7 @@ class Pieces():
                                                 black_rooks[i][0] = tox
                                                 black_rooks[i][1] = toy
                                                 black_rooks[i][2] = True
-                                                black_rooks[i][3] = False
+                                                black_rooks[i][5] = False
 
                                     elif notation_val[-1] == "B":
 
@@ -3098,7 +3122,7 @@ class Pieces():
                                 
                                     black_pawns[i][0] = tox
                                     black_pawns[i][1] = toy
-                                    black_pawns[i][3] = False
+                                    black_pawns[i][5] = False
                                 
             if take == True:
 
@@ -4205,7 +4229,7 @@ class Pieces():
                         
                         self.white_rooks_inf[i][0] = to_x
                         self.white_rooks_inf[i][1] = to_y
-                        self.white_rooks_inf[i][3] = False
+                        self.white_rooks_inf[i][5] = False
 
             else:
 
@@ -4215,7 +4239,7 @@ class Pieces():
                         
                         self.black_rooks_inf[i][0] = to_x
                         self.black_rooks_inf[i][1] = to_y
-                        self.black_rooks_inf[i][3] = False
+                        self.black_rooks_inf[i][5] = False
 
         elif notation_val[0] == "Q":
 
@@ -4257,7 +4281,7 @@ class Pieces():
                         
                     self.white_king_inf[0][0] = to_x
                     self.white_king_inf[0][1] = to_y
-                    self.white_king_inf[0][3] = False
+                    self.white_king_inf[0][5] = False
 
             else:
 
@@ -4265,17 +4289,17 @@ class Pieces():
                         
                     self.black_king_inf[0][0] = to_x
                     self.black_king_inf[0][1] = to_y
-                    self.black_king_inf[0][3] = False
+                    self.black_king_inf[0][5] = False
 
         elif notation_val[0] == "O":
 
             if startup.white_turn == True:
 
-                self.white_king_inf[0][3] = False
+                self.white_king_inf[0][5] = False
 
                 if notation_val == "O-O":
 
-                    self.white_rooks_inf[1][3] = False
+                    self.white_rooks_inf[1][5] = False
 
                     self.white_king_inf[0][0] = 6
                     self.white_king_inf[0][1] = 0
@@ -4289,7 +4313,7 @@ class Pieces():
 
                 elif notation_val == "O-O-O":
 
-                    self.white_rooks_inf[0][3] = False
+                    self.white_rooks_inf[0][5] = False
 
                     self.white_king_inf[0][0] = 2
                     self.white_king_inf[0][1] = 0
@@ -4303,11 +4327,11 @@ class Pieces():
                             
             else:
 
-                self.black_king_inf[0][3] = False
+                self.black_king_inf[0][5] = False
 
                 if notation_val == "O-O":
 
-                    self.black_rooks_inf[1][3] = False
+                    self.black_rooks_inf[1][5] = False
 
                     self.black_king_inf[0][0] = 6
                     self.black_king_inf[0][1] = 7
@@ -4321,7 +4345,7 @@ class Pieces():
 
                 elif notation_val == "O-O-O":
 
-                    self.black_rooks_inf[0][3] = False
+                    self.black_rooks_inf[0][5] = False
 
                     self.black_king_inf[0][0] = 2
                     self.black_king_inf[0][1] = 7
@@ -4441,7 +4465,7 @@ class Pieces():
                                         self.white_rooks_inf[i][0] = to_x
                                         self.white_rooks_inf[i][1] = to_y
                                         self.white_rooks_inf[i][2] = True
-                                        self.white_rooks_inf[i][3] = False
+                                        self.white_rooks_inf[i][5] = False
 
                             elif notation_val[-1] == "B":
 
@@ -4475,7 +4499,7 @@ class Pieces():
 
                             self.white_pawns_inf[i][0] = to_x
                             self.white_pawns_inf[i][1] = to_y  
-                            self.white_pawns_inf[i][3] = False
+                            self.white_pawns_inf[i][5] = False
 
                             if to_y - from_y == 2:
 
@@ -4518,7 +4542,7 @@ class Pieces():
                                         self.black_rooks_inf[i][0] = to_x
                                         self.black_rooks_inf[i][1] = to_y
                                         self.black_rooks_inf[i][2] = True
-                                        self.black_rooks_inf[i][3] = False
+                                        self.black_rooks_inf[i][5] = False
 
                             elif notation_val[-1] == "B":
 
@@ -4552,7 +4576,7 @@ class Pieces():
 
                             self.black_pawns_inf[i][0] = to_x
                             self.black_pawns_inf[i][1] = to_y                                
-                            self.black_pawns_inf[i][3] = False
+                            self.black_pawns_inf[i][5] = False
 
                             if from_y - to_y == 2:
 
@@ -5974,18 +5998,18 @@ class Notation():
 
                 fen = fen[:pos] + self.get_column(pieces.en_passant_x_y[0]) + self.get_row(pieces.en_passant_x_y[1] - 1) + fen[pos + 1:]
 
-        if pieces.black_king_inf[0][3] == True:
+        if pieces.black_king_inf[0][5] == True:
 
             black_queenside_castling = False
             black_kingside_castling = False
 
             for i in range(0, 10):
 
-                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][3] == True and pieces.black_rooks_inf[i][0] == 0 and pieces.black_rooks_inf[i][1] == 7:
+                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][5] == True and pieces.black_rooks_inf[i][0] == 0 and pieces.black_rooks_inf[i][1] == 7:
 
                     black_queenside_castling = True
 
-                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][3] == True and pieces.black_rooks_inf[i][0] == 7 and pieces.black_rooks_inf[i][1] == 7:
+                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][5] == True and pieces.black_rooks_inf[i][0] == 7 and pieces.black_rooks_inf[i][1] == 7:
 
                     black_kingside_castling = True
 
@@ -6007,18 +6031,18 @@ class Notation():
 
             fen = fen[:pos] + fen[pos + 2:]
 
-        if pieces.white_king_inf[0][3] == True:
+        if pieces.white_king_inf[0][5] == True:
 
             white_queenside_castling = False
             white_kingside_castling = False
 
             for i in range(0, 10):
 
-                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][3] == True and pieces.white_rooks_inf[i][0] == 0 and pieces.white_rooks_inf[i][1] == 0:
+                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][5] == True and pieces.white_rooks_inf[i][0] == 0 and pieces.white_rooks_inf[i][1] == 0:
 
                     white_queenside_castling = True
 
-                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][3] == True and pieces.white_rooks_inf[i][0] == 7 and pieces.white_rooks_inf[i][1] == 0:
+                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][5] == True and pieces.white_rooks_inf[i][0] == 7 and pieces.white_rooks_inf[i][1] == 0:
 
                     white_kingside_castling = True
 
@@ -6216,7 +6240,7 @@ class Notation():
 
                             if y == 1:
 
-                                pieces.white_pawns_inf[count][3] = True
+                                pieces.white_pawns_inf[count][5] = True
 
                             break
 
@@ -6318,7 +6342,7 @@ class Notation():
 
                             if y == 6:
 
-                                pieces.black_pawns_inf[count][3] = True
+                                pieces.black_pawns_inf[count][5] = True
 
                             break
 
@@ -6422,43 +6446,43 @@ class Notation():
 
                 if char == "K":
 
-                    pieces.white_king_inf[0][3] = True
+                    pieces.white_king_inf[0][5] = True
 
                     for i in range(0, 10):
 
                         if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][0] == 7 and pieces.white_rooks_inf[i][1] == 0:
 
-                            pieces.white_rooks_inf[i][3] = True
+                            pieces.white_rooks_inf[i][5] = True
 
                 elif char == "Q":
 
-                    pieces.white_king_inf[0][3] = True
+                    pieces.white_king_inf[0][5] = True
 
                     for i in range(0, 10):
 
                         if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][0] == 0 and pieces.white_rooks_inf[i][1] == 0:
 
-                            pieces.white_rooks_inf[i][3] = True
+                            pieces.white_rooks_inf[i][5] = True
 
                 elif char == "k":
 
-                    pieces.black_king_inf[0][3] = True
+                    pieces.black_king_inf[0][5] = True
 
                     for i in range(0, 10):
 
                         if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][0] == 7 and pieces.black_rooks_inf[i][1] == 7:
 
-                            pieces.black_rooks_inf[i][3] = True
+                            pieces.black_rooks_inf[i][5] = True
 
                 elif char == "q":
 
-                    pieces.black_king_inf[0][3] = True
+                    pieces.black_king_inf[0][5] = True
 
                     for i in range(0, 10):
 
                         if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][0] == 0 and pieces.black_rooks_inf[i][1] == 7:
 
-                            pieces.black_rooks_inf[i][3] = True
+                            pieces.black_rooks_inf[i][5] = True
 
             elif fen_stage == 3:
 
@@ -6572,11 +6596,44 @@ class Start():
             repetition_draw_file_write = open("repetition_draw_file.txt", "w")
             repetition_draw_file_write.write("")
             repetition_draw_file_write.close()
+
+        #self.event_handler_thread = threading.Thread(target = self.event_handler_func)
+        self.player_customisations_thread = threading.Thread(target = self.player_customisations_func)
+        self.outline_selected_piece_thread = threading.Thread(target = self.outline_selected_piece)
+        self.piece_follow_mouse_thread = threading.Thread(target = self.piece_follow_mouse)
+        self.auto_move_thread = threading.Thread(target = self.auto_move_func)
+        self.one_player_thread = threading.Thread(target = self.one_player_func)
+        self.two_player_thread = threading.Thread(target = self.two_player_func)
+        self.game_over_thread = threading.Thread(target = self.game_over_func)
+        self.play_again_thread = threading.Thread(target = self.play_again_func)
+        
+        #self.event_handler_thread_started = False
+        self.player_customisations_thread_started = False
+        self.outline_selected_piece_thread_started = False
+        self.piece_follow_mouse_thread_started = False
+        self.auto_move_thread_started = False
+        self.one_player_thread_started = False
+        self.two_player_thread_started = False
+        self.game_over_thread_started = False
+        self.play_again_thread_started = False
         
     def start(self):
 
+        #self.event_handler_thread = threading.Thread(target = self.event_handler_func)
+        #self.event_handler_thread.start()
+        #self.event_handler_thread_started = True
+
         self.player_customisations_thread = threading.Thread(target = self.player_customisations_func)
         self.player_customisations_thread.start()
+        self.player_customisations_thread_started = True
+
+        self.outline_selected_piece_thread = threading.Thread(target = self.outline_selected_piece)
+        self.outline_selected_piece_thread.start()
+        self.outline_selected_piece_thread_started = True
+
+        self.piece_follow_mouse_thread = threading.Thread(target = self.piece_follow_mouse)
+        self.piece_follow_mouse_thread.start()
+        self.piece_follow_mouse_thread_started = True
 
         while self.run:
                 
@@ -6587,6 +6644,18 @@ class Start():
                 if event.type == pygame.QUIT:
                     
                     self.run = False
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+
+                    mouse_pos = pygame.mouse.get_pos()
+
+                    self.mouse_sprite_collisions_mouse_down(mouse_pos)
+
+                if event.type == pygame.MOUSEBUTTONUP:
+
+                    mouse_pos = pygame.mouse.get_pos()
+
+                    self.sprite_released_mouse_up(mouse_pos)
 
             if self.update == True:
 
@@ -6601,29 +6670,713 @@ class Start():
 
                     self.auto_move_thread = threading.Thread(target = self.auto_move_func)
                     self.auto_move_thread.start()
+                    self.auto_move_thread_started = True
 
                 elif self.one_player == True:
 
                     self.one_player_thread = threading.Thread(target = self.one_player_func)
                     self.one_player_thread.start()
+                    self.one_player_thread_started = True
 
                 elif self.two_player == True:
 
                     self.two_player_thread = threading.Thread(target = self.two_player_func)
                     self.two_player_thread.start()
+                    self.two_player_thread_started = True
 
                 elif self.game_over == True:
 
                     self.game_over_thread = threading.Thread(target = self.game_over_func)
                     self.game_over_thread.start()
+                    self.game_over_thread_started = True
 
                 else:
 
                     self.play_again_thread = threading.Thread(target = self.play_again_func)
                     self.play_again_thread.start()
+                    self.play_again_thread_started = True
+                    
+        #if self.event_handler_thread_started == True:
+
+            #self.event_handler_thread.join()
+
+        if self.player_customisations_thread_started == True:
+
+            self.player_customisations_thread.join()
+
+        if self.outline_selected_piece_thread_started == True:
+
+            self.outline_selected_piece_thread.join()
+
+        if self.piece_follow_mouse_thread_started == True:
+
+            self.piece_follow_mouse_thread.join()
+
+        if self.auto_move_thread_started == True:
+
+            self.auto_move_thread.join()
+
+        if self.one_player_thread_started == True:
+
+            self.one_player_thread.join()
+
+        if self.two_player_thread_started == True:
+
+            self.two_player_thread.join()
+
+        if self.game_over_thread_started == True:
+
+            self.game_over_thread.join()
+
+        if self.play_again_thread_started == True:
+
+            self.play_again_thread.join()
                         
         pygame.quit()
 
+    def event_handler_func(self):
+
+        while self.run:
+
+            #for event in pygame.event.get():
+                
+                #if event.type == pygame.QUIT:
+                    
+                    #self.run = False
+
+            pass
+
+                #if event.type ==
+
+    def mouse_sprite_collisions_mouse_down(self, mouse_pos):
+
+        mouse_pos_x = mouse_pos[0]
+        mouse_pos_y = mouse_pos[1]
+
+        if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+            if self.playing_as_white:
+
+                tile_x = mouse_pos_x // self.tile_size
+                tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+            else:
+
+                tile_x = 7 - (mouse_pos_x // self.tile_size)
+                tile_y = mouse_pos_y // self.tile_size
+
+            for i in range(0, 8):
+
+                if pieces.white_pawns_inf[i][2] == True and pieces.white_pawns_inf[i][0] == tile_x and pieces.white_pawns_inf[i][1] == tile_y:
+
+                    pieces.white_pawns_inf[i][3] = True
+                    pieces.white_pawns_inf[i][4] = True
+
+                else:
+
+                    pieces.white_pawns_inf[i][3] = False
+
+            for i in range(0, 10):
+
+                if pieces.white_bishops_inf[i][2] == True and pieces.white_bishops_inf[i][0] == tile_x and pieces.white_bishops_inf[i][1] == tile_y:
+
+                    pieces.white_bishops_inf[i][3] = True
+                    pieces.white_bishops_inf[i][4] = True
+
+                else:
+
+                    pieces.white_bishops_inf[i][3] = False
+
+            for i in range(0, 10):
+
+                if pieces.white_knights_inf[i][2] == True and pieces.white_knights_inf[i][0] == tile_x and pieces.white_knights_inf[i][1] == tile_y:
+
+                    pieces.white_knights_inf[i][3] = True
+                    pieces.white_knights_inf[i][4] = True
+
+                else:
+
+                    pieces.white_knights_inf[i][3] = False
+                    
+            for i in range(0, 10):
+
+                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][0] == tile_x and pieces.white_rooks_inf[i][1] == tile_y:
+
+                    pieces.white_rooks_inf[i][3] = True
+                    pieces.white_rooks_inf[i][4] = True
+
+                else:
+
+                    pieces.white_rooks_inf[i][3] = False
+                    
+            for i in range(0, 9):
+
+                if pieces.white_queens_inf[i][2] == True and pieces.white_queens_inf[i][0] == tile_x and pieces.white_queens_inf[i][1] == tile_y:
+
+                    pieces.white_queens_inf[i][3] = True
+                    pieces.white_queens_inf[i][4] = True
+
+                else:
+
+                    pieces.white_queens_inf[i][3] = False
+                    
+            if pieces.white_king_inf[0][2] == True and pieces.white_king_inf[0][0] == tile_x and pieces.white_king_inf[0][1] == tile_y:
+
+                pieces.white_king_inf[0][3] = True
+                pieces.white_king_inf[0][4] = True
+
+            else:
+
+                pieces.white_king_inf[0][3] = False
+                    
+            for i in range(0, 8):
+
+                if pieces.black_pawns_inf[i][2] == True and pieces.black_pawns_inf[i][0] == tile_x and pieces.black_pawns_inf[i][1] == tile_y:
+
+                    pieces.black_pawns_inf[i][3] = True
+                    pieces.black_pawns_inf[i][4] = True
+
+                else:
+
+                    pieces.black_pawns_inf[i][3] = False
+                    
+            for i in range(0, 10):
+
+                if pieces.black_bishops_inf[i][2] == True and pieces.black_bishops_inf[i][0] == tile_x and pieces.black_bishops_inf[i][1] == tile_y:
+
+                    pieces.black_bishops_inf[i][3] = True
+                    pieces.black_bishops_inf[i][4] = True
+
+                else:
+
+                    pieces.black_bishops_inf[i][3] = False
+                    
+            for i in range(0, 10):
+
+                if pieces.black_knights_inf[i][2] == True and pieces.black_knights_inf[i][0] == tile_x and pieces.black_knights_inf[i][1] == tile_y:
+
+                    pieces.black_knights_inf[i][3] = True
+                    pieces.black_knights_inf[i][4] = True
+
+                else:
+
+                    pieces.black_knights_inf[i][3] = False
+                    
+            for i in range(0, 10):
+
+                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][0] == tile_x and pieces.black_rooks_inf[i][1] == tile_y:
+
+                    pieces.black_rooks_inf[i][3] = True
+                    pieces.black_rooks_inf[i][4] = True
+
+                else:
+
+                    pieces.black_rooks_inf[i][3] = False
+                    
+            for i in range(0, 9):
+
+                if pieces.black_queens_inf[i][2] == True and pieces.black_queens_inf[i][0] == tile_x and pieces.black_queens_inf[i][1] == tile_y:
+
+                    pieces.black_queens_inf[i][3] = True
+                    pieces.black_queens_inf[i][4] = True
+
+                else:
+
+                    pieces.black_queens_inf[i][3] = False
+                    
+            if pieces.black_king_inf[0][2] == True and pieces.black_king_inf[0][0] == tile_x and pieces.black_king_inf[0][1] == tile_y:
+
+                pieces.black_king_inf[0][3] = True
+                pieces.black_king_inf[0][4] = True
+
+            else:
+
+                pieces.black_king_inf[0][3] = False
+
+    def sprite_released_mouse_up(self, mouse_pos):
+
+        mouse_pos_x = mouse_pos[0]
+        mouse_pos_y = mouse_pos[1]
+
+        if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+            if self.playing_as_white:
+    
+                tile_x = mouse_pos_x // self.tile_size
+                tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+            else:
+
+                tile_x = 7 - (mouse_pos_x // self.tile_size)
+                tile_y = mouse_pos_y // self.tile_size
+
+            for i in range(0, 8):
+
+                if pieces.white_pawns_inf[i][4] == True:
+
+                    pieces.white_pawns_inf[i][4] = False
+
+            for i in range(0, 10):
+
+                if pieces.white_bishops_inf[i][4] == True:
+
+                    pieces.white_bishops_inf[i][4] = False
+
+            for i in range(0, 10):
+
+                if pieces.white_knights_inf[i][4] == True:
+
+                    pieces.white_knights_inf[i][4] = False
+
+            for i in range(0, 10):
+
+                if pieces.white_rooks_inf[i][4] == True:
+
+                    pieces.white_rooks_inf[i][4] = False
+
+            for i in range(0, 9):
+
+                if pieces.white_queens_inf[i][4] == True:
+
+                    pieces.white_queens_inf[i][4] = False
+
+            if pieces.white_king_inf[0][4] == True:
+
+                pieces.white_king_inf[0][4] = False
+
+            for i in range(0, 8):
+
+                if pieces.black_pawns_inf[i][4] == True:
+
+                    pieces.black_pawns_inf[i][4] = False
+
+            for i in range(0, 10):
+
+                if pieces.black_bishops_inf[i][4] == True:
+
+                    pieces.black_bishops_inf[i][4] = False
+
+            for i in range(0, 10):
+
+                if pieces.black_knights_inf[i][4] == True:
+
+                    pieces.black_knights_inf[i][4] = False
+
+            for i in range(0, 10):
+
+                if pieces.black_rooks_inf[i][4] == True:
+
+                    pieces.black_rooks_inf[i][4] = False
+
+            for i in range(0, 9):
+
+                if pieces.black_queens_inf[i][4] == True:
+
+                    pieces.black_queens_inf[i][4] = False
+
+            if pieces.black_king_inf[0][4] == True:
+
+                pieces.black_king_inf[0][4] = False
+
+            if pieces.tile_outline_inf[2] == True and pieces.tile_outline_inf[3] == True and tile_x == pieces.tile_outline_inf[0] and tile_y == pieces.tile_outline_inf[1]:
+
+                pieces.tile_outline_inf[2] = False
+                pieces.tile_outline_inf[3] = False
+
+        if pieces.tile_outline_inf[2] == True and pieces.tile_outline_inf[3] == False:
+
+            pieces.tile_outline_inf[3] = True
+
+    def outline_selected_piece(self):
+
+        while self.run:
+
+            for i in range(0, 8):
+
+                if pieces.white_pawns_inf[i][2] == True and pieces.white_pawns_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.white_pawns_inf[i][0], pieces.white_pawns_inf[i][1])
+
+                    while self.run and pieces.white_pawns_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.white_pawns_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            for i in range(0, 10):
+
+                if pieces.white_bishops_inf[i][2] == True and pieces.white_bishops_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.white_bishops_inf[i][0], pieces.white_bishops_inf[i][1])
+
+                    while self.run and pieces.white_bishops_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.white_bishops_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            for i in range(0, 10):
+
+                if pieces.white_knights_inf[i][2] == True and pieces.white_knights_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.white_knights_inf[i][0], pieces.white_knights_inf[i][1])
+
+                    while self.run and pieces.white_knights_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.white_knights_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            for i in range(0, 10):
+
+                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.white_rooks_inf[i][0], pieces.white_rooks_inf[i][1])
+
+                    while self.run and pieces.white_rooks_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.white_rooks_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            for i in range(0, 9):
+
+                if pieces.white_queens_inf[i][2] == True and pieces.white_queens_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.white_queens_inf[i][0], pieces.white_queens_inf[i][1])
+
+                    while self.run and pieces.white_queens_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.white_queens_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            if pieces.white_king_inf[0][2] == True and pieces.white_king_inf[0][3] == True:
+
+                self.redraw_board_for_outline(pieces.white_king_inf[0][0], pieces.white_king_inf[0][1])
+
+                while self.run and pieces.white_king_inf[0][3] == True and pieces.tile_outline_inf[2] == True:
+
+                    pass
+
+                pieces.white_king_inf[0][3] = False
+
+                self.redraw_board_without_outline()
+
+            for i in range(0, 8):
+
+                if pieces.black_pawns_inf[i][2] == True and pieces.black_pawns_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.black_pawns_inf[i][0], pieces.black_pawns_inf[i][1])
+
+                    while self.run and pieces.black_pawns_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.black_pawns_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            for i in range(0, 10):
+
+                if pieces.black_bishops_inf[i][2] == True and pieces.black_bishops_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.black_bishops_inf[i][0], pieces.black_bishops_inf[i][1])
+
+                    while self.run and pieces.black_bishops_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.black_bishops_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            for i in range(0, 10):
+
+                if pieces.black_knights_inf[i][2] == True and pieces.black_knights_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.black_knights_inf[i][0], pieces.black_knights_inf[i][1])
+
+                    while self.run and pieces.black_knights_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.black_knights_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            for i in range(0, 10):
+
+                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.black_rooks_inf[i][0], pieces.black_rooks_inf[i][1])
+
+                    while self.run and pieces.black_rooks_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.black_rooks_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            for i in range(0, 9):
+
+                if pieces.black_queens_inf[i][2] == True and pieces.black_queens_inf[i][3] == True:
+
+                    self.redraw_board_for_outline(pieces.black_queens_inf[i][0], pieces.black_queens_inf[i][1])
+
+                    while self.run and pieces.black_queens_inf[i][3] == True and pieces.tile_outline_inf[2] == True:
+
+                        pass
+
+                    pieces.black_queens_inf[i][3] = False
+
+                    self.redraw_board_without_outline()
+
+            if pieces.black_king_inf[0][2] == True and pieces.black_king_inf[0][3] == True:
+
+                self.redraw_board_for_outline(pieces.black_king_inf[0][0], pieces.black_king_inf[0][1])
+
+                while self.run and pieces.black_king_inf[0][3] == True and pieces.tile_outline_inf[2] == True:
+
+                    pass
+
+                pieces.black_king_inf[0][3] = False
+
+                self.redraw_board_without_outline()
+
+    def piece_follow_mouse(self):
+
+        while self.run:
+
+            for i in range(0, 8):
+
+                if pieces.white_pawns_inf[i][2] == True and pieces.white_pawns_inf[i][4] == True:
+
+                    while self.run and pieces.white_pawns_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.white_pawn_img_rect.x = piece_pos_x
+                        pieces.white_pawn_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.white_pawn_img, pieces.white_pawn_img_rect)
+
+                    self.redraw_board()
+
+            for i in range(0, 10):
+
+                if pieces.white_bishops_inf[i][2] == True and pieces.white_bishops_inf[i][4] == True:
+
+                    while self.run and pieces.white_bishops_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.white_bishop_img_rect.x = piece_pos_x
+                        pieces.white_bishop_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.white_bishop_img, pieces.white_bishop_img_rect)
+
+                    self.redraw_board()
+
+            for i in range(0, 10):
+
+                if pieces.white_knights_inf[i][2] == True and pieces.white_knights_inf[i][4] == True:
+
+                    while self.run and pieces.white_knights_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.white_knight_img_rect.x = piece_pos_x
+                        pieces.white_knight_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.white_knight_img, pieces.white_knight_img_rect)
+
+                    self.redraw_board()
+                        
+            for i in range(0, 10):
+
+                if pieces.white_rooks_inf[i][2] == True and pieces.white_rooks_inf[i][4] == True:
+
+                    while self.run and pieces.white_rooks_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.white_rook_img_rect.x = piece_pos_x
+                        pieces.white_rook_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.white_rook_img, pieces.white_rook_img_rect)
+
+                    self.redraw_board()
+                        
+            for i in range(0, 9):
+
+                if pieces.white_queens_inf[i][2] == True and pieces.white_queens_inf[i][4] == True:
+
+                    while self.run and pieces.white_queens_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.white_queen_img_rect.x = piece_pos_x
+                        pieces.white_queen_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.white_queen_img, pieces.white_queen_img_rect)
+
+                    self.redraw_board()
+                        
+            if pieces.white_king_inf[0][2] == True and pieces.white_king_inf[0][4] == True:
+
+                while self.run and pieces.white_king_inf[0][4] == True:
+
+                    piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                    pieces.white_king_img_rect.x = piece_pos_x
+                    pieces.white_king_img_rect.y = piece_pos_y
+
+                    self.screen.blit(pieces.white_king_img, pieces.white_king_img_rect)
+
+                self.redraw_board()
+                        
+            for i in range(0, 8):
+
+                if pieces.black_pawns_inf[i][2] == True and pieces.black_pawns_inf[i][4] == True:
+
+                    while self.run and pieces.black_pawns_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.black_pawn_img_rect.x = piece_pos_x
+                        pieces.black_pawn_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.black_pawn_img, pieces.black_pawn_img_rect)
+
+                    self.redraw_board()
+                        
+            for i in range(0, 10):
+
+                if pieces.black_bishops_inf[i][2] == True and pieces.black_bishops_inf[i][4] == True:
+
+                    while self.run and pieces.black_bishops_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.black_bishop_img_rect.x = piece_pos_x
+                        pieces.black_bishop_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.black_bishop_img, pieces.black_bishop_img_rect)
+
+                    self.redraw_board()
+                        
+            for i in range(0, 10):
+
+                if pieces.black_knights_inf[i][2] == True and pieces.black_knights_inf[i][4] == True:
+
+                    while self.run and pieces.black_knights_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.black_knight_img_rect.x = piece_pos_x
+                        pieces.black_knight_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.black_knight_img, pieces.black_knight_img_rect)
+
+                    self.redraw_board()
+                        
+            for i in range(0, 10):
+
+                if pieces.black_rooks_inf[i][2] == True and pieces.black_rooks_inf[i][4] == True:
+
+                    while self.run and pieces.black_rooks_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.black_rook_img_rect.x = piece_pos_x
+                        pieces.black_rook_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.black_rook_img, pieces.black_rook_img_rect)
+
+                    self.redraw_board()
+                        
+            for i in range(0, 9):
+
+                if pieces.black_queens_inf[i][2] == True and pieces.black_queens_inf[i][4] == True:
+
+                    while self.run and pieces.black_queens_inf[i][4] == True:
+
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                        pieces.black_queen_img_rect.x = piece_pos_x
+                        pieces.black_queen_img_rect.y = piece_pos_y
+
+                        self.screen.blit(pieces.black_queen_img, pieces.black_queen_img_rect)
+
+                    self.redraw_board()
+                        
+            if pieces.black_king_inf[0][2] == True and pieces.black_king_inf[0][4] == True:
+
+                while self.run and pieces.black_king_inf[0][4] == True:
+
+                    piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+
+                    pieces.black_king_img_rect.x = piece_pos_x
+                    pieces.black_king_img_rect.y = piece_pos_y
+
+                    self.screen.blit(pieces.black_king_img, pieces.black_king_img_rect)
+
+                self.redraw_board()
+
+    def redraw_board_for_outline(self, x, y):
+
+        pieces.tile_outline_inf[0] = x
+        pieces.tile_outline_inf[1] = y
+
+        pieces.tile_outline_inf[2] = True
+
+        self.redraw_board()
+
+    def redraw_board_without_outline(self):
+
+        pieces.tile_outline_inf[2] = False
+        pieces.tile_outline_inf[3] = False
+
+        self.redraw_board()
+
+    def redraw_board(self):
+
+        board.draw_board()
+
+        if self.playing_as_white == True:
+
+            pieces.draw_pieces_white()
+            
+        else:
+
+            pieces.draw_pieces_black()
+
+    def redraw_board_dragging_piece(self):
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        mouse_pos_x = mouse_pos[0]
+        mouse_pos_y = mouse_pos[1]
+
+        piece_pos_x = mouse_pos_x - (self.tile_size // 2)
+        piece_pos_y = mouse_pos_y - (self.tile_size // 2)
+
+        self.redraw_board()
+
+        return piece_pos_x, piece_pos_y
+                                    
     def player_customisations_func(self):
 
         board.draw_board()
@@ -6807,7 +7560,9 @@ class Start():
         pieces.calc_legal_moves()
         pieces.check_checks()
 
-        if len(pieces.legal_moves) > 0:
+        pieces.final_legal_moves = deepcopy(pieces.legal_moves)
+
+        if len(pieces.final_legal_moves) > 0:
 
             if pieces.half_move_limit == True:
 
@@ -6825,7 +7580,9 @@ class Start():
 
                 time.sleep(0)
 
-                self.move_choice = pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)]
+                self.move_choice = pieces.final_legal_moves[random.randint(0, len(pieces.final_legal_moves) - 1)]
+
+                pieces.final_legal_moves = []
 
                 notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
                 pieces.move_piece(notation_val, take)
@@ -6885,7 +7642,9 @@ class Start():
         pieces.calc_legal_moves()
         pieces.check_checks()
 
-        if len(pieces.legal_moves) > 0:
+        pieces.final_legal_moves = deepcopy(pieces.legal_moves)
+
+        if len(pieces.final_legal_moves) > 0:
 
             if pieces.half_move_limit == True:
 
@@ -6903,14 +7662,16 @@ class Start():
 
                 if self.your_turn == True:
 
-                    print(pieces.legal_moves)
+                    print(pieces.final_legal_moves)
 
                     while self.run:
 
                         print("Choose a move! (Copy the move exactly)")
                         self.move_choice = input()
 
-                        if self.move_choice in pieces.legal_moves:
+                        if self.move_choice in pieces.final_legal_moves:
+
+                            pieces.final_legal_moves = []
 
                             break
 
@@ -6922,7 +7683,9 @@ class Start():
 
                     time.sleep(0)
 
-                    self.move_choice = pieces.legal_moves[random.randint(0, len(pieces.legal_moves) - 1)]
+                    self.move_choice = pieces.final_legal_moves[random.randint(0, len(pieces.final_legal_moves) - 1)]
+
+                    pieces.final_legal_moves = []
 
                 self.your_turn = not self.your_turn
 
@@ -6984,7 +7747,9 @@ class Start():
         pieces.calc_legal_moves()
         pieces.check_checks()
 
-        if len(pieces.legal_moves) > 0:
+        pieces.final_legal_moves = deepcopy(pieces.legal_moves)
+
+        if len(pieces.final_legal_moves) > 0:
 
             if pieces.half_move_limit == True:
 
@@ -7000,14 +7765,16 @@ class Start():
 
             else:
 
-                print(pieces.legal_moves)
+                print(pieces.final_legal_moves)
 
                 while self.run:
 
                     print("Choose a move! (Copy the move exactly)")
                     self.move_choice = input()
 
-                    if self.move_choice in pieces.legal_moves:
+                    if self.move_choice in pieces.final_legal_moves:
+
+                        pieces.final_legal_moves = []
 
                         break
 
@@ -7092,19 +7859,19 @@ class Start():
         repetition_draw_file_write.write("")
         repetition_draw_file_write.close()
 
-        pieces.white_pawns_inf = [[0, 1, True, True], [1, 1, True, True], [2, 1, True, True], [3, 1, True, True], [4, 1, True, True], [5, 1, True, True], [6, 1, True, True], [7, 1, True, True]]
-        pieces.white_bishops_inf = [[2, 0, True], [5, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        pieces.white_knights_inf = [[1, 0, True], [6, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        pieces.white_rooks_inf = [[0, 0, True, True], [7, 0, True, True], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
-        pieces.white_queens_inf = [[3, 0, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        pieces.white_king_inf = [[4, 0, True, True]]
+        pieces.white_pawns_inf = [[0, 1, True, False, False, True], [1, 1, True, False, False, True], [2, 1, True, False, False, True], [3, 1, True, False, False, True], [4, 1, True, False, False, True], [5, 1, True, False, False, True], [6, 1, True, False, False, True], [7, 1, True, False, False, True]]
+        pieces.white_bishops_inf = [[2, 0, True, False, False], [5, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        pieces.white_knights_inf = [[1, 0, True, False, False], [6, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        pieces.white_rooks_inf = [[0, 0, True, False, False, True], [7, 0, True, False, False, True], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False]]
+        pieces.white_queens_inf = [[3, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        pieces.white_king_inf = [[4, 0, True, False, False, True]]
 
-        pieces.black_pawns_inf = [[0, 6, True, True], [1, 6, True, True], [2, 6, True, True], [3, 6, True, True], [4, 6, True, True], [5, 6, True, True], [6, 6, True, True], [7, 6, True, True]]
-        pieces.black_bishops_inf = [[2, 7, True], [5, 7, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        pieces.black_knights_inf = [[6, 7, True], [1, 7, True], [6, 3, False], [0, 3, False], [2, 0, False], [2, 6, False], [6, 2, False], [0, 2, False], [0, 7, False], [0, 7, False]]
-        pieces.black_rooks_inf = [[0, 7, True, True], [7, 7, True, True], [2, 0, False, False], [4, 6, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False], [0, 7, False, False]]
-        pieces.black_queens_inf = [[3, 7, True], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False], [0, 7, False]]
-        pieces.black_king_inf = [[4, 7, True, True]]
+        pieces.black_pawns_inf = [[0, 6, True, False, False, True], [1, 6, True, False, False, True], [2, 6, True, False, False, True], [3, 6, True, False, False, True], [4, 6, True, False, False, True], [5, 6, True, False, False, True], [6, 6, True, False, False, True], [7, 6, True, False, False, True]]
+        pieces.black_bishops_inf = [[2, 7, True, False, False], [5, 7, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        pieces.black_knights_inf = [[6, 7, True, False, False], [1, 7, True, False, False], [6, 3, False, False, False], [0, 3, False, False, False], [2, 0, False, False, False], [2, 6, False, False, False], [6, 2, False, False, False], [0, 2, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        pieces.black_rooks_inf = [[0, 7, True, False, False, True], [7, 7, True, False, False, True], [2, 0, False, False, False, False], [4, 6, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False]]
+        pieces.black_queens_inf = [[3, 7, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+        pieces.black_king_inf = [[4, 7, True, False, False, True]]
 
         pieces.piece_value_matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
                                    [0, 0, 0, 0, 0, 0, 0, 0],
