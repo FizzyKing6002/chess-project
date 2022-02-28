@@ -6642,6 +6642,8 @@ class Start():
                 
                 pygame.display.update()
 
+                self.update_display = False
+
             for event in pygame.event.get():
                 
                 if event.type == pygame.QUIT:
@@ -7168,14 +7170,43 @@ class Start():
 
                     while self.run and pieces.white_pawns_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.white_pawn_img_rect.x = piece_pos_x
-                        pieces.white_pawn_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.white_pawn_img, pieces.white_pawn_img_rect)
+                            pieces.white_pawn_img_rect.x = piece_pos_x
+                            pieces.white_pawn_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.white_pawn_img, pieces.white_pawn_img_rect)
+
+                            self.update_display = True
+
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("P", pieces.white_pawns_inf[i][0], pieces.white_pawns_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            print("hi")
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
 
             for i in range(0, 10):
 
@@ -7183,14 +7214,26 @@ class Start():
 
                     while self.run and pieces.white_bishops_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.white_bishop_img_rect.x = piece_pos_x
-                        pieces.white_bishop_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.white_bishop_img, pieces.white_bishop_img_rect)
+                            pieces.white_bishop_img_rect.x = piece_pos_x
+                            pieces.white_bishop_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.white_bishop_img, pieces.white_bishop_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
 
             for i in range(0, 10):
 
@@ -7198,14 +7241,26 @@ class Start():
 
                     while self.run and pieces.white_knights_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.white_knight_img_rect.x = piece_pos_x
-                        pieces.white_knight_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.white_knight_img, pieces.white_knight_img_rect)
+                            pieces.white_knight_img_rect.x = piece_pos_x
+                            pieces.white_knight_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.white_knight_img, pieces.white_knight_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
                         
             for i in range(0, 10):
 
@@ -7213,14 +7268,26 @@ class Start():
 
                     while self.run and pieces.white_rooks_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.white_rook_img_rect.x = piece_pos_x
-                        pieces.white_rook_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.white_rook_img, pieces.white_rook_img_rect)
+                            pieces.white_rook_img_rect.x = piece_pos_x
+                            pieces.white_rook_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.white_rook_img, pieces.white_rook_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
                         
             for i in range(0, 9):
 
@@ -7228,27 +7295,51 @@ class Start():
 
                     while self.run and pieces.white_queens_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.white_queen_img_rect.x = piece_pos_x
-                        pieces.white_queen_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.white_queen_img, pieces.white_queen_img_rect)
+                            pieces.white_queen_img_rect.x = piece_pos_x
+                            pieces.white_queen_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.white_queen_img, pieces.white_queen_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
                         
             if pieces.white_king_inf[0][2] == True and pieces.white_king_inf[0][4] == True:
 
                 while self.run and pieces.white_king_inf[0][4] == True:
 
-                    piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                    if not self.update_display:
 
-                    pieces.white_king_img_rect.x = piece_pos_x
-                    pieces.white_king_img_rect.y = piece_pos_y
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                    self.screen.blit(pieces.white_king_img, pieces.white_king_img_rect)
+                        pieces.white_king_img_rect.x = piece_pos_x
+                        pieces.white_king_img_rect.y = piece_pos_y
 
-                self.redraw_board()
+                        self.screen.blit(pieces.white_king_img, pieces.white_king_img_rect)
+
+                        self.update_display = True
+
+                while self.run:
+
+                    if not self.update_display:
+
+                        self.redraw_board()
+
+                        self.update_display = True
+
+                        break
                         
             for i in range(0, 8):
 
@@ -7256,14 +7347,26 @@ class Start():
 
                     while self.run and pieces.black_pawns_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.black_pawn_img_rect.x = piece_pos_x
-                        pieces.black_pawn_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.black_pawn_img, pieces.black_pawn_img_rect)
+                            pieces.black_pawn_img_rect.x = piece_pos_x
+                            pieces.black_pawn_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.black_pawn_img, pieces.black_pawn_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
                         
             for i in range(0, 10):
 
@@ -7271,14 +7374,26 @@ class Start():
 
                     while self.run and pieces.black_bishops_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.black_bishop_img_rect.x = piece_pos_x
-                        pieces.black_bishop_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.black_bishop_img, pieces.black_bishop_img_rect)
+                            pieces.black_bishop_img_rect.x = piece_pos_x
+                            pieces.black_bishop_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.black_bishop_img, pieces.black_bishop_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
                         
             for i in range(0, 10):
 
@@ -7286,14 +7401,26 @@ class Start():
 
                     while self.run and pieces.black_knights_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.black_knight_img_rect.x = piece_pos_x
-                        pieces.black_knight_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.black_knight_img, pieces.black_knight_img_rect)
+                            pieces.black_knight_img_rect.x = piece_pos_x
+                            pieces.black_knight_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.black_knight_img, pieces.black_knight_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
                         
             for i in range(0, 10):
 
@@ -7301,14 +7428,26 @@ class Start():
 
                     while self.run and pieces.black_rooks_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.black_rook_img_rect.x = piece_pos_x
-                        pieces.black_rook_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.black_rook_img, pieces.black_rook_img_rect)
+                            pieces.black_rook_img_rect.x = piece_pos_x
+                            pieces.black_rook_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.black_rook_img, pieces.black_rook_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
                         
             for i in range(0, 9):
 
@@ -7316,27 +7455,51 @@ class Start():
 
                     while self.run and pieces.black_queens_inf[i][4] == True:
 
-                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                        if not self.update_display:
 
-                        pieces.black_queen_img_rect.x = piece_pos_x
-                        pieces.black_queen_img_rect.y = piece_pos_y
+                            piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                        self.screen.blit(pieces.black_queen_img, pieces.black_queen_img_rect)
+                            pieces.black_queen_img_rect.x = piece_pos_x
+                            pieces.black_queen_img_rect.y = piece_pos_y
 
-                    self.redraw_board()
+                            self.screen.blit(pieces.black_queen_img, pieces.black_queen_img_rect)
+
+                            self.update_display = True
+
+                    while self.run:
+
+                        if not self.update_display:
+
+                            self.redraw_board()
+
+                            self.update_display = True
+
+                            break
                         
             if pieces.black_king_inf[0][2] == True and pieces.black_king_inf[0][4] == True:
 
                 while self.run and pieces.black_king_inf[0][4] == True:
 
-                    piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
+                    if not self.update_display:
 
-                    pieces.black_king_img_rect.x = piece_pos_x
-                    pieces.black_king_img_rect.y = piece_pos_y
+                        piece_pos_x, piece_pos_y = self.redraw_board_dragging_piece()
 
-                    self.screen.blit(pieces.black_king_img, pieces.black_king_img_rect)
+                        pieces.black_king_img_rect.x = piece_pos_x
+                        pieces.black_king_img_rect.y = piece_pos_y
 
-                self.redraw_board()
+                        self.screen.blit(pieces.black_king_img, pieces.black_king_img_rect)
+
+                        self.update_display = True
+
+                while self.run:
+
+                    if not self.update_display:
+
+                        self.redraw_board()
+
+                        self.update_display = True
+
+                        break
 
     def redraw_board_for_outline(self, x, y):
 
@@ -7345,18 +7508,24 @@ class Start():
 
         pieces.tile_outline_inf[2] = True
 
-        self.redraw_board()
+        if not self.update_display:
+
+            self.redraw_board()
+
+            self.update_display = True
 
     def redraw_board_without_outline(self):
 
         pieces.tile_outline_inf[2] = False
         pieces.tile_outline_inf[3] = False
 
-        self.redraw_board()
+        if not self.update_display:
+
+            self.redraw_board()
+
+            self.update_display = True
 
     def redraw_board(self):
-
-        self.update_display = False
 
         board.draw_board()
 
@@ -7367,8 +7536,6 @@ class Start():
         else:
 
             pieces.draw_pieces_black()
-
-        self.update_display = True
 
     def redraw_board_dragging_piece(self):
 
