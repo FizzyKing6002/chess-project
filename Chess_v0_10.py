@@ -7179,6 +7179,11 @@ class Start():
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
 
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
+
                         move = notation.get_notation("P", pieces.white_pawns_inf[i][0], pieces.white_pawns_inf[i][1], tile_x, tile_y)
 
                         if move in pieces.final_legal_moves:
@@ -7222,6 +7227,11 @@ class Start():
 
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
 
                         move = notation.get_notation("B", pieces.white_bishops_inf[i][0], pieces.white_bishops_inf[i][1], tile_x, tile_y)
 
@@ -7267,6 +7277,11 @@ class Start():
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
 
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
+
                         move = notation.get_notation("N", pieces.white_knights_inf[i][0], pieces.white_knights_inf[i][1], tile_x, tile_y)
 
                         if move in pieces.final_legal_moves:
@@ -7310,6 +7325,11 @@ class Start():
 
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
 
                         move = notation.get_notation("R", pieces.white_rooks_inf[i][0], pieces.white_rooks_inf[i][1], tile_x, tile_y)
 
@@ -7355,6 +7375,11 @@ class Start():
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
 
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
+
                         move = notation.get_notation("Q", pieces.white_queens_inf[i][0], pieces.white_queens_inf[i][1], tile_x, tile_y)
 
                         if move in pieces.final_legal_moves:
@@ -7396,6 +7421,11 @@ class Start():
 
                         tile_x = mouse_pos_x // self.tile_size
                         tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                    else:
+
+                        tile_x = 7 - (mouse_pos_x // self.tile_size)
+                        tile_y = mouse_pos_y // self.tile_size
 
                     move = notation.get_notation("K", pieces.white_king_inf[0][0], pieces.white_king_inf[0][1], tile_x, tile_y)
 
@@ -7441,6 +7471,11 @@ class Start():
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
 
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
+
                         move = notation.get_notation("P", pieces.black_pawns_inf[i][0], pieces.black_pawns_inf[i][1], tile_x, tile_y)
 
                         if move in pieces.final_legal_moves:
@@ -7484,6 +7519,11 @@ class Start():
 
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
 
                         move = notation.get_notation("B", pieces.black_bishops_inf[i][0], pieces.black_bishops_inf[i][1], tile_x, tile_y)
 
@@ -7529,6 +7569,11 @@ class Start():
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
 
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
+
                         move = notation.get_notation("N", pieces.black_knights_inf[i][0], pieces.black_knights_inf[i][1], tile_x, tile_y)
 
                         if move in pieces.final_legal_moves:
@@ -7572,6 +7617,11 @@ class Start():
 
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
 
                         move = notation.get_notation("R", pieces.black_rooks_inf[i][0], pieces.black_rooks_inf[i][1], tile_x, tile_y)
 
@@ -7617,6 +7667,11 @@ class Start():
                             tile_x = mouse_pos_x // self.tile_size
                             tile_y = 7 - (mouse_pos_y // self.tile_size)
 
+                        else:
+
+                            tile_x = 7 - (mouse_pos_x // self.tile_size)
+                            tile_y = mouse_pos_y // self.tile_size
+
                         move = notation.get_notation("Q", pieces.black_queens_inf[i][0], pieces.black_queens_inf[i][1], tile_x, tile_y)
 
                         if move in pieces.final_legal_moves:
@@ -7658,6 +7713,11 @@ class Start():
 
                         tile_x = mouse_pos_x // self.tile_size
                         tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                    else:
+
+                        tile_x = 7 - (mouse_pos_x // self.tile_size)
+                        tile_y = mouse_pos_y // self.tile_size
 
                     move = notation.get_notation("K", pieces.black_king_inf[0][0], pieces.black_king_inf[0][1], tile_x, tile_y)
 
@@ -8020,7 +8080,10 @@ class Start():
                     while self.run:
 
                         print("Choose a move! (Copy the move exactly)")
-                        self.move_choice = input()
+
+                        while self.run and self.move_choice == "":
+
+                            pass
 
                         if self.move_choice in pieces.final_legal_moves:
 
@@ -8043,6 +8106,8 @@ class Start():
                 self.your_turn = not self.your_turn
 
                 notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
+                self.move_choice = ""
+
                 pieces.move_piece(notation_val, take)
 
                 if pieces.half_moves >= 100:
