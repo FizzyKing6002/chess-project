@@ -6572,7 +6572,6 @@ class Start():
         self.tile_size = self.screen_height // 8
 
         self.run = True
-        self.game_over = False
         self.update = False
         self.update_display = True
         self.white_turn = True
@@ -6605,7 +6604,6 @@ class Start():
         self.auto_move_thread = threading.Thread(target = self.auto_move_func)
         self.one_player_thread = threading.Thread(target = self.one_player_func)
         self.two_player_thread = threading.Thread(target = self.two_player_func)
-        self.game_over_thread = threading.Thread(target = self.game_over_func)
         self.play_again_thread = threading.Thread(target = self.play_again_func)
         
         #self.event_handler_thread_started = False
@@ -6615,7 +6613,6 @@ class Start():
         self.auto_move_thread_started = False
         self.one_player_thread_started = False
         self.two_player_thread_started = False
-        self.game_over_thread_started = False
         self.play_again_thread_started = False
         
     def start(self):
@@ -6689,12 +6686,6 @@ class Start():
                     self.two_player_thread.start()
                     self.two_player_thread_started = True
 
-                elif self.game_over == True:
-
-                    self.game_over_thread = threading.Thread(target = self.game_over_func)
-                    self.game_over_thread.start()
-                    self.game_over_thread_started = True
-
                 else:
 
                     self.play_again_thread = threading.Thread(target = self.play_again_func)
@@ -6728,10 +6719,6 @@ class Start():
         if self.two_player_thread_started == True:
 
             self.two_player_thread.join()
-
-        if self.game_over_thread_started == True:
-
-            self.game_over_thread.join()
 
         if self.play_again_thread_started == True:
 
@@ -7196,7 +7183,7 @@ class Start():
 
                         if move in pieces.final_legal_moves:
 
-                            print("hi")
+                            self.move_choice = move
 
                     while self.run:
 
@@ -7225,6 +7212,23 @@ class Start():
 
                             self.update_display = True
 
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("B", pieces.white_bishops_inf[i][0], pieces.white_bishops_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
+
                     while self.run:
 
                         if not self.update_display:
@@ -7251,6 +7255,23 @@ class Start():
                             self.screen.blit(pieces.white_knight_img, pieces.white_knight_img_rect)
 
                             self.update_display = True
+
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("N", pieces.white_knights_inf[i][0], pieces.white_knights_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
 
                     while self.run:
 
@@ -7279,6 +7300,23 @@ class Start():
 
                             self.update_display = True
 
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("R", pieces.white_rooks_inf[i][0], pieces.white_rooks_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
+
                     while self.run:
 
                         if not self.update_display:
@@ -7306,6 +7344,23 @@ class Start():
 
                             self.update_display = True
 
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("Q", pieces.white_queens_inf[i][0], pieces.white_queens_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
+
                     while self.run:
 
                         if not self.update_display:
@@ -7330,6 +7385,23 @@ class Start():
                         self.screen.blit(pieces.white_king_img, pieces.white_king_img_rect)
 
                         self.update_display = True
+
+                mouse_pos = pygame.mouse.get_pos()
+                mouse_pos_x = mouse_pos[0]
+                mouse_pos_y = mouse_pos[1]
+
+                if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                    if self.playing_as_white:
+
+                        tile_x = mouse_pos_x // self.tile_size
+                        tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                    move = notation.get_notation("K", pieces.white_king_inf[0][0], pieces.white_king_inf[0][1], tile_x, tile_y)
+
+                    if move in pieces.final_legal_moves:
+
+                        self.move_choice = move
 
                 while self.run:
 
@@ -7358,6 +7430,23 @@ class Start():
 
                             self.update_display = True
 
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("P", pieces.black_pawns_inf[i][0], pieces.black_pawns_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
+
                     while self.run:
 
                         if not self.update_display:
@@ -7384,6 +7473,23 @@ class Start():
                             self.screen.blit(pieces.black_bishop_img, pieces.black_bishop_img_rect)
 
                             self.update_display = True
+
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("B", pieces.black_bishops_inf[i][0], pieces.black_bishops_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
 
                     while self.run:
 
@@ -7412,6 +7518,23 @@ class Start():
 
                             self.update_display = True
 
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("N", pieces.black_knights_inf[i][0], pieces.black_knights_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
+
                     while self.run:
 
                         if not self.update_display:
@@ -7438,6 +7561,23 @@ class Start():
                             self.screen.blit(pieces.black_rook_img, pieces.black_rook_img_rect)
 
                             self.update_display = True
+
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("R", pieces.black_rooks_inf[i][0], pieces.black_rooks_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
 
                     while self.run:
 
@@ -7466,6 +7606,23 @@ class Start():
 
                             self.update_display = True
 
+                    mouse_pos = pygame.mouse.get_pos()
+                    mouse_pos_x = mouse_pos[0]
+                    mouse_pos_y = mouse_pos[1]
+
+                    if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                        if self.playing_as_white:
+
+                            tile_x = mouse_pos_x // self.tile_size
+                            tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                        move = notation.get_notation("Q", pieces.black_queens_inf[i][0], pieces.black_queens_inf[i][1], tile_x, tile_y)
+
+                        if move in pieces.final_legal_moves:
+
+                            self.move_choice = move
+
                     while self.run:
 
                         if not self.update_display:
@@ -7490,6 +7647,23 @@ class Start():
                         self.screen.blit(pieces.black_king_img, pieces.black_king_img_rect)
 
                         self.update_display = True
+
+                mouse_pos = pygame.mouse.get_pos()
+                mouse_pos_x = mouse_pos[0]
+                mouse_pos_y = mouse_pos[1]
+
+                if mouse_pos_x >= self.tile_size * 0 and mouse_pos_x < self.tile_size * 8 and mouse_pos_y >= self.tile_size * 0 and mouse_pos_y < self.tile_size * 8:
+
+                    if self.playing_as_white:
+
+                        tile_x = mouse_pos_x // self.tile_size
+                        tile_y = 7 - (mouse_pos_y // self.tile_size)
+
+                    move = notation.get_notation("K", pieces.black_king_inf[0][0], pieces.black_king_inf[0][1], tile_x, tile_y)
+
+                    if move in pieces.final_legal_moves:
+
+                        self.move_choice = move
 
                 while self.run:
 
@@ -7752,7 +7926,6 @@ class Start():
                     self.game_save_winner = 0
 
                 self.auto_move = False
-                self.game_over = True
 
             else:
 
@@ -7814,7 +7987,6 @@ class Start():
                 self.save_game_data_func()
             
             self.auto_move = False
-            self.game_over = True
                 
         self.update = True
 
@@ -7838,7 +8010,6 @@ class Start():
                     self.game_save_winner = 0
 
                 self.one_player = False
-                self.game_over = True
 
             else:
 
@@ -7923,7 +8094,6 @@ class Start():
                 self.save_game_data_func()
             
             self.one_player = False
-            self.game_over = True
                 
         self.update = True
 
@@ -7947,7 +8117,6 @@ class Start():
                     self.game_save_winner = 0
 
                 self.two_player = False
-                self.game_over = True
 
             else:
 
@@ -7956,7 +8125,14 @@ class Start():
                 while self.run:
 
                     print("Choose a move! (Copy the move exactly)")
-                    self.move_choice = input()
+
+                    while self.run and self.move_choice == "":
+
+                        pass
+                    
+                    #self.move_choice = input()
+
+                    #if self.move_choice in pieces.final_legal_moves:
 
                     if self.move_choice in pieces.final_legal_moves:
 
@@ -7969,6 +8145,9 @@ class Start():
                         print("That is not a valid move.")
 
                 notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
+                self.move_choice = ""
+
+                #notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
                 pieces.move_piece(notation_val, take)
 
                 if pieces.half_moves >= 100:
@@ -8024,66 +8203,7 @@ class Start():
                 self.save_game_data_func()
             
             self.two_player = False
-            self.game_over = True
                 
-        self.update = True
-
-    def game_over_func(self):
-
-        self.game_over = False
-        
-        self.white_turn = True
-        self.playing_as_white = True
-        self.auto_rotate = False
-        self.your_turn = True
-
-        self.save_game_data = False
-
-        self.auto_move = False
-        self.one_player = False
-        self.two_player = False
-
-        self.move_choice = ""
-
-        repetition_draw_file_write = open("repetition_draw_file.txt", "w")
-        repetition_draw_file_write.write("")
-        repetition_draw_file_write.close()
-
-        pieces.white_pawns_inf = [[0, 1, True, False, False, True], [1, 1, True, False, False, True], [2, 1, True, False, False, True], [3, 1, True, False, False, True], [4, 1, True, False, False, True], [5, 1, True, False, False, True], [6, 1, True, False, False, True], [7, 1, True, False, False, True]]
-        pieces.white_bishops_inf = [[2, 0, True, False, False], [5, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
-        pieces.white_knights_inf = [[1, 0, True, False, False], [6, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
-        pieces.white_rooks_inf = [[0, 0, True, False, False, True], [7, 0, True, False, False, True], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False]]
-        pieces.white_queens_inf = [[3, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
-        pieces.white_king_inf = [[4, 0, True, False, False, True]]
-
-        pieces.black_pawns_inf = [[0, 6, True, False, False, True], [1, 6, True, False, False, True], [2, 6, True, False, False, True], [3, 6, True, False, False, True], [4, 6, True, False, False, True], [5, 6, True, False, False, True], [6, 6, True, False, False, True], [7, 6, True, False, False, True]]
-        pieces.black_bishops_inf = [[2, 7, True, False, False], [5, 7, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
-        pieces.black_knights_inf = [[6, 7, True, False, False], [1, 7, True, False, False], [6, 3, False, False, False], [0, 3, False, False, False], [2, 0, False, False, False], [2, 6, False, False, False], [6, 2, False, False, False], [0, 2, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
-        pieces.black_rooks_inf = [[0, 7, True, False, False, True], [7, 7, True, False, False, True], [2, 0, False, False, False, False], [4, 6, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False]]
-        pieces.black_queens_inf = [[3, 7, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
-        pieces.black_king_inf = [[4, 7, True, False, False, True]]
-
-        pieces.piece_value_matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
-                                   [0, 0, 0, 0, 0, 0, 0, 0],
-                                   [0, 0, 0, 0, 0, 0, 0, 0],
-                                   [0, 0, 0, 0, 0, 0, 0, 0],
-                                   [0, 0, 0, 0, 0, 0, 0, 0],
-                                   [0, 0, 0, 0, 0, 0, 0, 0],
-                                   [0, 0, 0, 0, 0, 0, 0, 0],
-                                   [0, 0, 0, 0, 0, 0, 0, 0]]
-
-        pieces.white_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
-        pieces.white_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
-
-        pieces.black_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
-        pieces.black_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
-
-        pieces.en_passant_x_y = [8, 8]
-
-        pieces.half_moves = 0
-        pieces.half_move_limit = False
-        pieces.turn_num = 1
-
         self.update = True
 
     def play_again_func(self):
@@ -8095,6 +8215,58 @@ class Start():
             play_again_input = input()
 
             if play_again_input == "y":
+
+                self.white_turn = True
+                self.playing_as_white = True
+                self.auto_rotate = False
+                self.your_turn = True
+
+                self.save_game_data = False
+
+                self.auto_move = False
+                self.one_player = False
+                self.two_player = False
+
+                self.move_choice = ""
+
+                repetition_draw_file_write = open("repetition_draw_file.txt", "w")
+                repetition_draw_file_write.write("")
+                repetition_draw_file_write.close()
+
+                pieces.white_pawns_inf = [[0, 1, True, False, False, True], [1, 1, True, False, False, True], [2, 1, True, False, False, True], [3, 1, True, False, False, True], [4, 1, True, False, False, True], [5, 1, True, False, False, True], [6, 1, True, False, False, True], [7, 1, True, False, False, True]]
+                pieces.white_bishops_inf = [[2, 0, True, False, False], [5, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+                pieces.white_knights_inf = [[1, 0, True, False, False], [6, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+                pieces.white_rooks_inf = [[0, 0, True, False, False, True], [7, 0, True, False, False, True], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False]]
+                pieces.white_queens_inf = [[3, 0, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+                pieces.white_king_inf = [[4, 0, True, False, False, True]]
+
+                pieces.black_pawns_inf = [[0, 6, True, False, False, True], [1, 6, True, False, False, True], [2, 6, True, False, False, True], [3, 6, True, False, False, True], [4, 6, True, False, False, True], [5, 6, True, False, False, True], [6, 6, True, False, False, True], [7, 6, True, False, False, True]]
+                pieces.black_bishops_inf = [[2, 7, True, False, False], [5, 7, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+                pieces.black_knights_inf = [[6, 7, True, False, False], [1, 7, True, False, False], [6, 3, False, False, False], [0, 3, False, False, False], [2, 0, False, False, False], [2, 6, False, False, False], [6, 2, False, False, False], [0, 2, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+                pieces.black_rooks_inf = [[0, 7, True, False, False, True], [7, 7, True, False, False, True], [2, 0, False, False, False, False], [4, 6, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False], [0, 7, False, False, False, False]]
+                pieces.black_queens_inf = [[3, 7, True, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False], [0, 7, False, False, False]]
+                pieces.black_king_inf = [[4, 7, True, False, False, True]]
+
+                pieces.piece_value_matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0, 0, 0, 0],
+                                           [0, 0, 0, 0, 0, 0, 0, 0]]
+
+                pieces.white_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
+                pieces.white_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
+
+                pieces.black_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
+                pieces.black_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
+
+                pieces.en_passant_x_y = [8, 8]
+
+                pieces.half_moves = 0
+                pieces.half_move_limit = False
+                pieces.turn_num = 1
 
                 self.player_customisations_func()
 
