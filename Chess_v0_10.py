@@ -134,6 +134,12 @@ class Pieces():
         self.tile_outline_img = pygame.transform.scale(self.tile_outline_img, (startup.tile_size, startup.tile_size))
         self.tile_outline_img_rect = self.tile_outline_img.get_rect()
 
+        self.promotion_strip_img = pygame.image.load(os.path.join("Textures/promotion_strip2.png")).convert_alpha()
+        self.promotion_strip_img = pygame.transform.scale(self.promotion_strip_img, (startup.tile_size, startup.tile_size * 2))
+        self.promotion_strip_img_rect = self.promotion_strip_img.get_rect()
+
+        self.promotion_strip_inf = [0, 0, False]
+
         self.white_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
         self.white_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
 
@@ -274,6 +280,18 @@ class Pieces():
             self.tile_outline_img_rect.y = self.tile_outline_img_rect.y - (self.tile_outline_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
 
             startup.screen.blit(self.tile_outline_img, self.tile_outline_img_rect)
+
+        if self.promotion_strip_inf[2] == True:
+
+            self.promotion_strip_img_rect.x = self.promotion_strip_inf[0] * startup.tile_size
+            self.promotion_strip_img_rect.y = self.promotion_strip_inf[1] * startup.tile_size
+            self.promotion_strip_img_rect.y = self.promotion_strip_img_rect.y - (self.promotion_strip_img_rect.y * 2) + (startup.screen_height - startup.tile_size)
+
+            if self.promotion_strip_inf[1] == 0:
+
+                self.promotion_strip_img_rect.y += startup.tile_size
+
+            startup.screen.blit(self.promotion_strip_img, self.promotion_strip_img_rect)
 
     def draw_pieces_black(self):
 
@@ -7190,6 +7208,18 @@ class Start():
 
                             self.move_choice = move
 
+                        else:
+
+                            if tile_y == 7:
+
+                                for legal_move in pieces.final_legal_moves:
+
+                                    if legal_move[:-1] == move:
+
+                                        pieces.promotion_strip_inf = [tile_x, tile_y, True]
+
+                                        break
+
                     while self.run:
 
                         if not self.update_display:
@@ -7433,6 +7463,18 @@ class Start():
 
                         self.move_choice = move
 
+                    else:
+
+                        for move in pieces.final_legal_moves:
+
+                            if move == "O-O" and (tile_x == 6 or tile_x == 7) and tile_y == 0:
+
+                                self.move_choice = move
+
+                            if move == "O-O-O" and (tile_x == 0 or tile_x == 2) and tile_y == 0:
+
+                                self.move_choice = move
+
                 while self.run:
 
                     if not self.update_display:
@@ -7481,6 +7523,26 @@ class Start():
                         if move in pieces.final_legal_moves:
 
                             self.move_choice = move
+
+                        else:
+
+                            print("1")
+
+                            if tile_y == 0:
+
+                                print("2")
+
+                                for legal_move in pieces.final_legal_moves:
+
+                                    print(legal_move[:-1], move)
+
+                                    if legal_move[:-1] == move:
+
+                                        pieces.promotion_strip_inf = [tile_x, tile_y, True]
+
+                                        print(pieces.promotion_strip_inf)
+
+                                        break
 
                     while self.run:
 
@@ -7724,6 +7786,18 @@ class Start():
                     if move in pieces.final_legal_moves:
 
                         self.move_choice = move
+
+                    else:
+
+                        for move in pieces.final_legal_moves:
+
+                            if move == "O-O" and (tile_x == 6 or tile_x == 7) and tile_y == 7:
+
+                                self.move_choice = move
+
+                            if move == "O-O-O" and (tile_x == 0 or tile_x == 2) and tile_y == 7:
+
+                                self.move_choice = move
 
                 while self.run:
 
