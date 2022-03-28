@@ -166,7 +166,7 @@ class Pieces():
         self.promotion_strip_img_2 = pygame.transform.scale(self.promotion_strip_img_2, (startup.tile_size, startup.tile_size * 2))
         self.promotion_strip_img_2_rect = self.promotion_strip_img_2.get_rect()
 
-        self.promotion_strip_inf = [0, 0, False]
+        self.promotion_strip_inf = [0, 0, False, 0]
 
         self.white_occupation_x = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]
         self.white_occupation_y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
@@ -6897,23 +6897,51 @@ class Start():
 
                         if mouse_pos_x >= pieces.promotion_strip_inf[0] * self.tile_size and mouse_pos_x <= (pieces.promotion_strip_inf[0] + 1) * self.tile_size and mouse_pos_y >= 0 * self.tile_size and mouse_pos_y <= 1 * self.tile_size:
 
-                            #make white queen
-                            pass
+                            pawn_x_pos = pieces.white_pawns_inf[pieces.promotion_strip_inf[3]][0]
+
+                            if pawn_x_pos == pieces.promotion_strip_inf[0]:
+
+                                self.move_choice = notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=Q"
+
+                            else:
+
+                                self.move_choice = notation.get_column(pawn_x_pos) + "x" + notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=Q"
 
                         elif mouse_pos_x >= pieces.promotion_strip_inf[0] * self.tile_size and mouse_pos_x <= ((pieces.promotion_strip_inf[0] + 0.5) * self.tile_size) // 1 and mouse_pos_y >= 1 * self.tile_size and mouse_pos_y <= (1.5 * self.tile_size) // 1:
 
-                            #make white rook
-                            pass
+                            pawn_x_pos = pieces.white_pawns_inf[pieces.promotion_strip_inf[3]][0]
+                            
+                            if pawn_x_pos == pieces.promotion_strip_inf[0]:
+
+                                self.move_choice = notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=R"
+
+                            else:
+
+                                self.move_choice = notation.get_column(pawn_x_pos) + "x" + notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=R"
 
                         elif mouse_pos_x >= ((pieces.promotion_strip_inf[0] + 0.5) * self.tile_size) // 1 and mouse_pos_x <= (pieces.promotion_strip_inf[0] + 1) * self.tile_size and mouse_pos_y >= 1 * self.tile_size and mouse_pos_y <= (1.5 * self.tile_size) // 1:
 
-                            #make white bishop
-                            pass
+                            pawn_x_pos = pieces.white_pawns_inf[pieces.promotion_strip_inf[3]][0]
+                            
+                            if pawn_x_pos == pieces.promotion_strip_inf[0]:
+
+                                self.move_choice = notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=B"
+
+                            else:
+
+                                self.move_choice = notation.get_column(pawn_x_pos) + "x" + notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=B"
 
                         elif mouse_pos_x >= ((pieces.promotion_strip_inf[0] + 0.25) * self.tile_size) // 1 and mouse_pos_x <= ((pieces.promotion_strip_inf[0] + 0.75) * self.tile_size) // 1 and mouse_pos_y >= (1.5 * self.tile_size) // 1 and mouse_pos_y <= 2 * self.tile_size:
 
-                            #make white knight
-                            pass
+                            pawn_x_pos = pieces.white_pawns_inf[pieces.promotion_strip_inf[3]][0]
+                            
+                            if pawn_x_pos == pieces.promotion_strip_inf[0]:
+
+                                self.move_choice = notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=N"
+
+                            else:
+
+                                self.move_choice = notation.get_column(pawn_x_pos) + "x" + notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=N"
 
                     else:
 
@@ -6929,23 +6957,51 @@ class Start():
 
                         if mouse_pos_x >= pieces.promotion_strip_inf[0] * self.tile_size and mouse_pos_x <= (pieces.promotion_strip_inf[0] + 1) * self.tile_size and mouse_pos_y >= 0 * self.tile_size and mouse_pos_y <= 1 * self.tile_size:
 
-                            #make black queen
-                            pass
+                            pawn_x_pos = pieces.black_pawns_inf[pieces.promotion_strip_inf[3]][0]
+                            
+                            if pawn_x_pos == pieces.promotion_strip_inf[0]:
+
+                                self.move_choice = notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=Q"
+
+                            else:
+
+                                self.move_choice = notation.get_column(pawn_x_pos) + "x" + notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=Q"
 
                         elif mouse_pos_x >= pieces.promotion_strip_inf[0] * self.tile_size and mouse_pos_x <= ((pieces.promotion_strip_inf[0] + 0.5) * self.tile_size) // 1 and mouse_pos_y >= 1 * self.tile_size and mouse_pos_y <= (1.5 * self.tile_size) // 1:
 
-                            #make black rook
-                            pass
+                            pawn_x_pos = pieces.black_pawns_inf[pieces.promotion_strip_inf[3]][0]
+                            
+                            if pawn_x_pos == pieces.promotion_strip_inf[0]:
+
+                                self.move_choice = notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=R"
+
+                            else:
+
+                                self.move_choice = notation.get_column(pawn_x_pos) + "x" + notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=R"
 
                         elif mouse_pos_x >= ((pieces.promotion_strip_inf[0] + 0.5) * self.tile_size) // 1 and mouse_pos_x <= (pieces.promotion_strip_inf[0] + 1) * self.tile_size and mouse_pos_y >= 1 * self.tile_size and mouse_pos_y <= (1.5 * self.tile_size) // 1:
 
-                            #make black bishop
-                            pass
+                            pawn_x_pos = pieces.black_pawns_inf[pieces.promotion_strip_inf[3]][0]
+                            
+                            if pawn_x_pos == pieces.promotion_strip_inf[0]:
+
+                                self.move_choice = notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=B"
+
+                            else:
+
+                                self.move_choice = notation.get_column(pawn_x_pos) + "x" + notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=B"
 
                         elif mouse_pos_x >= ((pieces.promotion_strip_inf[0] + 0.25) * self.tile_size) // 1 and mouse_pos_x <= ((pieces.promotion_strip_inf[0] + 0.75) * self.tile_size) // 1 and mouse_pos_y >= (1.5 * self.tile_size) // 1 and mouse_pos_y <= 2 * self.tile_size:
 
-                            #make black knight
-                            pass
+                            pawn_x_pos = pieces.black_pawns_inf[pieces.promotion_strip_inf[3]][0]
+                            
+                            if pawn_x_pos == pieces.promotion_strip_inf[0]:
+
+                                self.move_choice = notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=N"
+
+                            else:
+
+                                self.move_choice = notation.get_column(pawn_x_pos) + "x" + notation.get_column(pieces.promotion_strip_inf[0]) + notation.get_row(7) + "=N"
 
             if self.playing_as_white:
 
@@ -7351,6 +7407,8 @@ class Start():
 
         while self.run:
 
+            pawn_placement = 0
+
             for i in range(0, 8):
 
                 if pieces.white_pawns_inf[i][2] == True and pieces.white_pawns_inf[i][4] == True:
@@ -7398,7 +7456,7 @@ class Start():
 
                                     if legal_move[:-1] == move:
 
-                                        pieces.promotion_strip_inf = [tile_x, tile_y, True]
+                                        pieces.promotion_strip_inf = [tile_x, tile_y, True, pawn_placement]
 
                                         break
 
@@ -7411,6 +7469,8 @@ class Start():
                             self.update_display = True
 
                             break
+
+                pawn_placement += 1
 
             for i in range(0, 10):
 
@@ -7666,6 +7726,8 @@ class Start():
                         self.update_display = True
 
                         break
+
+            pawn_placement = 0
                         
             for i in range(0, 8):
 
@@ -7714,7 +7776,7 @@ class Start():
 
                                     if legal_move[:-1] == move:
 
-                                        pieces.promotion_strip_inf = [tile_x, tile_y, True]
+                                        pieces.promotion_strip_inf = [tile_x, tile_y, True, pawn_placement]
 
                                         break
 
@@ -7727,6 +7789,8 @@ class Start():
                             self.update_display = True
 
                             break
+
+                pawn_placement += 1
                         
             for i in range(0, 10):
 
@@ -8561,7 +8625,7 @@ class Start():
                 pieces.black_king_inf = [[4, 7, True, False, False, True]]
 
                 pieces.tile_outline_inf = [0, 0, False, False]
-                pieces.promotion_strip_inf = [0, 0, False]
+                pieces.promotion_strip_inf = [0, 0, False, 0]
 
                 pieces.piece_value_matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
                                            [0, 0, 0, 0, 0, 0, 0, 0],
