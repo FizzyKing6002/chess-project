@@ -7792,6 +7792,8 @@ class Start():
                             if move == "O-O-O" and (tile_x == 0 or tile_x == 2) and tile_y == 0:
 
                                 self.move_choice = move
+
+            pawn_placement = 0
                         
             for i in range(0, 8):
 
