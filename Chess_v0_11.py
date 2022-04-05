@@ -453,7 +453,7 @@ class Pieces():
 
                 startup.screen.blit(self.white_pawn_img, self.white_pawn_img_rect)
 
-        for i in range(0, 2):
+        for i in range(0, 10):
 
             if self.white_bishops_inf[i][2] == True and self.white_bishops_inf[i][4] == False:
 
@@ -463,7 +463,7 @@ class Pieces():
 
                 startup.screen.blit(self.white_bishop_img, self.white_bishop_img_rect)
 
-        for i in range(0, 2):
+        for i in range(0, 10):
 
             if self.white_knights_inf[i][2] == True and self.white_knights_inf[i][4] == False:
 
@@ -473,7 +473,7 @@ class Pieces():
 
                 startup.screen.blit(self.white_knight_img, self.white_knight_img_rect)
 
-        for i in range(0, 2):
+        for i in range(0, 10):
 
             if self.white_rooks_inf[i][2] == True and self.white_rooks_inf[i][4] == False:
 
@@ -483,13 +483,15 @@ class Pieces():
 
                 startup.screen.blit(self.white_rook_img, self.white_rook_img_rect)
 
-        if self.white_queens_inf[0][2] == True and self.white_queens_inf[i][4] == False:
+        for i in range(0, 9):
 
-            self.white_queen_img_rect.x = self.white_queens_inf[0][0] * startup.tile_size
-            self.white_queen_img_rect.x = self.white_queen_img_rect.x - (self.white_queen_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
-            self.white_queen_img_rect.y = self.white_queens_inf[0][1] * startup.tile_size
+            if self.white_queens_inf[i][2] == True and self.white_queens_inf[i][4] == False:
 
-            startup.screen.blit(self.white_queen_img, self.white_queen_img_rect)
+                self.white_queen_img_rect.x = self.white_queens_inf[i][0] * startup.tile_size
+                self.white_queen_img_rect.x = self.white_queen_img_rect.x - (self.white_queen_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.white_queen_img_rect.y = self.white_queens_inf[i][1] * startup.tile_size
+
+                startup.screen.blit(self.white_queen_img, self.white_queen_img_rect)
 
         if self.white_king_inf[0][2] == True and self.white_king_inf[0][4] == False:
 
@@ -509,7 +511,7 @@ class Pieces():
 
                 startup.screen.blit(self.black_pawn_img, self.black_pawn_img_rect)
 
-        for i in range(0, 2):
+        for i in range(0, 10):
 
             if self.black_bishops_inf[i][2] == True and self.black_bishops_inf[i][4] == False:
 
@@ -519,7 +521,7 @@ class Pieces():
 
                 startup.screen.blit(self.black_bishop_img, self.black_bishop_img_rect)
 
-        for i in range(0, 2):
+        for i in range(0, 10):
 
             if self.black_knights_inf[i][2] == True and self.black_knights_inf[i][4] == False:
 
@@ -529,7 +531,7 @@ class Pieces():
 
                 startup.screen.blit(self.black_knight_img, self.black_knight_img_rect)
 
-        for i in range(0, 2):
+        for i in range(0, 10):
 
             if self.black_rooks_inf[i][2] == True and self.black_rooks_inf[i][4] == False:
 
@@ -539,13 +541,15 @@ class Pieces():
 
                 startup.screen.blit(self.black_rook_img, self.black_rook_img_rect)
 
-        if self.black_queens_inf[0][2] == True and self.black_queens_inf[i][4] == False:
+        for i in range(0, 9):
 
-            self.black_queen_img_rect.x = self.black_queens_inf[0][0] * startup.tile_size
-            self.black_queen_img_rect.x = self.black_queen_img_rect.x - (self.black_queen_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
-            self.black_queen_img_rect.y = self.black_queens_inf[0][1] * startup.tile_size
+            if self.black_queens_inf[i][2] == True and self.black_queens_inf[i][4] == False:
 
-            startup.screen.blit(self.black_queen_img, self.black_queen_img_rect)
+                self.black_queen_img_rect.x = self.black_queens_inf[i][0] * startup.tile_size
+                self.black_queen_img_rect.x = self.black_queen_img_rect.x - (self.black_queen_img_rect.x * 2) + (startup.screen_height - startup.tile_size)
+                self.black_queen_img_rect.y = self.black_queens_inf[i][1] * startup.tile_size
+
+                startup.screen.blit(self.black_queen_img, self.black_queen_img_rect)
 
         if self.black_king_inf[0][2] == True and self.black_king_inf[0][4] == False:
 
