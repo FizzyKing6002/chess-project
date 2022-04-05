@@ -615,6 +615,74 @@ class Pieces():
                 startup.screen.blit(self.little_white_bishop_img, self.little_white_bishop_img_rect)
                 startup.screen.blit(self.little_white_knight_img, self.little_white_knight_img_rect)
 
+        for i in range(0, 8):
+
+            if self.white_pawns_inf[i][2] and self.white_pawns_inf[i][4]:
+
+                self.draw_dragged_piece(self.white_pawn_img, self.white_pawn_img_rect)
+
+        for i in range(0, 10):
+
+            if self.white_bishops_inf[i][2] and self.white_bishops_inf[i][4]:
+
+                self.draw_dragged_piece(self.white_bishop_img, self.white_bishop_img_rect)
+
+        for i in range(0, 10):
+
+            if self.white_knights_inf[i][2] and self.white_knights_inf[i][4]:
+
+                self.draw_dragged_piece(self.white_knight_img, self.white_knight_img_rect)
+
+        for i in range(0, 10):
+
+            if self.white_rooks_inf[i][2] and self.white_rooks_inf[i][4]:
+
+                self.draw_dragged_piece(self.white_rook_img, self.white_rook_img_rect)
+
+        for i in range(0, 9):
+
+            if self.white_queens_inf[i][2] and self.white_queens_inf[i][4]:
+
+                self.draw_dragged_piece(self.white_queen_img, self.white_queen_img_rect)
+
+        if self.white_king_inf[0][2] and self.white_king_inf[0][4]:
+
+            self.draw_dragged_piece(self.white_king_img, self.white_king_img_rect)
+
+        for i in range(0, 8):
+
+            if self.black_pawns_inf[i][2] and self.black_pawns_inf[i][4]:
+
+                self.draw_dragged_piece(self.black_pawn_img, self.black_pawn_img_rect)
+
+        for i in range(0, 10):
+
+            if self.black_bishops_inf[i][2] and self.black_bishops_inf[i][4]:
+
+                self.draw_dragged_piece(self.black_bishop_img, self.black_bishop_img_rect)
+
+        for i in range(0, 10):
+
+            if self.black_knights_inf[i][2] and self.black_knights_inf[i][4]:
+
+                self.draw_dragged_piece(self.black_knight_img, self.black_knight_img_rect)
+
+        for i in range(0, 10):
+
+            if self.black_rooks_inf[i][2] and self.black_rooks_inf[i][4]:
+
+                self.draw_dragged_piece(self.black_rook_img, self.black_rook_img_rect)
+
+        for i in range(0, 9):
+
+            if self.black_queens_inf[i][2] and self.black_queens_inf[i][4]:
+
+                self.draw_dragged_piece(self.black_queen_img, self.black_queen_img_rect)
+
+        if self.black_king_inf[0][2] and self.black_king_inf[0][4]:
+
+            self.draw_dragged_piece(self.black_king_img, self.black_king_img_rect)
+
     def white_black_occupation(self):
 
         self.white_occupation_x = []
