@@ -11,6 +11,8 @@ import math
 from copy import deepcopy
 import numpy
 
+from Engine import Engine_Chess_v0_1 as engine
+
 class Board():
 
     def __init__(self):
@@ -2948,8 +2950,6 @@ class Pieces():
                     if king_moves[move] == True:
 
                         self.legal_moves.append(move)
-
-        #print(self.legal_moves)
                 
         self.legal_moves_move_notation = self.legal_moves
 
@@ -2977,14 +2977,6 @@ class Pieces():
             black_rooks = deepcopy(self.black_rooks_inf)
             black_queens = deepcopy(self.black_queens_inf)
             black_king = deepcopy(self.black_king_inf)
-
-            #en_passant_xy = deepcopy(self.en_passant_x_y)
-
-            #white_occ_x = deepcopy(self.white_occupation_x)
-            #white_occ_y = deepcopy(self.white_occupation_y)
-
-            #black_occ_x = deepcopy(self.black_occupation_x)
-            #black_occ_y = deepcopy(self.black_occupation_y)
 
             notation_val, take = self.convert_to_easy_notation(move)
 
@@ -4422,8 +4414,6 @@ class Pieces():
                     if "O-O-O" in self.legal_moves:
 
                         self.legal_moves.remove("O-O-O")
-
-        #print(self.legal_moves)
 
     def convert_to_easy_notation(self, notation_val):
 
@@ -6812,8 +6802,6 @@ class Notation():
 
         fen = self.create_fen_position()
         
-        #print(fen)
-        
         fen = fen[:fen.find(" ")]
         
         repetition_draw_file_append = open("repetition_draw_file.txt", "a")
@@ -6925,8 +6913,6 @@ class Start():
 
         while self.run:
 
-            #if self.update_display:
-
             board.draw_board()
 
             if self.playing_as_white:
@@ -6938,8 +6924,6 @@ class Start():
                 pieces.draw_pieces_black()
             
             pygame.display.update()
-
-                #self.update_display = False
 
             for event in pygame.event.get():
                 
@@ -8085,13 +8069,6 @@ class Start():
                                     
     def player_customisations_func(self):
 
-        #self.update_display = False
-
-        #board.draw_board()
-        #pieces.draw_pieces_white()
-
-        #self.update_display = True
-
         while self.run:
             
             print("How many players? (0-2)")
@@ -8191,20 +8168,6 @@ class Start():
 
                         print("That is not a valid position.")
 
-                self.update_display = False
-
-                board.draw_board()
-
-                if self.playing_as_white == True:
-
-                    pieces.draw_pieces_white()
-
-                else:
-
-                    pieces.draw_pieces_black()
-
-                self.update_display = True
-
                 break
 
             elif predetermined_position_input == "n":
@@ -8244,14 +8207,6 @@ class Start():
 
                 print("That is not a valid answer.")
 
-        if self.playing_as_white == True:
-            
-            pieces.draw_pieces_white()
-
-        else:
-
-            pieces.draw_pieces_black()
-
         draw_by_insufficient_material = pieces.check_draw_by_insufficient_material()
 
         if draw_by_insufficient_material == True:
@@ -8289,7 +8244,7 @@ class Start():
 
                 time.sleep(0)
 
-                self.move_choice = pieces.final_legal_moves[random.randint(0, len(pieces.final_legal_moves) - 1)]
+                self.move_choice = engine.get_move(pieces.final_legal_moves)
 
                 pieces.final_legal_moves = []
 
@@ -8301,20 +8256,6 @@ class Start():
                     pieces.half_move_limit = True
                     
                 self.white_turn = not self.white_turn
-
-                self.update_display = False
-                
-                board.draw_board()
-                
-                if self.playing_as_white == True:
-                    
-                    pieces.draw_pieces_white()
-
-                else:
-                    
-                    pieces.draw_pieces_black()
-
-                self.update_display = True
 
                 draw_by_insufficient_material = pieces.check_draw_by_insufficient_material()
 
@@ -8373,11 +8314,7 @@ class Start():
 
                 if self.your_turn == True:
 
-                    print(pieces.final_legal_moves)
-
                     while self.run:
-
-                        print("Choose a move! (Copy the move exactly)")
 
                         while self.run and self.move_choice == "":
 
@@ -8389,16 +8326,12 @@ class Start():
 
                             break
 
-                        else:
-
-                            print("That is not a valid move.")
-
                 else:
 
                     time.sleep(0)
 
-                    self.move_choice = pieces.final_legal_moves[random.randint(0, len(pieces.final_legal_moves) - 1)]
-
+                    self.move_choice = engine.get_move(pieces.final_legal_moves)
+                    
                     pieces.final_legal_moves = []
 
                 self.your_turn = not self.your_turn
@@ -8413,20 +8346,6 @@ class Start():
                     pieces.half_move_limit = True
                     
                 self.white_turn = not self.white_turn
-
-                self.update_display = False
-
-                board.draw_board()
-                
-                if self.playing_as_white == True:
-                    
-                    pieces.draw_pieces_white()
-
-                else:
-                    
-                    pieces.draw_pieces_black()
-
-                self.update_display = True
 
                 draw_by_insufficient_material = pieces.check_draw_by_insufficient_material()
 
@@ -8483,19 +8402,11 @@ class Start():
 
             else:
 
-                print(pieces.final_legal_moves)
-
                 while self.run:
-
-                    print("Choose a move! (Copy the move exactly)")
 
                     while self.run and self.move_choice == "":
 
                         pass
-                    
-                    #self.move_choice = input()
-
-                    #if self.move_choice in pieces.final_legal_moves:
 
                     if self.move_choice in pieces.final_legal_moves:
 
@@ -8503,14 +8414,9 @@ class Start():
 
                         break
 
-                    else:
-
-                        print("That is not a valid move.")
-
                 notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
                 self.move_choice = ""
-
-                #notation_val, take = pieces.convert_to_easy_notation(self.move_choice)
+                
                 pieces.move_piece(notation_val, take)
 
                 if pieces.half_moves >= 100:
@@ -8522,20 +8428,6 @@ class Start():
                 if self.auto_rotate == True:
 
                     self.playing_as_white = self.white_turn
-
-                self.update_display = False
-
-                board.draw_board()
-                
-                if self.playing_as_white == True:
-                    
-                    pieces.draw_pieces_white()
-
-                else:
-                    
-                    pieces.draw_pieces_black()
-
-                self.update_display = True
 
                 draw_by_insufficient_material = pieces.check_draw_by_insufficient_material()
 
