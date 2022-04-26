@@ -11,7 +11,7 @@ import math
 from copy import deepcopy
 import numpy
 
-from Engine import engine
+from Engine import Engine as engine
 
 class Board():
 
