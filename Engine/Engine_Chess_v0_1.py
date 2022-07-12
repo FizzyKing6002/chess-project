@@ -14,7 +14,7 @@ import Chess_v1 as chess
 
 def engine(legal_moves, fen):
 
-    get_move_thread = threading.Thread(target = get_move, args = (legal_moves, fen))
+    get_move_thread = threading.Thread(target = get_move, args = (fen,))
     get_move_thread.start()
 
     #while chess.startup.run:
@@ -24,17 +24,87 @@ def engine(legal_moves, fen):
     return legal_moves[random.randint(0, len(legal_moves) - 1)]
     #white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf
 
-def get_move(legal_moves, fen):
+def get_move(fen):
 
     white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf, white_turn, en_passant_x_y, half_moves, turn_num = load_fen_position(fen)
 
-    folder_name_number = 0
+    white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y = white_black_occupation(white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf)
+    legal_moves = calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y, en_passant_x_y)
+    legal_moves = check_checks(legal_moves, white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf, white_turn)
+
+    evaluation = evaluate(white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf)
+
+    print(legal_moves)
 
     for move in legal_moves:
 
-        #os.mkdir
+        
 
-        pass
+def evaluate(white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf):
+
+    evaluation = 0
+
+    for i in range(0, len(white_pawns_inf)):
+
+        if white_pawns_inf[i][2] = True:
+
+            evaluation += 1
+
+    for i in range(0, len(white_bishops_inf)):
+
+        if white_bishops_inf[i][2] = True:
+
+            evaluation += 3
+
+    for i in range(0, len(white_knights_inf)):
+
+        if white_knights_inf[i][2] = True:
+
+            evaluation += 3
+
+    for i in range(0, len(white_rooks_inf)):
+
+        if white_rooks_inf[i][2] = True:
+
+            evaluation += 5
+
+    for i in range(0, len(white_queens_inf)):
+
+        if white_queens_inf[i][2] = True:
+
+            evaluation += 9
+
+    for i in range(0, len(black_pawns_inf)):
+
+        if black_pawns_inf[i][2] = True:
+
+            evaluation -= 1
+
+    for i in range(0, len(black_bishops_inf)):
+
+        if black_bishops_inf[i][2] = True:
+
+            evaluation -= 3
+
+    for i in range(0, len(black_knights_inf)):
+
+        if black_knights_inf[i][2] = True:
+
+            evaluation -= 3
+
+    for i in range(0, len(black_rooks_inf)):
+
+        if black_rooks_inf[i][2] = True:
+
+            evaluation -= 5
+
+    for i in range(0, len(black_queens_inf)):
+
+        if black_queens_inf[i][2] = True:
+
+            evaluation -= 9
+
+    return evaluation
 
 def white_black_occupation(white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf):
 
@@ -126,7 +196,7 @@ def white_black_occupation(white_pawns_inf, white_bishops_inf, white_knights_inf
 
     return white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y
 
-def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf):
+def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y, en_passant_x_y):
 
     legal_moves = []
 
@@ -181,7 +251,7 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if pawn_N_1 == True:
 
-                    legal_move_notation = get_notation("P", white_pawns_inf[i][0], white_pawns_inf[i][1], white_pawns_inf[i][0], white_pawns_inf[i][1] + 1)
+                    legal_move_notation = get_notation("P", white_pawns_inf[i][0], white_pawns_inf[i][1], white_pawns_inf[i][0], white_pawns_inf[i][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y)
 
                     if legal_move_notation[-1] == "=":
 
@@ -196,7 +266,7 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if pawn_N_2 == True and pawn_N_1 == True and white_pawns_inf[i][3] == True:
 
-                    legal_move_notation = get_notation("P", white_pawns_inf[i][0], white_pawns_inf[i][1], white_pawns_inf[i][0], white_pawns_inf[i][1] + 2)
+                    legal_move_notation = get_notation("P", white_pawns_inf[i][0], white_pawns_inf[i][1], white_pawns_inf[i][0], white_pawns_inf[i][1] + 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y)
 
                     if legal_move_notation[-1] == "=":
 
@@ -211,7 +281,7 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if pawn_NE_11 == True:
 
-                    legal_move_notation = get_notation("P", white_pawns_inf[i][0], white_pawns_inf[i][1], white_pawns_inf[i][0] + 1, white_pawns_inf[i][1] + 1)
+                    legal_move_notation = get_notation("P", white_pawns_inf[i][0], white_pawns_inf[i][1], white_pawns_inf[i][0] + 1, white_pawns_inf[i][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y)
 
                     if legal_move_notation[-1] == "=":
 
@@ -226,7 +296,7 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if pawn_NW_11 == True:
 
-                    legal_move_notation = get_notation("P", white_pawns_inf[i][0], white_pawns_inf[i][1], white_pawns_inf[i][0] - 1, white_pawns_inf[i][1] + 1)
+                    legal_move_notation = get_notation("P", white_pawns_inf[i][0], white_pawns_inf[i][1], white_pawns_inf[i][0] - 1, white_pawns_inf[i][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y)
 
                     if legal_move_notation[-1] == "=":
 
@@ -388,19 +458,19 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                         if move[7] == "N" and move[8] == "E":
                         
-                            legal_moves.append(get_notation("B", white_bishops_inf[i][0], white_bishops_inf[i][1], white_bishops_inf[i][0] + int(move[10]), white_bishops_inf[i][1] + int(move[10])))
+                            legal_moves.append(get_notation("B", white_bishops_inf[i][0], white_bishops_inf[i][1], white_bishops_inf[i][0] + int(move[10]), white_bishops_inf[i][1] + int(move[10]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[7] == "S" and move[8] == "E":
                         
-                            legal_moves.append(get_notation("B", white_bishops_inf[i][0], white_bishops_inf[i][1], white_bishops_inf[i][0] + int(move[10]), white_bishops_inf[i][1] - int(move[10])))
+                            legal_moves.append(get_notation("B", white_bishops_inf[i][0], white_bishops_inf[i][1], white_bishops_inf[i][0] + int(move[10]), white_bishops_inf[i][1] - int(move[10]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[7] == "S" and move[8] == "W":
                         
-                            legal_moves.append(get_notation("B", white_bishops_inf[i][0], white_bishops_inf[i][1], white_bishops_inf[i][0] - int(move[10]), white_bishops_inf[i][1] - int(move[10])))
+                            legal_moves.append(get_notation("B", white_bishops_inf[i][0], white_bishops_inf[i][1], white_bishops_inf[i][0] - int(move[10]), white_bishops_inf[i][1] - int(move[10]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[7] == "N" and move[8] == "W":
                         
-                            legal_moves.append(get_notation("B", white_bishops_inf[i][0], white_bishops_inf[i][1], white_bishops_inf[i][0] - int(move[10]), white_bishops_inf[i][1] + int(move[10])))
+                            legal_moves.append(get_notation("B", white_bishops_inf[i][0], white_bishops_inf[i][1], white_bishops_inf[i][0] - int(move[10]), white_bishops_inf[i][1] + int(move[10]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
                             
         for i in range(0, 10):
 
@@ -499,35 +569,35 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if knight_NE_21 == True:
 
-                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] + 1, white_knights_inf[i][1] + 2))
+                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] + 1, white_knights_inf[i][1] + 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_NE_12 == True:
 
-                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] + 2, white_knights_inf[i][1] + 1))
+                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] + 2, white_knights_inf[i][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_SE_12 == True:
 
-                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] + 2, white_knights_inf[i][1] - 1))
+                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] + 2, white_knights_inf[i][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_SE_21 == True:
 
-                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] + 1, white_knights_inf[i][1] - 2))
+                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] + 1, white_knights_inf[i][1] - 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_SW_21 == True:
 
-                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] - 1, white_knights_inf[i][1] - 2))
+                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] - 1, white_knights_inf[i][1] - 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_SW_12 == True:
 
-                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] - 2, white_knights_inf[i][1] - 1))
+                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] - 2, white_knights_inf[i][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_NW_12 == True:
 
-                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] - 2, white_knights_inf[i][1] + 1))
+                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] - 2, white_knights_inf[i][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_NW_21 == True:
 
-                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] - 1, white_knights_inf[i][1] + 2))
+                    legal_moves.append(get_notation("N", white_knights_inf[i][0], white_knights_inf[i][1], white_knights_inf[i][0] - 1, white_knights_inf[i][1] + 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         for i in range(0, 10):
 
@@ -678,19 +748,19 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                         if move[5] == "N":
                         
-                            legal_moves.append(get_notation("R", white_rooks_inf[i][0], white_rooks_inf[i][1], white_rooks_inf[i][0], white_rooks_inf[i][1] + int(move[7])))
+                            legal_moves.append(get_notation("R", white_rooks_inf[i][0], white_rooks_inf[i][1], white_rooks_inf[i][0], white_rooks_inf[i][1] + int(move[7]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[5] == "E":
                         
-                            legal_moves.append(get_notation("R", white_rooks_inf[i][0], white_rooks_inf[i][1], white_rooks_inf[i][0] + int(move[7]), white_rooks_inf[i][1]))
+                            legal_moves.append(get_notation("R", white_rooks_inf[i][0], white_rooks_inf[i][1], white_rooks_inf[i][0] + int(move[7]), white_rooks_inf[i][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[5] == "S":
                         
-                            legal_moves.append(get_notation("R", white_rooks_inf[i][0], white_rooks_inf[i][1], white_rooks_inf[i][0], white_rooks_inf[i][1] - int(move[7])))
+                            legal_moves.append(get_notation("R", white_rooks_inf[i][0], white_rooks_inf[i][1], white_rooks_inf[i][0], white_rooks_inf[i][1] - int(move[7]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[5] == "W":
                         
-                            legal_moves.append(get_notation("R", white_rooks_inf[i][0], white_rooks_inf[i][1], white_rooks_inf[i][0] - int(move[7]), white_rooks_inf[i][1]))
+                            legal_moves.append(get_notation("R", white_rooks_inf[i][0], white_rooks_inf[i][1], white_rooks_inf[i][0] - int(move[7]), white_rooks_inf[i][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         for i in range(0, 9):
 
@@ -965,35 +1035,35 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                         if move[6] == "N" and move[7] == "_":
                         
-                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0], white_queens_inf[i][1] + int(move[8])))
+                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0], white_queens_inf[i][1] + int(move[8]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "N" and move[7] == "E":
                         
-                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] + int(move[9]), white_queens_inf[i][1] + int(move[9])))
+                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] + int(move[9]), white_queens_inf[i][1] + int(move[9]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "E" and move[7] == "_":
                         
-                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] + int(move[8]), white_queens_inf[i][1]))
+                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] + int(move[8]), white_queens_inf[i][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "S" and move[7] == "E":
                         
-                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] + int(move[9]), white_queens_inf[i][1] - int(move[9])))
+                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] + int(move[9]), white_queens_inf[i][1] - int(move[9]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "S" and move[7] == "_":
                         
-                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0], white_queens_inf[i][1] - int(move[8])))
+                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0], white_queens_inf[i][1] - int(move[8]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "S" and move[7] == "W":
                         
-                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] - int(move[9]), white_queens_inf[i][1] - int(move[9])))
+                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] - int(move[9]), white_queens_inf[i][1] - int(move[9]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "W" and move[7] == "_":
                         
-                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] - int(move[8]), white_queens_inf[i][1]))
+                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] - int(move[8]), white_queens_inf[i][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "N" and move[7] == "W":
                         
-                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] - int(move[9]), white_queens_inf[i][1] + int(move[9])))
+                            legal_moves.append(get_notation("Q", white_queens_inf[i][0], white_queens_inf[i][1], white_queens_inf[i][0] - int(move[9]), white_queens_inf[i][1] + int(move[9]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         if white_king_inf[0][2] == True:
 
@@ -1114,35 +1184,35 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                     if move[5] == "N" and move[6] == "_":
                         
-                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0], white_king_inf[0][1] + 1))
+                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0], white_king_inf[0][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "N" and move[6] == "E":
                         
-                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] + 1, white_king_inf[0][1] + 1))
+                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] + 1, white_king_inf[0][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "E" and move[6] == "_":
                         
-                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] + 1, white_king_inf[0][1]))
+                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] + 1, white_king_inf[0][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "S" and move[6] == "E":
                         
-                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] + 1, white_king_inf[0][1] - 1))
+                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] + 1, white_king_inf[0][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "S" and move[6] == "_":
                         
-                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0], white_king_inf[0][1] - 1))
+                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0], white_king_inf[0][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "S" and move[6] == "W":
                         
-                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] - 1, white_king_inf[0][1] - 1))
+                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] - 1, white_king_inf[0][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "W" and move[6] == "_":
                         
-                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] - 1, white_king_inf[0][1]))
+                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] - 1, white_king_inf[0][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "N" and move[6] == "W":
                         
-                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] - 1, white_king_inf[0][1] + 1))
+                        legal_moves.append(get_notation("K", white_king_inf[0][0], white_king_inf[0][1], white_king_inf[0][0] - 1, white_king_inf[0][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         if white_king_inf[0][2] == True and white_king_inf[0][3] == True:
 
@@ -1266,7 +1336,7 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if pawn_S_1 == True:
 
-                    legal_move_notation = get_notation("P", black_pawns_inf[i][0], black_pawns_inf[i][1], black_pawns_inf[i][0], black_pawns_inf[i][1] - 1)
+                    legal_move_notation = get_notation("P", black_pawns_inf[i][0], black_pawns_inf[i][1], black_pawns_inf[i][0], black_pawns_inf[i][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y)
 
                     if legal_move_notation[-1] == "=":
 
@@ -1281,7 +1351,7 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if pawn_S_2 == True and pawn_S_1 == True and black_pawns_inf[i][3] == True:
 
-                    legal_move_notation = get_notation("P", black_pawns_inf[i][0], black_pawns_inf[i][1], black_pawns_inf[i][0], black_pawns_inf[i][1] - 2)
+                    legal_move_notation = get_notation("P", black_pawns_inf[i][0], black_pawns_inf[i][1], black_pawns_inf[i][0], black_pawns_inf[i][1] - 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y)
 
                     if legal_move_notation[-1] == "=":
 
@@ -1296,7 +1366,7 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if pawn_SE_11 == True:
 
-                    legal_move_notation = get_notation("P", black_pawns_inf[i][0], black_pawns_inf[i][1], black_pawns_inf[i][0] + 1, black_pawns_inf[i][1] - 1)
+                    legal_move_notation = get_notation("P", black_pawns_inf[i][0], black_pawns_inf[i][1], black_pawns_inf[i][0] + 1, black_pawns_inf[i][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y)
 
                     if legal_move_notation[-1] == "=":
 
@@ -1311,7 +1381,7 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if pawn_SW_11 == True:
 
-                    legal_move_notation = get_notation("P", black_pawns_inf[i][0], black_pawns_inf[i][1], black_pawns_inf[i][0] - 1, black_pawns_inf[i][1] - 1)
+                    legal_move_notation = get_notation("P", black_pawns_inf[i][0], black_pawns_inf[i][1], black_pawns_inf[i][0] - 1, black_pawns_inf[i][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y)
 
                     if legal_move_notation[-1] == "=":
 
@@ -1473,19 +1543,19 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                         if move[7] == "N" and move[8] == "E":
                         
-                            legal_moves.append(get_notation("B", black_bishops_inf[i][0], black_bishops_inf[i][1], black_bishops_inf[i][0] + int(move[10]), black_bishops_inf[i][1] + int(move[10])))
+                            legal_moves.append(get_notation("B", black_bishops_inf[i][0], black_bishops_inf[i][1], black_bishops_inf[i][0] + int(move[10]), black_bishops_inf[i][1] + int(move[10]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[7] == "S" and move[8] == "E":
                         
-                            legal_moves.append(get_notation("B", black_bishops_inf[i][0], black_bishops_inf[i][1], black_bishops_inf[i][0] + int(move[10]), black_bishops_inf[i][1] - int(move[10])))
+                            legal_moves.append(get_notation("B", black_bishops_inf[i][0], black_bishops_inf[i][1], black_bishops_inf[i][0] + int(move[10]), black_bishops_inf[i][1] - int(move[10]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[7] == "S" and move[8] == "W":
                         
-                            legal_moves.append(get_notation("B", black_bishops_inf[i][0], black_bishops_inf[i][1], black_bishops_inf[i][0] - int(move[10]), black_bishops_inf[i][1] - int(move[10])))
+                            legal_moves.append(get_notation("B", black_bishops_inf[i][0], black_bishops_inf[i][1], black_bishops_inf[i][0] - int(move[10]), black_bishops_inf[i][1] - int(move[10]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[7] == "N" and move[8] == "W":
                         
-                            legal_moves.append(get_notation("B", black_bishops_inf[i][0], black_bishops_inf[i][1], black_bishops_inf[i][0] - int(move[10]), black_bishops_inf[i][1] + int(move[10])))
+                            legal_moves.append(get_notation("B", black_bishops_inf[i][0], black_bishops_inf[i][1], black_bishops_inf[i][0] - int(move[10]), black_bishops_inf[i][1] + int(move[10]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         for i in range(0, 10):
 
@@ -1584,35 +1654,35 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                 if knight_NE_21 == True:
 
-                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] + 1, black_knights_inf[i][1] + 2))
+                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] + 1, black_knights_inf[i][1] + 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_NE_12 == True:
 
-                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] + 2, black_knights_inf[i][1] + 1))
+                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] + 2, black_knights_inf[i][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_SE_12 == True:
 
-                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] + 2, black_knights_inf[i][1] - 1))
+                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] + 2, black_knights_inf[i][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_SE_21 == True:
 
-                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] + 1, black_knights_inf[i][1] - 2))
+                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] + 1, black_knights_inf[i][1] - 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_SW_21 == True:
 
-                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] - 1, black_knights_inf[i][1] - 2))
+                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] - 1, black_knights_inf[i][1] - 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_SW_12 == True:
 
-                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] - 2, black_knights_inf[i][1] - 1))
+                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] - 2, black_knights_inf[i][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_NW_12 == True:
 
-                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] - 2, black_knights_inf[i][1] + 1))
+                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] - 2, black_knights_inf[i][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                 if knight_NW_21 == True:
 
-                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] - 1, black_knights_inf[i][1] + 2))
+                    legal_moves.append(get_notation("N", black_knights_inf[i][0], black_knights_inf[i][1], black_knights_inf[i][0] - 1, black_knights_inf[i][1] + 2, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         for i in range(0, 10):
 
@@ -1763,19 +1833,19 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                         if move[5] == "N":
                         
-                            legal_moves.append(get_notation("R", black_rooks_inf[i][0], black_rooks_inf[i][1], black_rooks_inf[i][0], black_rooks_inf[i][1] + int(move[7])))
+                            legal_moves.append(get_notation("R", black_rooks_inf[i][0], black_rooks_inf[i][1], black_rooks_inf[i][0], black_rooks_inf[i][1] + int(move[7]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[5] == "E":
                         
-                            legal_moves.append(get_notation("R", black_rooks_inf[i][0], black_rooks_inf[i][1], black_rooks_inf[i][0] + int(move[7]), black_rooks_inf[i][1]))
+                            legal_moves.append(get_notation("R", black_rooks_inf[i][0], black_rooks_inf[i][1], black_rooks_inf[i][0] + int(move[7]), black_rooks_inf[i][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[5] == "S":
                         
-                            legal_moves.append(get_notation("R", black_rooks_inf[i][0], black_rooks_inf[i][1], black_rooks_inf[i][0], black_rooks_inf[i][1] - int(move[7])))
+                            legal_moves.append(get_notation("R", black_rooks_inf[i][0], black_rooks_inf[i][1], black_rooks_inf[i][0], black_rooks_inf[i][1] - int(move[7]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[5] == "W":
                         
-                            legal_moves.append(get_notation("R", black_rooks_inf[i][0], black_rooks_inf[i][1], black_rooks_inf[i][0] - int(move[7]), black_rooks_inf[i][1]))
+                            legal_moves.append(get_notation("R", black_rooks_inf[i][0], black_rooks_inf[i][1], black_rooks_inf[i][0] - int(move[7]), black_rooks_inf[i][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         for i in range(0, 9):
 
@@ -2050,35 +2120,35 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                         if move[6] == "N" and move[7] == "_":
                         
-                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0], black_queens_inf[i][1] + int(move[8])))
+                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0], black_queens_inf[i][1] + int(move[8]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "N" and move[7] == "E":
                         
-                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] + int(move[9]), black_queens_inf[i][1] + int(move[9])))
+                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] + int(move[9]), black_queens_inf[i][1] + int(move[9]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "E" and move[7] == "_":
                         
-                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] + int(move[8]), black_queens_inf[i][1]))
+                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] + int(move[8]), black_queens_inf[i][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "S" and move[7] == "E":
                         
-                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] + int(move[9]), black_queens_inf[i][1] - int(move[9])))
+                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] + int(move[9]), black_queens_inf[i][1] - int(move[9]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "S" and move[7] == "_":
                         
-                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0], black_queens_inf[i][1] - int(move[8])))
+                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0], black_queens_inf[i][1] - int(move[8]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "S" and move[7] == "W":
                         
-                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] - int(move[9]), black_queens_inf[i][1] - int(move[9])))
+                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] - int(move[9]), black_queens_inf[i][1] - int(move[9]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "W" and move[7] == "_":
                         
-                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] - int(move[8]), black_queens_inf[i][1]))
+                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] - int(move[8]), black_queens_inf[i][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                         elif move[6] == "N" and move[7] == "W":
                         
-                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] - int(move[9]), black_queens_inf[i][1] + int(move[9])))
+                            legal_moves.append(get_notation("Q", black_queens_inf[i][0], black_queens_inf[i][1], black_queens_inf[i][0] - int(move[9]), black_queens_inf[i][1] + int(move[9]), white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         if black_king_inf[0][2] == True:
 
@@ -2199,35 +2269,35 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
 
                     if move[5] == "N" and move[6] == "_":
                         
-                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0], black_king_inf[0][1] + 1))
+                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0], black_king_inf[0][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "N" and move[6] == "E":
                         
-                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] + 1, black_king_inf[0][1] + 1))
+                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] + 1, black_king_inf[0][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "E" and move[6] == "_":
                         
-                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] + 1, black_king_inf[0][1]))
+                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] + 1, black_king_inf[0][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "S" and move[6] == "E":
                         
-                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] + 1, black_king_inf[0][1] - 1))
+                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] + 1, black_king_inf[0][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "S" and move[6] == "_":
                         
-                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0], black_king_inf[0][1] - 1))
+                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0], black_king_inf[0][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "S" and move[6] == "W":
                         
-                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] - 1, black_king_inf[0][1] - 1))
+                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] - 1, black_king_inf[0][1] - 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "W" and move[6] == "_":
                         
-                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] - 1, black_king_inf[0][1]))
+                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] - 1, black_king_inf[0][1], white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
                     elif move[5] == "N" and move[6] == "W":
                         
-                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] - 1, black_king_inf[0][1] + 1))
+                        legal_moves.append(get_notation("K", black_king_inf[0][0], black_king_inf[0][1], black_king_inf[0][0] - 1, black_king_inf[0][1] + 1, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y))
 
         if black_king_inf[0][2] == True and black_king_inf[0][3] == True:
 
@@ -2299,12 +2369,10 @@ def calc_legal_moves(white_pawns_inf, white_bishops_inf, white_knights_inf, whit
                 if king_moves[move] == True:
 
                     legal_moves.append(move)
-            
-    legal_moves_move_notation = legal_moves
 
     return legal_moves
     
-def check_checks(legal_moves, white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf):
+def check_checks(legal_moves, white_pawns_inf, white_bishops_inf, white_knights_inf, white_rooks_inf, white_queens_inf, white_king_inf, black_pawns_inf, black_bishops_inf, black_knights_inf, black_rooks_inf, black_queens_inf, black_king_inf, white_turn):
 
     moves = deepcopy(legal_moves)
 
@@ -5300,7 +5368,7 @@ def check_draw_by_insufficient_material(white_pawns_inf, white_bishops_inf, whit
 
         return False
 
-def get_notation(piece, from_x, from_y, to_x, to_y):
+def get_notation(piece, from_x, from_y, to_x, to_y, white_turn, white_occupation_x, white_occupation_y, black_occupation_x, black_occupation_y):
 
     notation_val = "error"
 

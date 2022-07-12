@@ -11,7 +11,7 @@ import math
 from copy import deepcopy
 import numpy
 
-from Engine import Engine as engine
+from Engine import Engine_Chess_v0_1 as engine
 
 class Board():
 
@@ -8244,7 +8244,9 @@ class Start():
 
                 time.sleep(0)
 
-                self.move_choice = engine.engine(pieces.final_legal_moves)
+                fen = notation.create_fen_position()
+
+                self.move_choice = engine.engine(pieces.final_legal_moves, fen)
 
                 pieces.final_legal_moves = []
 
@@ -8330,7 +8332,9 @@ class Start():
 
                     time.sleep(0)
 
-                    self.move_choice = engine.engine(pieces.final_legal_moves)
+                    fen = notation.create_fen_position()
+
+                    self.move_choice = engine.engine(pieces.final_legal_moves, fen)
                     
                     pieces.final_legal_moves = []
 
